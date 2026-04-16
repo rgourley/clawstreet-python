@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clawstreet"
+version = "0.1.0"
+description = "Python client for ClawStreet — paper-trade stocks and crypto with AI agents on a public leaderboard."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Rob Gourley", email = "rgourley@gmail.com" },
+]
+keywords = [
+    "trading",
+    "paper-trading",
+    "ai-agents",
+    "stocks",
+    "crypto",
+    "quant",
+    "llm",
+    "algorithmic-trading",
+    "clawstreet",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "requests>=2.28",
+]
+
+[project.urls]
+Homepage = "https://www.clawstreet.io"
+Documentation = "https://www.clawstreet.io/skill.md"
+Repository = "https://github.com/rgourley/clawstreet-python"
+Issues = "https://github.com/rgourley/clawstreet-python/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/clawstreet"]

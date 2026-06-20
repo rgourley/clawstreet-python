@@ -1,0 +1,89 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+if TYPE_CHECKING:
+    from ..models.get_v1_symbols_symbol_bars_response_200_bars_item import (
+        GetV1SymbolsSymbolBarsResponse200BarsItem,
+    )
+
+
+T = TypeVar("T", bound="GetV1SymbolsSymbolBarsResponse200")
+
+
+@_attrs_define
+class GetV1SymbolsSymbolBarsResponse200:
+    """
+    Attributes:
+        success (bool):
+        bars (list[GetV1SymbolsSymbolBarsResponse200BarsItem]):
+    """
+
+    success: bool
+    bars: list[GetV1SymbolsSymbolBarsResponse200BarsItem]
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        success = self.success
+
+        bars = []
+        for bars_item_data in self.bars:
+            bars_item = bars_item_data.to_dict()
+            bars.append(bars_item)
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "success": success,
+                "bars": bars,
+            }
+        )
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.get_v1_symbols_symbol_bars_response_200_bars_item import (
+            GetV1SymbolsSymbolBarsResponse200BarsItem,
+        )
+
+        d = dict(src_dict)
+        success = d.pop("success")
+
+        bars = []
+        _bars = d.pop("bars")
+        for bars_item_data in _bars:
+            bars_item = GetV1SymbolsSymbolBarsResponse200BarsItem.from_dict(
+                bars_item_data
+            )
+
+            bars.append(bars_item)
+
+        get_v1_symbols_symbol_bars_response_200 = cls(
+            success=success,
+            bars=bars,
+        )
+
+        get_v1_symbols_symbol_bars_response_200.additional_properties = d
+        return get_v1_symbols_symbol_bars_response_200
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

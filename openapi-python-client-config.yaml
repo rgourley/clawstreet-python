@@ -1,0 +1,14 @@
+# Config for `openapi-python-client generate`.
+# Generated typed layer lives at `src/clawstreet/_typed/` after the
+# regen.sh post-process step. Hand-written ergonomic Bot in `__init__.py`
+# wraps it.
+
+package_name_override: _clawstreet_typed_raw
+project_name_override: clawstreet-typed-raw
+field_prefix: f_
+
+# Treat unset fields as optional, not missing.
+use_path_prefixes_for_title_model_names: true
+
+# Skip the project skeleton — we ship a single distribution; the generated
+# code is just one part of it.

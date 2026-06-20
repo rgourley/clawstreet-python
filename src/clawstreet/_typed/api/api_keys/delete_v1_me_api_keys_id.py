@@ -1,0 +1,176 @@
+from http import HTTPStatus
+from typing import Any
+from urllib.parse import quote
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.delete_v1_me_api_keys_id_response_200 import (
+    DeleteV1MeApiKeysIdResponse200,
+)
+from ...models.error_envelope import ErrorEnvelope
+from ...types import Response
+
+
+def _get_kwargs(
+    id: str,
+) -> dict[str, Any]:
+
+    _kwargs: dict[str, Any] = {
+        "method": "delete",
+        "url": "/v1/me/api-keys/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope | None:
+    if response.status_code == 200:
+        response_200 = DeleteV1MeApiKeysIdResponse200.from_dict(response.json())
+
+        return response_200
+
+    if response.status_code == 401:
+        response_401 = ErrorEnvelope.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 404:
+        response_404 = ErrorEnvelope.from_dict(response.json())
+
+        return response_404
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+) -> Response[DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope]:
+    """Revoke an API key
+
+     Mark an API key as revoked. Future requests using it will fail.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope]
+    """
+
+    kwargs = _get_kwargs(
+        id=id,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+) -> DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope | None:
+    """Revoke an API key
+
+     Mark an API key as revoked. Future requests using it will fail.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope
+    """
+
+    return sync_detailed(
+        id=id,
+        client=client,
+    ).parsed
+
+
+async def asyncio_detailed(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+) -> Response[DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope]:
+    """Revoke an API key
+
+     Mark an API key as revoked. Future requests using it will fail.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope]
+    """
+
+    kwargs = _get_kwargs(
+        id=id,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+) -> DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope | None:
+    """Revoke an API key
+
+     Mark an API key as revoked. Future requests using it will fail.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        DeleteV1MeApiKeysIdResponse200 | ErrorEnvelope
+    """
+
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+        )
+    ).parsed

@@ -1,0 +1,267 @@
+from http import HTTPStatus
+from typing import Any
+from urllib.parse import quote
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.error_envelope import ErrorEnvelope
+from ...models.get_v1_symbols_symbol_bars_response_200 import (
+    GetV1SymbolsSymbolBarsResponse200,
+)
+from ...types import UNSET, Response, Unset
+
+
+def _get_kwargs(
+    symbol: str,
+    *,
+    timespan: str | Unset = UNSET,
+    multiplier: int | None | Unset = UNSET,
+    from_: str | Unset = UNSET,
+    to: str | Unset = UNSET,
+    limit: int | None | Unset = UNSET,
+) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["timespan"] = timespan
+
+    json_multiplier: int | None | Unset
+    if isinstance(multiplier, Unset):
+        json_multiplier = UNSET
+    else:
+        json_multiplier = multiplier
+    params["multiplier"] = json_multiplier
+
+    params["from"] = from_
+
+    params["to"] = to
+
+    json_limit: int | None | Unset
+    if isinstance(limit, Unset):
+        json_limit = UNSET
+    else:
+        json_limit = limit
+    params["limit"] = json_limit
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
+    _kwargs: dict[str, Any] = {
+        "method": "get",
+        "url": "/v1/symbols/{symbol}/bars".format(
+            symbol=quote(str(symbol), safe=""),
+        ),
+        "params": params,
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200 | None:
+    if response.status_code == 200:
+        response_200 = GetV1SymbolsSymbolBarsResponse200.from_dict(response.json())
+
+        return response_200
+
+    if response.status_code == 401:
+        response_401 = ErrorEnvelope.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 404:
+        response_404 = ErrorEnvelope.from_dict(response.json())
+
+        return response_404
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    symbol: str,
+    *,
+    client: AuthenticatedClient,
+    timespan: str | Unset = UNSET,
+    multiplier: int | None | Unset = UNSET,
+    from_: str | Unset = UNSET,
+    to: str | Unset = UNSET,
+    limit: int | None | Unset = UNSET,
+) -> Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]:
+    """Historical OHLC bars
+
+     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+
+    Args:
+        symbol (str):  Example: AAPL.
+        timespan (str | Unset):  Example: day.
+        multiplier (int | None | Unset):
+        from_ (str | Unset):
+        to (str | Unset):
+        limit (int | None | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]
+    """
+
+    kwargs = _get_kwargs(
+        symbol=symbol,
+        timespan=timespan,
+        multiplier=multiplier,
+        from_=from_,
+        to=to,
+        limit=limit,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    symbol: str,
+    *,
+    client: AuthenticatedClient,
+    timespan: str | Unset = UNSET,
+    multiplier: int | None | Unset = UNSET,
+    from_: str | Unset = UNSET,
+    to: str | Unset = UNSET,
+    limit: int | None | Unset = UNSET,
+) -> ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200 | None:
+    """Historical OHLC bars
+
+     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+
+    Args:
+        symbol (str):  Example: AAPL.
+        timespan (str | Unset):  Example: day.
+        multiplier (int | None | Unset):
+        from_ (str | Unset):
+        to (str | Unset):
+        limit (int | None | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200
+    """
+
+    return sync_detailed(
+        symbol=symbol,
+        client=client,
+        timespan=timespan,
+        multiplier=multiplier,
+        from_=from_,
+        to=to,
+        limit=limit,
+    ).parsed
+
+
+async def asyncio_detailed(
+    symbol: str,
+    *,
+    client: AuthenticatedClient,
+    timespan: str | Unset = UNSET,
+    multiplier: int | None | Unset = UNSET,
+    from_: str | Unset = UNSET,
+    to: str | Unset = UNSET,
+    limit: int | None | Unset = UNSET,
+) -> Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]:
+    """Historical OHLC bars
+
+     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+
+    Args:
+        symbol (str):  Example: AAPL.
+        timespan (str | Unset):  Example: day.
+        multiplier (int | None | Unset):
+        from_ (str | Unset):
+        to (str | Unset):
+        limit (int | None | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]
+    """
+
+    kwargs = _get_kwargs(
+        symbol=symbol,
+        timespan=timespan,
+        multiplier=multiplier,
+        from_=from_,
+        to=to,
+        limit=limit,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    symbol: str,
+    *,
+    client: AuthenticatedClient,
+    timespan: str | Unset = UNSET,
+    multiplier: int | None | Unset = UNSET,
+    from_: str | Unset = UNSET,
+    to: str | Unset = UNSET,
+    limit: int | None | Unset = UNSET,
+) -> ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200 | None:
+    """Historical OHLC bars
+
+     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+
+    Args:
+        symbol (str):  Example: AAPL.
+        timespan (str | Unset):  Example: day.
+        multiplier (int | None | Unset):
+        from_ (str | Unset):
+        to (str | Unset):
+        limit (int | None | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200
+    """
+
+    return (
+        await asyncio_detailed(
+            symbol=symbol,
+            client=client,
+            timespan=timespan,
+            multiplier=multiplier,
+            from_=from_,
+            to=to,
+            limit=limit,
+        )
+    ).parsed

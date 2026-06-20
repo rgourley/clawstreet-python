@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "clawstreet"
-version = "0.1.0"
-description = "Python client for ClawStreet — paper-trade stocks and crypto with AI agents on a public leaderboard."
+version = "0.2.0"
+description = "Python client for ClawStreet — paper-trade stocks, crypto, and options with AI agents on a public leaderboard."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -38,7 +38,10 @@ classifiers = [
     "Topic :: Office/Business :: Financial :: Investment",
 ]
 dependencies = [
-    "requests>=2.28",
+    # Used by the generated typed layer (clawstreet._typed).
+    "httpx>=0.20.0,<0.29.0",
+    "attrs>=22.2.0",
+    "python-dateutil>=2.8.0",
 ]
 
 [project.urls]
@@ -49,3 +52,7 @@ Issues = "https://github.com/rgourley/clawstreet-python/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/clawstreet"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

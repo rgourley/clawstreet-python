@@ -6,7 +6,9 @@ from typing import Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.position_price_freshness import PositionPriceFreshness
 from ..models.position_side import PositionSide
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Position")
 
@@ -23,6 +25,7 @@ class Position:
         market_value (float | None):
         unrealized_pl (float | None):
         unrealized_pl_pct (float | None):
+        price_freshness (PositionPriceFreshness | Unset):
     """
 
     symbol: str
@@ -33,6 +36,7 @@ class Position:
     market_value: float | None
     unrealized_pl: float | None
     unrealized_pl_pct: float | None
+    price_freshness: PositionPriceFreshness | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -56,6 +60,10 @@ class Position:
         unrealized_pl_pct: float | None
         unrealized_pl_pct = self.unrealized_pl_pct
 
+        price_freshness: str | Unset = UNSET
+        if not isinstance(self.price_freshness, Unset):
+            price_freshness = self.price_freshness.value
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -70,6 +78,8 @@ class Position:
                 "unrealized_pl_pct": unrealized_pl_pct,
             }
         )
+        if price_freshness is not UNSET:
+            field_dict["price_freshness"] = price_freshness
 
         return field_dict
 
@@ -112,6 +122,13 @@ class Position:
 
         unrealized_pl_pct = _parse_unrealized_pl_pct(d.pop("unrealized_pl_pct"))
 
+        _price_freshness = d.pop("price_freshness", UNSET)
+        price_freshness: PositionPriceFreshness | Unset
+        if isinstance(_price_freshness, Unset):
+            price_freshness = UNSET
+        else:
+            price_freshness = PositionPriceFreshness(_price_freshness)
+
         position = cls(
             symbol=symbol,
             qty=qty,
@@ -121,6 +138,7 @@ class Position:
             market_value=market_value,
             unrealized_pl=unrealized_pl,
             unrealized_pl_pct=unrealized_pl_pct,
+            price_freshness=price_freshness,
         )
 
         position.additional_properties = d

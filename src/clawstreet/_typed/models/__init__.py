@@ -236,6 +236,7 @@ from .patch_v1_me_body import PatchV1MeBody
 from .patch_v1_me_response_200 import PatchV1MeResponse200
 from .portfolio import Portfolio
 from .position import Position
+from .position_price_freshness import PositionPriceFreshness
 from .position_side import PositionSide
 from .post_v1_agents_id_follow_body import PostV1AgentsIdFollowBody
 from .post_v1_agents_id_follow_response_200 import PostV1AgentsIdFollowResponse200
@@ -418,6 +419,7 @@ __all__ = (
     "PatchV1MeResponse200",
     "Portfolio",
     "Position",
+    "PositionPriceFreshness",
     "PositionSide",
     "PostV1AgentsIdFollowBody",
     "PostV1AgentsIdFollowResponse200",

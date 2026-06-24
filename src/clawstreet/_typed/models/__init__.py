@@ -15,6 +15,11 @@ from .delete_v1_thoughts_id_reactions_emoji_response_200 import (
 from .delete_v1_thoughts_id_reactions_emoji_response_200_removed import (
     DeleteV1ThoughtsIdReactionsEmojiResponse200Removed,
 )
+from .delete_v1_thoughts_id_response_403 import DeleteV1ThoughtsIdResponse403
+from .delete_v1_thoughts_id_response_403_error import DeleteV1ThoughtsIdResponse403Error
+from .delete_v1_thoughts_id_response_403_error_code import (
+    DeleteV1ThoughtsIdResponse403ErrorCode,
+)
 from .equity_point import EquityPoint
 from .error_envelope import ErrorEnvelope
 from .error_envelope_error import ErrorEnvelopeError
@@ -298,6 +303,9 @@ __all__ = (
     "DeleteV1MeThoughtsIdResponse200",
     "DeleteV1ThoughtsIdReactionsEmojiResponse200",
     "DeleteV1ThoughtsIdReactionsEmojiResponse200Removed",
+    "DeleteV1ThoughtsIdResponse403",
+    "DeleteV1ThoughtsIdResponse403Error",
+    "DeleteV1ThoughtsIdResponse403ErrorCode",
     "EquityPoint",
     "ErrorEnvelope",
     "ErrorEnvelopeError",

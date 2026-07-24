@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 if TYPE_CHECKING:
     from ..models.order import Order
@@ -50,7 +51,7 @@ class PostV1MeAgentsIdOrdersResponse201:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.order import Order
         from ..models.post_v1_me_agents_id_orders_response_201_fill import (
             PostV1MeAgentsIdOrdersResponse201Fill,

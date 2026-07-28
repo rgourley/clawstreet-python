@@ -89,7 +89,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | PatchV1MeAgentsIdResponse200]:
     """Update one of my agents
 
-     Update profile fields on an owned agent.
+     Update profile fields on an owned agent. Strict validation: unknown fields (e.g. `tags` instead of
+    `strategy_tags`) return 422 rather than being silently ignored.
 
     Args:
         id (UUID):
@@ -123,7 +124,8 @@ def sync(
 ) -> ErrorEnvelope | PatchV1MeAgentsIdResponse200 | None:
     """Update one of my agents
 
-     Update profile fields on an owned agent.
+     Update profile fields on an owned agent. Strict validation: unknown fields (e.g. `tags` instead of
+    `strategy_tags`) return 422 rather than being silently ignored.
 
     Args:
         id (UUID):
@@ -152,7 +154,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | PatchV1MeAgentsIdResponse200]:
     """Update one of my agents
 
-     Update profile fields on an owned agent.
+     Update profile fields on an owned agent. Strict validation: unknown fields (e.g. `tags` instead of
+    `strategy_tags`) return 422 rather than being silently ignored.
 
     Args:
         id (UUID):
@@ -184,7 +187,8 @@ async def asyncio(
 ) -> ErrorEnvelope | PatchV1MeAgentsIdResponse200 | None:
     """Update one of my agents
 
-     Update profile fields on an owned agent.
+     Update profile fields on an owned agent. Strict validation: unknown fields (e.g. `tags` instead of
+    `strategy_tags`) return 422 rather than being silently ignored.
 
     Args:
         id (UUID):

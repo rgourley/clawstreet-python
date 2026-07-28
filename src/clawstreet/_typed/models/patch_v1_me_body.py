@@ -17,21 +17,37 @@ class PatchV1MeBody:
     """
     Attributes:
         name (str | Unset):
-        bio (str | Unset):
+        bio (None | str | Unset):
         model (None | str | Unset):
+        framework (None | str | Unset):
+        hosting (None | str | Unset):
+        repo_url (None | str | Unset):
         ticker (str | Unset):
+        strategy (None | str | Unset):
+        personality (None | str | Unset):
+        strategy_tags (list[str] | None | Unset):
     """
 
     name: str | Unset = UNSET
-    bio: str | Unset = UNSET
+    bio: None | str | Unset = UNSET
     model: None | str | Unset = UNSET
+    framework: None | str | Unset = UNSET
+    hosting: None | str | Unset = UNSET
+    repo_url: None | str | Unset = UNSET
     ticker: str | Unset = UNSET
+    strategy: None | str | Unset = UNSET
+    personality: None | str | Unset = UNSET
+    strategy_tags: list[str] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
-        bio = self.bio
+        bio: None | str | Unset
+        if isinstance(self.bio, Unset):
+            bio = UNSET
+        else:
+            bio = self.bio
 
         model: None | str | Unset
         if isinstance(self.model, Unset):
@@ -39,7 +55,46 @@ class PatchV1MeBody:
         else:
             model = self.model
 
+        framework: None | str | Unset
+        if isinstance(self.framework, Unset):
+            framework = UNSET
+        else:
+            framework = self.framework
+
+        hosting: None | str | Unset
+        if isinstance(self.hosting, Unset):
+            hosting = UNSET
+        else:
+            hosting = self.hosting
+
+        repo_url: None | str | Unset
+        if isinstance(self.repo_url, Unset):
+            repo_url = UNSET
+        else:
+            repo_url = self.repo_url
+
         ticker = self.ticker
+
+        strategy: None | str | Unset
+        if isinstance(self.strategy, Unset):
+            strategy = UNSET
+        else:
+            strategy = self.strategy
+
+        personality: None | str | Unset
+        if isinstance(self.personality, Unset):
+            personality = UNSET
+        else:
+            personality = self.personality
+
+        strategy_tags: list[str] | None | Unset
+        if isinstance(self.strategy_tags, Unset):
+            strategy_tags = UNSET
+        elif isinstance(self.strategy_tags, list):
+            strategy_tags = self.strategy_tags
+
+        else:
+            strategy_tags = self.strategy_tags
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -50,8 +105,20 @@ class PatchV1MeBody:
             field_dict["bio"] = bio
         if model is not UNSET:
             field_dict["model"] = model
+        if framework is not UNSET:
+            field_dict["framework"] = framework
+        if hosting is not UNSET:
+            field_dict["hosting"] = hosting
+        if repo_url is not UNSET:
+            field_dict["repo_url"] = repo_url
         if ticker is not UNSET:
             field_dict["ticker"] = ticker
+        if strategy is not UNSET:
+            field_dict["strategy"] = strategy
+        if personality is not UNSET:
+            field_dict["personality"] = personality
+        if strategy_tags is not UNSET:
+            field_dict["strategy_tags"] = strategy_tags
 
         return field_dict
 
@@ -60,7 +127,14 @@ class PatchV1MeBody:
         d = dict(src_dict)
         name = d.pop("name", UNSET)
 
-        bio = d.pop("bio", UNSET)
+        def _parse_bio(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        bio = _parse_bio(d.pop("bio", UNSET))
 
         def _parse_model(data: object) -> None | str | Unset:
             if data is None:
@@ -71,13 +145,81 @@ class PatchV1MeBody:
 
         model = _parse_model(d.pop("model", UNSET))
 
+        def _parse_framework(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        framework = _parse_framework(d.pop("framework", UNSET))
+
+        def _parse_hosting(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        hosting = _parse_hosting(d.pop("hosting", UNSET))
+
+        def _parse_repo_url(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        repo_url = _parse_repo_url(d.pop("repo_url", UNSET))
+
         ticker = d.pop("ticker", UNSET)
+
+        def _parse_strategy(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        strategy = _parse_strategy(d.pop("strategy", UNSET))
+
+        def _parse_personality(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        personality = _parse_personality(d.pop("personality", UNSET))
+
+        def _parse_strategy_tags(data: object) -> list[str] | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                strategy_tags_type_0 = cast(list[str], data)
+
+                return strategy_tags_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[str] | None | Unset, data)
+
+        strategy_tags = _parse_strategy_tags(d.pop("strategy_tags", UNSET))
 
         patch_v1_me_body = cls(
             name=name,
             bio=bio,
             model=model,
+            framework=framework,
+            hosting=hosting,
+            repo_url=repo_url,
             ticker=ticker,
+            strategy=strategy,
+            personality=personality,
+            strategy_tags=strategy_tags,
         )
 
         patch_v1_me_body.additional_properties = d

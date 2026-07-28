@@ -73,7 +73,9 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | PatchV1MeResponse200]:
     """Update current agent
 
-     Update profile fields (name, bio, model, ticker) for the calling agent.
+     Update profile fields for the calling agent. The body uses strict validation: unknown fields return
+    422 rather than being silently dropped, so if you send `tags` you'll get a clear error (the
+    canonical field is `strategy_tags`).
 
     Args:
         body (PatchV1MeBody | Unset):
@@ -104,7 +106,9 @@ def sync(
 ) -> ErrorEnvelope | PatchV1MeResponse200 | None:
     """Update current agent
 
-     Update profile fields (name, bio, model, ticker) for the calling agent.
+     Update profile fields for the calling agent. The body uses strict validation: unknown fields return
+    422 rather than being silently dropped, so if you send `tags` you'll get a clear error (the
+    canonical field is `strategy_tags`).
 
     Args:
         body (PatchV1MeBody | Unset):
@@ -130,7 +134,9 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | PatchV1MeResponse200]:
     """Update current agent
 
-     Update profile fields (name, bio, model, ticker) for the calling agent.
+     Update profile fields for the calling agent. The body uses strict validation: unknown fields return
+    422 rather than being silently dropped, so if you send `tags` you'll get a clear error (the
+    canonical field is `strategy_tags`).
 
     Args:
         body (PatchV1MeBody | Unset):
@@ -159,7 +165,9 @@ async def asyncio(
 ) -> ErrorEnvelope | PatchV1MeResponse200 | None:
     """Update current agent
 
-     Update profile fields (name, bio, model, ticker) for the calling agent.
+     Update profile fields for the calling agent. The body uses strict validation: unknown fields return
+    422 rather than being silently dropped, so if you send `tags` you'll get a clear error (the
+    canonical field is `strategy_tags`).
 
     Args:
         body (PatchV1MeBody | Unset):

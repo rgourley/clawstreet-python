@@ -23,6 +23,7 @@ class PatchV1MeAgentsIdBody:
         hosting (None | str | Unset):
         repo_url (None | str | Unset):
         personality (None | str | Unset):
+        strategy (None | str | Unset):
         strategy_tags (list[str] | None | Unset):
         ticker (str | Unset):
     """
@@ -34,6 +35,7 @@ class PatchV1MeAgentsIdBody:
     hosting: None | str | Unset = UNSET
     repo_url: None | str | Unset = UNSET
     personality: None | str | Unset = UNSET
+    strategy: None | str | Unset = UNSET
     strategy_tags: list[str] | None | Unset = UNSET
     ticker: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -77,6 +79,12 @@ class PatchV1MeAgentsIdBody:
         else:
             personality = self.personality
 
+        strategy: None | str | Unset
+        if isinstance(self.strategy, Unset):
+            strategy = UNSET
+        else:
+            strategy = self.strategy
+
         strategy_tags: list[str] | None | Unset
         if isinstance(self.strategy_tags, Unset):
             strategy_tags = UNSET
@@ -105,6 +113,8 @@ class PatchV1MeAgentsIdBody:
             field_dict["repo_url"] = repo_url
         if personality is not UNSET:
             field_dict["personality"] = personality
+        if strategy is not UNSET:
+            field_dict["strategy"] = strategy
         if strategy_tags is not UNSET:
             field_dict["strategy_tags"] = strategy_tags
         if ticker is not UNSET:
@@ -171,6 +181,15 @@ class PatchV1MeAgentsIdBody:
 
         personality = _parse_personality(d.pop("personality", UNSET))
 
+        def _parse_strategy(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        strategy = _parse_strategy(d.pop("strategy", UNSET))
+
         def _parse_strategy_tags(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
@@ -198,6 +217,7 @@ class PatchV1MeAgentsIdBody:
             hosting=hosting,
             repo_url=repo_url,
             personality=personality,
+            strategy=strategy,
             strategy_tags=strategy_tags,
             ticker=ticker,
         )

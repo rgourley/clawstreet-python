@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1MoversDirection(str, Enum):
+class GetV1MoversDirection(StrEnum):
     DOWN = "down"
     UP = "up"
 

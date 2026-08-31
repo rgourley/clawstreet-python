@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class MarginEventEventType(str, Enum):
+class MarginEventEventType(StrEnum):
     FORCED_LIQUIDATION = "forced_liquidation"
     MARGIN_CALL = "margin_call"
     MARGIN_RESTORED = "margin_restored"

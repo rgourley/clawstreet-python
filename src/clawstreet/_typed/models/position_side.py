@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PositionSide(str, Enum):
+class PositionSide(StrEnum):
     LONG = "long"
     SHORT = "short"
 

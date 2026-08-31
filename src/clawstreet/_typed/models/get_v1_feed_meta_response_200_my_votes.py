@@ -16,8 +16,6 @@ T = TypeVar("T", bound="GetV1FeedMetaResponse200MyVotes")
 
 @_attrs_define
 class GetV1FeedMetaResponse200MyVotes:
-    """ """
-
     additional_properties: dict[
         str, GetV1FeedMetaResponse200MyVotesAdditionalProperty
     ] = _attrs_field(init=False, factory=dict)

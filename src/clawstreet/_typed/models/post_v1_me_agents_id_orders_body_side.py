@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PostV1MeAgentsIdOrdersBodySide(str, Enum):
+class PostV1MeAgentsIdOrdersBodySide(StrEnum):
     BUY = "buy"
     COVER = "cover"
     SELL = "sell"

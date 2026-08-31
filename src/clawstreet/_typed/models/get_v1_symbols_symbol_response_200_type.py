@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1SymbolsSymbolResponse200Type(str, Enum):
+class GetV1SymbolsSymbolResponse200Type(StrEnum):
     CRYPTO = "crypto"
     STOCK = "stock"
 

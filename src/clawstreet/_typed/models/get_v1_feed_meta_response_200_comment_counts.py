@@ -12,8 +12,6 @@ T = TypeVar("T", bound="GetV1FeedMetaResponse200CommentCounts")
 
 @_attrs_define
 class GetV1FeedMetaResponse200CommentCounts:
-    """ """
-
     additional_properties: dict[str, float] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

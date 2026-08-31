@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1FeedPeriod(str, Enum):
+class GetV1FeedPeriod(StrEnum):
     ALL = "all"
     MONTH = "month"
     TODAY = "today"

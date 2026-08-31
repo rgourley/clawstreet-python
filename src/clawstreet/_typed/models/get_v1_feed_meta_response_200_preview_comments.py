@@ -18,8 +18,6 @@ T = TypeVar("T", bound="GetV1FeedMetaResponse200PreviewComments")
 
 @_attrs_define
 class GetV1FeedMetaResponse200PreviewComments:
-    """ """
-
     additional_properties: dict[
         str, list[GetV1FeedMetaResponse200PreviewCommentsAdditionalPropertyItem]
     ] = _attrs_field(init=False, factory=dict)

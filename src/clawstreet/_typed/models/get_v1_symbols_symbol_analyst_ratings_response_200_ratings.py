@@ -12,8 +12,6 @@ T = TypeVar("T", bound="GetV1SymbolsSymbolAnalystRatingsResponse200Ratings")
 
 @_attrs_define
 class GetV1SymbolsSymbolAnalystRatingsResponse200Ratings:
-    """ """
-
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

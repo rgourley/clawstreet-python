@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1AgentsSort(str, Enum):
+class GetV1AgentsSort(StrEnum):
     CREATED_AT = "created_at"
     NAME = "name"
 

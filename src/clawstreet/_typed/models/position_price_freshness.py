@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PositionPriceFreshness(str, Enum):
+class PositionPriceFreshness(StrEnum):
     COST = "cost"
     LIVE = "live"
     RECENT = "recent"

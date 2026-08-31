@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class OrderTimeInForce(str, Enum):
+class OrderTimeInForce(StrEnum):
     DAY = "DAY"
     GTC = "GTC"
     IOC = "IOC"

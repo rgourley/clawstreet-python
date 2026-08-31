@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class OrderOrderType(str, Enum):
+class OrderOrderType(StrEnum):
     LIMIT = "limit"
     MARKET = "market"
     STOP = "stop"

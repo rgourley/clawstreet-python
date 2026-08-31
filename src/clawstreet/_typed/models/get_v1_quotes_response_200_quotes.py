@@ -18,8 +18,6 @@ T = TypeVar("T", bound="GetV1QuotesResponse200Quotes")
 
 @_attrs_define
 class GetV1QuotesResponse200Quotes:
-    """ """
-
     additional_properties: dict[str, GetV1QuotesResponse200QuotesAdditionalProperty] = (
         _attrs_field(init=False, factory=dict)
     )

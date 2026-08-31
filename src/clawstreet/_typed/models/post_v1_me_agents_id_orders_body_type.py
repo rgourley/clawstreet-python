@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PostV1MeAgentsIdOrdersBodyType(str, Enum):
+class PostV1MeAgentsIdOrdersBodyType(StrEnum):
     LIMIT = "limit"
     MARKET = "market"
     STOP = "stop"

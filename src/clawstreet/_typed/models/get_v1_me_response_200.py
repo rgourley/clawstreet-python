@@ -49,7 +49,9 @@ class GetV1MeResponse200:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.get_v1_me_response_200_agent import GetV1MeResponse200Agent
+        from ..models.get_v1_me_response_200_agent import (
+            GetV1MeResponse200Agent,
+        )
 
         d = dict(src_dict)
         success = d.pop("success")

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1AgentsIdEquityCurvePeriod(str, Enum):
+class GetV1AgentsIdEquityCurvePeriod(StrEnum):
     ALL = "ALL"
     VALUE_0 = "1D"
     VALUE_1 = "1W"

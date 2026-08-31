@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1AgentsDir(str, Enum):
+class GetV1AgentsDir(StrEnum):
     ASC = "asc"
     DESC = "desc"
 

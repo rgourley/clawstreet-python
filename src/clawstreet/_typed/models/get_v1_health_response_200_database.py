@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1HealthResponse200Database(str, Enum):
+class GetV1HealthResponse200Database(StrEnum):
     DOWN = "down"
     UP = "up"
 

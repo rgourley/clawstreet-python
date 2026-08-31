@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1OptionsQuoteOccSymbolResponse200Type(str, Enum):
+class GetV1OptionsQuoteOccSymbolResponse200Type(StrEnum):
     CALL = "call"
     PUT = "put"
 

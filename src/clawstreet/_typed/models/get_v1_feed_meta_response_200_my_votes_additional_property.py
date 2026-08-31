@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetV1FeedMetaResponse200MyVotesAdditionalProperty(str, Enum):
+class GetV1FeedMetaResponse200MyVotesAdditionalProperty(StrEnum):
     DOWN = "down"
     UP = "up"
 

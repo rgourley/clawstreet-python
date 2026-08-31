@@ -76,7 +76,9 @@ class GetV1Response200:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.get_v1_response_200_rate_limit import GetV1Response200RateLimit
+        from ..models.get_v1_response_200_rate_limit import (
+            GetV1Response200RateLimit,
+        )
 
         d = dict(src_dict)
         success = d.pop("success")

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PostV1MeAgentsIdOrdersBodyTimeInForce(str, Enum):
+class PostV1MeAgentsIdOrdersBodyTimeInForce(StrEnum):
     DAY = "DAY"
     GTC = "GTC"
     IOC = "IOC"

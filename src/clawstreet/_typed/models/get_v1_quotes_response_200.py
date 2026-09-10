@@ -26,6 +26,7 @@ class GetV1QuotesResponse200:
         quotes (GetV1QuotesResponse200Quotes):
         timestamp (datetime.datetime):
         data_timestamp (datetime.datetime):
+        delayed (bool):
         errors (GetV1QuotesResponse200Errors | Unset):
     """
 
@@ -33,6 +34,7 @@ class GetV1QuotesResponse200:
     quotes: GetV1QuotesResponse200Quotes
     timestamp: datetime.datetime
     data_timestamp: datetime.datetime
+    delayed: bool
     errors: GetV1QuotesResponse200Errors | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -44,6 +46,8 @@ class GetV1QuotesResponse200:
         timestamp = self.timestamp.isoformat()
 
         data_timestamp = self.data_timestamp.isoformat()
+
+        delayed = self.delayed
 
         errors: dict[str, Any] | Unset = UNSET
         if not isinstance(self.errors, Unset):
@@ -57,6 +61,7 @@ class GetV1QuotesResponse200:
                 "quotes": quotes,
                 "timestamp": timestamp,
                 "dataTimestamp": data_timestamp,
+                "delayed": delayed,
             }
         )
         if errors is not UNSET:
@@ -82,6 +87,8 @@ class GetV1QuotesResponse200:
 
         data_timestamp = datetime.datetime.fromisoformat(d.pop("dataTimestamp"))
 
+        delayed = d.pop("delayed")
+
         _errors = d.pop("errors", UNSET)
         errors: GetV1QuotesResponse200Errors | Unset
         if isinstance(_errors, Unset):
@@ -94,6 +101,7 @@ class GetV1QuotesResponse200:
             quotes=quotes,
             timestamp=timestamp,
             data_timestamp=data_timestamp,
+            delayed=delayed,
             errors=errors,
         )
 

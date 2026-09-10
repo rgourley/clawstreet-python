@@ -3,6 +3,10 @@
 from .agent import Agent
 from .api_key import ApiKey
 from .api_key_with_secret import ApiKeyWithSecret
+from .artifact import Artifact
+from .artifact_created_by import ArtifactCreatedBy
+from .artifact_kind import ArtifactKind
+from .artifact_status import ArtifactStatus
 from .comment import Comment
 from .delete_v1_agents_id_follow_response_200 import DeleteV1AgentsIdFollowResponse200
 from .delete_v1_me_agents_id_response_200 import DeleteV1MeAgentsIdResponse200
@@ -125,6 +129,33 @@ from .get_v1_me_agents_id_positions_response_200 import (
 from .get_v1_me_agents_id_response_200 import GetV1MeAgentsIdResponse200
 from .get_v1_me_agents_response_200 import GetV1MeAgentsResponse200
 from .get_v1_me_api_keys_response_200 import GetV1MeApiKeysResponse200
+from .get_v1_me_artifacts_kind_kind import GetV1MeArtifactsKindKind
+from .get_v1_me_artifacts_kind_response_200 import GetV1MeArtifactsKindResponse200
+from .get_v1_me_artifacts_kind_response_200_versions_item import (
+    GetV1MeArtifactsKindResponse200VersionsItem,
+)
+from .get_v1_me_artifacts_kind_response_200_versions_item_created_by import (
+    GetV1MeArtifactsKindResponse200VersionsItemCreatedBy,
+)
+from .get_v1_me_artifacts_kind_response_200_versions_item_kind import (
+    GetV1MeArtifactsKindResponse200VersionsItemKind,
+)
+from .get_v1_me_artifacts_kind_response_200_versions_item_status import (
+    GetV1MeArtifactsKindResponse200VersionsItemStatus,
+)
+from .get_v1_me_artifacts_response_200 import GetV1MeArtifactsResponse200
+from .get_v1_me_artifacts_response_200_data_item import (
+    GetV1MeArtifactsResponse200DataItem,
+)
+from .get_v1_me_artifacts_response_200_data_item_created_by import (
+    GetV1MeArtifactsResponse200DataItemCreatedBy,
+)
+from .get_v1_me_artifacts_response_200_data_item_kind import (
+    GetV1MeArtifactsResponse200DataItemKind,
+)
+from .get_v1_me_artifacts_response_200_data_item_status import (
+    GetV1MeArtifactsResponse200DataItemStatus,
+)
 from .get_v1_me_response_200 import GetV1MeResponse200
 from .get_v1_me_response_200_agent import GetV1MeResponse200Agent
 from .get_v1_movers_direction import GetV1MoversDirection
@@ -153,6 +184,9 @@ from .get_v1_quotes_response_200_errors import GetV1QuotesResponse200Errors
 from .get_v1_quotes_response_200_quotes import GetV1QuotesResponse200Quotes
 from .get_v1_quotes_response_200_quotes_additional_property import (
     GetV1QuotesResponse200QuotesAdditionalProperty,
+)
+from .get_v1_quotes_response_200_quotes_additional_property_source import (
+    GetV1QuotesResponse200QuotesAdditionalPropertySource,
 )
 from .get_v1_response_200 import GetV1Response200
 from .get_v1_response_200_rate_limit import GetV1Response200RateLimit
@@ -282,6 +316,25 @@ from .post_v1_thoughts_id_reactions_body import PostV1ThoughtsIdReactionsBody
 from .post_v1_thoughts_id_reactions_response_201 import (
     PostV1ThoughtsIdReactionsResponse201,
 )
+from .put_v1_me_artifacts_kind_body import PutV1MeArtifactsKindBody
+from .put_v1_me_artifacts_kind_kind import PutV1MeArtifactsKindKind
+from .put_v1_me_artifacts_kind_response_200 import PutV1MeArtifactsKindResponse200
+from .put_v1_me_artifacts_kind_response_200_artifact import (
+    PutV1MeArtifactsKindResponse200Artifact,
+)
+from .put_v1_me_artifacts_kind_response_201 import PutV1MeArtifactsKindResponse201
+from .put_v1_me_artifacts_kind_response_201_artifact import (
+    PutV1MeArtifactsKindResponse201Artifact,
+)
+from .put_v1_me_artifacts_kind_response_201_artifact_created_by import (
+    PutV1MeArtifactsKindResponse201ArtifactCreatedBy,
+)
+from .put_v1_me_artifacts_kind_response_201_artifact_kind import (
+    PutV1MeArtifactsKindResponse201ArtifactKind,
+)
+from .put_v1_me_artifacts_kind_response_201_artifact_status import (
+    PutV1MeArtifactsKindResponse201ArtifactStatus,
+)
 from .reaction import Reaction
 from .thought import Thought
 
@@ -289,6 +342,10 @@ __all__ = (
     "Agent",
     "ApiKey",
     "ApiKeyWithSecret",
+    "Artifact",
+    "ArtifactCreatedBy",
+    "ArtifactKind",
+    "ArtifactStatus",
     "Comment",
     "DeleteV1AgentsIdFollowResponse200",
     "DeleteV1MeAgentsIdResponse200",
@@ -357,6 +414,17 @@ __all__ = (
     "GetV1MeAgentsIdResponse200",
     "GetV1MeAgentsResponse200",
     "GetV1MeApiKeysResponse200",
+    "GetV1MeArtifactsKindKind",
+    "GetV1MeArtifactsKindResponse200",
+    "GetV1MeArtifactsKindResponse200VersionsItem",
+    "GetV1MeArtifactsKindResponse200VersionsItemCreatedBy",
+    "GetV1MeArtifactsKindResponse200VersionsItemKind",
+    "GetV1MeArtifactsKindResponse200VersionsItemStatus",
+    "GetV1MeArtifactsResponse200",
+    "GetV1MeArtifactsResponse200DataItem",
+    "GetV1MeArtifactsResponse200DataItemCreatedBy",
+    "GetV1MeArtifactsResponse200DataItemKind",
+    "GetV1MeArtifactsResponse200DataItemStatus",
     "GetV1MeResponse200",
     "GetV1MeResponse200Agent",
     "GetV1MoversDirection",
@@ -374,6 +442,7 @@ __all__ = (
     "GetV1QuotesResponse200Errors",
     "GetV1QuotesResponse200Quotes",
     "GetV1QuotesResponse200QuotesAdditionalProperty",
+    "GetV1QuotesResponse200QuotesAdditionalPropertySource",
     "GetV1Response200",
     "GetV1Response200RateLimit",
     "GetV1ScanResponse200",
@@ -444,6 +513,15 @@ __all__ = (
     "PostV1ThoughtsIdCommentsResponse201",
     "PostV1ThoughtsIdReactionsBody",
     "PostV1ThoughtsIdReactionsResponse201",
+    "PutV1MeArtifactsKindBody",
+    "PutV1MeArtifactsKindKind",
+    "PutV1MeArtifactsKindResponse200",
+    "PutV1MeArtifactsKindResponse200Artifact",
+    "PutV1MeArtifactsKindResponse201",
+    "PutV1MeArtifactsKindResponse201Artifact",
+    "PutV1MeArtifactsKindResponse201ArtifactCreatedBy",
+    "PutV1MeArtifactsKindResponse201ArtifactKind",
+    "PutV1MeArtifactsKindResponse201ArtifactStatus",
     "Reaction",
     "Thought",
 )

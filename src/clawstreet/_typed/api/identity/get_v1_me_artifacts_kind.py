@@ -1,33 +1,28 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_envelope import ErrorEnvelope
-from ...models.get_v1_quotes_response_200 import GetV1QuotesResponse200
-from ...types import UNSET, Response, Unset
+from ...models.get_v1_me_artifacts_kind_kind import GetV1MeArtifactsKindKind
+from ...models.get_v1_me_artifacts_kind_response_200 import (
+    GetV1MeArtifactsKindResponse200,
+)
+from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    symbols: str,
-    fresh: str | Unset = UNSET,
+    kind: GetV1MeArtifactsKindKind,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    params["symbols"] = symbols
-
-    params["fresh"] = fresh
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/quotes",
-        "params": params,
+        "url": "/v1/me/artifacts/{kind}".format(
+            kind=quote(str(kind), safe=""),
+        ),
     }
 
     return _kwargs
@@ -35,9 +30,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> ErrorEnvelope | GetV1QuotesResponse200 | None:
+) -> ErrorEnvelope | GetV1MeArtifactsKindResponse200 | None:
     if response.status_code == 200:
-        response_200 = GetV1QuotesResponse200.from_dict(response.json())
+        response_200 = GetV1MeArtifactsKindResponse200.from_dict(response.json())
 
         return response_200
 
@@ -45,6 +40,11 @@ def _parse_response(
         response_401 = ErrorEnvelope.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 402:
+        response_402 = ErrorEnvelope.from_dict(response.json())
+
+        return response_402
 
     if response.status_code == 404:
         response_404 = ErrorEnvelope.from_dict(response.json())
@@ -64,7 +64,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[ErrorEnvelope | GetV1QuotesResponse200]:
+) -> Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,32 +74,27 @@ def _build_response(
 
 
 def sync_detailed(
+    kind: GetV1MeArtifactsKindKind,
     *,
     client: AuthenticatedClient,
-    symbols: str,
-    fresh: str | Unset = UNSET,
-) -> Response[ErrorEnvelope | GetV1QuotesResponse200]:
-    """Batched quotes
+) -> Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]:
+    """Get an artifact
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Active version with content, plus the version history without content.
 
     Args:
-        symbols (str):
-        fresh (str | Unset):
+        kind (GetV1MeArtifactsKindKind):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | GetV1QuotesResponse200]
+        Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]
     """
 
     kwargs = _get_kwargs(
-        symbols=symbols,
-        fresh=fresh,
+        kind=kind,
     )
 
     response = client.get_httpx_client().request(
@@ -110,63 +105,53 @@ def sync_detailed(
 
 
 def sync(
+    kind: GetV1MeArtifactsKindKind,
     *,
     client: AuthenticatedClient,
-    symbols: str,
-    fresh: str | Unset = UNSET,
-) -> ErrorEnvelope | GetV1QuotesResponse200 | None:
-    """Batched quotes
+) -> ErrorEnvelope | GetV1MeArtifactsKindResponse200 | None:
+    """Get an artifact
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Active version with content, plus the version history without content.
 
     Args:
-        symbols (str):
-        fresh (str | Unset):
+        kind (GetV1MeArtifactsKindKind):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | GetV1QuotesResponse200
+        ErrorEnvelope | GetV1MeArtifactsKindResponse200
     """
 
     return sync_detailed(
+        kind=kind,
         client=client,
-        symbols=symbols,
-        fresh=fresh,
     ).parsed
 
 
 async def asyncio_detailed(
+    kind: GetV1MeArtifactsKindKind,
     *,
     client: AuthenticatedClient,
-    symbols: str,
-    fresh: str | Unset = UNSET,
-) -> Response[ErrorEnvelope | GetV1QuotesResponse200]:
-    """Batched quotes
+) -> Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]:
+    """Get an artifact
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Active version with content, plus the version history without content.
 
     Args:
-        symbols (str):
-        fresh (str | Unset):
+        kind (GetV1MeArtifactsKindKind):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | GetV1QuotesResponse200]
+        Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]
     """
 
     kwargs = _get_kwargs(
-        symbols=symbols,
-        fresh=fresh,
+        kind=kind,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -175,33 +160,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    kind: GetV1MeArtifactsKindKind,
     *,
     client: AuthenticatedClient,
-    symbols: str,
-    fresh: str | Unset = UNSET,
-) -> ErrorEnvelope | GetV1QuotesResponse200 | None:
-    """Batched quotes
+) -> ErrorEnvelope | GetV1MeArtifactsKindResponse200 | None:
+    """Get an artifact
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Active version with content, plus the version history without content.
 
     Args:
-        symbols (str):
-        fresh (str | Unset):
+        kind (GetV1MeArtifactsKindKind):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | GetV1QuotesResponse200
+        ErrorEnvelope | GetV1MeArtifactsKindResponse200
     """
 
     return (
         await asyncio_detailed(
+            kind=kind,
             client=client,
-            symbols=symbols,
-            fresh=fresh,
         )
     ).parsed

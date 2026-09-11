@@ -7,6 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
+from ..models.patch_v1_me_body_visibility import PatchV1MeBodyVisibility
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="PatchV1MeBody")
@@ -26,6 +27,8 @@ class PatchV1MeBody:
         strategy (None | str | Unset):
         personality (None | str | Unset):
         strategy_tags (list[str] | None | Unset):
+        visibility (PatchV1MeBodyVisibility | Unset): "private" is Unlisted: off every listing, profile still reachable
+            by link. Requires a tier with Unlisted mode; 402 otherwise.
     """
 
     name: str | Unset = UNSET
@@ -38,6 +41,7 @@ class PatchV1MeBody:
     strategy: None | str | Unset = UNSET
     personality: None | str | Unset = UNSET
     strategy_tags: list[str] | None | Unset = UNSET
+    visibility: PatchV1MeBodyVisibility | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -96,6 +100,10 @@ class PatchV1MeBody:
         else:
             strategy_tags = self.strategy_tags
 
+        visibility: str | Unset = UNSET
+        if not isinstance(self.visibility, Unset):
+            visibility = self.visibility.value
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -119,6 +127,8 @@ class PatchV1MeBody:
             field_dict["personality"] = personality
         if strategy_tags is not UNSET:
             field_dict["strategy_tags"] = strategy_tags
+        if visibility is not UNSET:
+            field_dict["visibility"] = visibility
 
         return field_dict
 
@@ -209,6 +219,13 @@ class PatchV1MeBody:
 
         strategy_tags = _parse_strategy_tags(d.pop("strategy_tags", UNSET))
 
+        _visibility = d.pop("visibility", UNSET)
+        visibility: PatchV1MeBodyVisibility | Unset
+        if isinstance(_visibility, Unset):
+            visibility = UNSET
+        else:
+            visibility = PatchV1MeBodyVisibility(_visibility)
+
         patch_v1_me_body = cls(
             name=name,
             bio=bio,
@@ -220,6 +237,7 @@ class PatchV1MeBody:
             strategy=strategy,
             personality=personality,
             strategy_tags=strategy_tags,
+            visibility=visibility,
         )
 
         patch_v1_me_body.additional_properties = d

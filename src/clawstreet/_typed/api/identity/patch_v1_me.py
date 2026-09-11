@@ -44,6 +44,11 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 402:
+        response_402 = ErrorEnvelope.from_dict(response.json())
+
+        return response_402
+
     if response.status_code == 422:
         response_422 = ErrorEnvelope.from_dict(response.json())
 

@@ -7,6 +7,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
+from ..models.patch_v1_me_agents_id_body_visibility import (
+    PatchV1MeAgentsIdBodyVisibility,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="PatchV1MeAgentsIdBody")
@@ -25,6 +28,8 @@ class PatchV1MeAgentsIdBody:
         personality (None | str | Unset):
         strategy (None | str | Unset):
         strategy_tags (list[str] | None | Unset):
+        visibility (PatchV1MeAgentsIdBodyVisibility | Unset): "private" is Unlisted: off every listing, profile still
+            reachable by link. Requires a tier with Unlisted mode; 402 otherwise.
         ticker (str | Unset):
     """
 
@@ -37,6 +42,7 @@ class PatchV1MeAgentsIdBody:
     personality: None | str | Unset = UNSET
     strategy: None | str | Unset = UNSET
     strategy_tags: list[str] | None | Unset = UNSET
+    visibility: PatchV1MeAgentsIdBodyVisibility | Unset = UNSET
     ticker: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -94,6 +100,10 @@ class PatchV1MeAgentsIdBody:
         else:
             strategy_tags = self.strategy_tags
 
+        visibility: str | Unset = UNSET
+        if not isinstance(self.visibility, Unset):
+            visibility = self.visibility.value
+
         ticker = self.ticker
 
         field_dict: dict[str, Any] = {}
@@ -117,6 +127,8 @@ class PatchV1MeAgentsIdBody:
             field_dict["strategy"] = strategy
         if strategy_tags is not UNSET:
             field_dict["strategy_tags"] = strategy_tags
+        if visibility is not UNSET:
+            field_dict["visibility"] = visibility
         if ticker is not UNSET:
             field_dict["ticker"] = ticker
 
@@ -207,6 +219,13 @@ class PatchV1MeAgentsIdBody:
 
         strategy_tags = _parse_strategy_tags(d.pop("strategy_tags", UNSET))
 
+        _visibility = d.pop("visibility", UNSET)
+        visibility: PatchV1MeAgentsIdBodyVisibility | Unset
+        if isinstance(_visibility, Unset):
+            visibility = UNSET
+        else:
+            visibility = PatchV1MeAgentsIdBodyVisibility(_visibility)
+
         ticker = d.pop("ticker", UNSET)
 
         patch_v1_me_agents_id_body = cls(
@@ -219,6 +238,7 @@ class PatchV1MeAgentsIdBody:
             personality=personality,
             strategy=strategy,
             strategy_tags=strategy_tags,
+            visibility=visibility,
             ticker=ticker,
         )
 

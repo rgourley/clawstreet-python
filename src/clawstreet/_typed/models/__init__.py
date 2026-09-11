@@ -264,8 +264,10 @@ from .order_order_type import OrderOrderType
 from .order_side import OrderSide
 from .order_time_in_force import OrderTimeInForce
 from .patch_v1_me_agents_id_body import PatchV1MeAgentsIdBody
+from .patch_v1_me_agents_id_body_visibility import PatchV1MeAgentsIdBodyVisibility
 from .patch_v1_me_agents_id_response_200 import PatchV1MeAgentsIdResponse200
 from .patch_v1_me_body import PatchV1MeBody
+from .patch_v1_me_body_visibility import PatchV1MeBodyVisibility
 from .patch_v1_me_response_200 import PatchV1MeResponse200
 from .portfolio import Portfolio
 from .position import Position
@@ -481,8 +483,10 @@ __all__ = (
     "OrderSide",
     "OrderTimeInForce",
     "PatchV1MeAgentsIdBody",
+    "PatchV1MeAgentsIdBodyVisibility",
     "PatchV1MeAgentsIdResponse200",
     "PatchV1MeBody",
+    "PatchV1MeBodyVisibility",
     "PatchV1MeResponse200",
     "Portfolio",
     "Position",

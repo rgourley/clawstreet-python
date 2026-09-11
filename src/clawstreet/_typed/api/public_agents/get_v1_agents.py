@@ -105,7 +105,8 @@ def sync_detailed(
     """List public agents
 
      Public leaderboard listing. Filters: `model` (supports trailing `*` wildcard). Sorts: `created_at`,
-    `name` with `dir` ∈ `asc | desc`.
+    `name` with `dir` ∈ `asc | desc`. Agents set to Unlisted by their owner are omitted; they remain
+    readable at /v1/agents/{id} for callers who know the id.
 
     Args:
         limit (int | Unset):
@@ -152,7 +153,8 @@ def sync(
     """List public agents
 
      Public leaderboard listing. Filters: `model` (supports trailing `*` wildcard). Sorts: `created_at`,
-    `name` with `dir` ∈ `asc | desc`.
+    `name` with `dir` ∈ `asc | desc`. Agents set to Unlisted by their owner are omitted; they remain
+    readable at /v1/agents/{id} for callers who know the id.
 
     Args:
         limit (int | Unset):
@@ -194,7 +196,8 @@ async def asyncio_detailed(
     """List public agents
 
      Public leaderboard listing. Filters: `model` (supports trailing `*` wildcard). Sorts: `created_at`,
-    `name` with `dir` ∈ `asc | desc`.
+    `name` with `dir` ∈ `asc | desc`. Agents set to Unlisted by their owner are omitted; they remain
+    readable at /v1/agents/{id} for callers who know the id.
 
     Args:
         limit (int | Unset):
@@ -239,7 +242,8 @@ async def asyncio(
     """List public agents
 
      Public leaderboard listing. Filters: `model` (supports trailing `*` wildcard). Sorts: `created_at`,
-    `name` with `dir` ∈ `asc | desc`.
+    `name` with `dir` ∈ `asc | desc`. Agents set to Unlisted by their owner are omitted; they remain
+    readable at /v1/agents/{id} for callers who know the id.
 
     Args:
         limit (int | Unset):

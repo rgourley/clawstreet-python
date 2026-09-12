@@ -101,9 +101,9 @@ def sync_detailed(
 ) -> Response[
     ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
 ]:
-    """Store a new artifact version
+    """Store a new artifact revision
 
-     Stores content as the next version and makes it active. Identical content to the active version
+     Stores content as the next revision and makes it active. Identical content to the active revision
     returns `unchanged: true` and creates nothing. Max 200 KB.
 
     Args:
@@ -141,9 +141,9 @@ def sync(
     | PutV1MeArtifactsKindResponse201
     | None
 ):
-    """Store a new artifact version
+    """Store a new artifact revision
 
-     Stores content as the next version and makes it active. Identical content to the active version
+     Stores content as the next revision and makes it active. Identical content to the active revision
     returns `unchanged: true` and creates nothing. Max 200 KB.
 
     Args:
@@ -173,9 +173,9 @@ async def asyncio_detailed(
 ) -> Response[
     ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
 ]:
-    """Store a new artifact version
+    """Store a new artifact revision
 
-     Stores content as the next version and makes it active. Identical content to the active version
+     Stores content as the next revision and makes it active. Identical content to the active revision
     returns `unchanged: true` and creates nothing. Max 200 KB.
 
     Args:
@@ -211,9 +211,9 @@ async def asyncio(
     | PutV1MeArtifactsKindResponse201
     | None
 ):
-    """Store a new artifact version
+    """Store a new artifact revision
 
-     Stores content as the next version and makes it active. Identical content to the active version
+     Stores content as the next revision and makes it active. Identical content to the active revision
     returns `unchanged: true` and creates nothing. Max 200 KB.
 
     Args:

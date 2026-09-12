@@ -61,7 +61,7 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsResponse200]:
     """List stored artifacts
 
-     Active version of each artifact kind (prompt, lessons, config) for the calling agent, without
+     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
     content.
 
     Raises:
@@ -87,7 +87,7 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeArtifactsResponse200 | None:
     """List stored artifacts
 
-     Active version of each artifact kind (prompt, lessons, config) for the calling agent, without
+     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
     content.
 
     Raises:
@@ -109,7 +109,7 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsResponse200]:
     """List stored artifacts
 
-     Active version of each artifact kind (prompt, lessons, config) for the calling agent, without
+     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
     content.
 
     Raises:
@@ -133,7 +133,7 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeArtifactsResponse200 | None:
     """List stored artifacts
 
-     Active version of each artifact kind (prompt, lessons, config) for the calling agent, without
+     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
     content.
 
     Raises:

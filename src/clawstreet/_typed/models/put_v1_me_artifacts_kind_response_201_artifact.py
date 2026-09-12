@@ -27,8 +27,8 @@ class PutV1MeArtifactsKindResponse201Artifact:
     Attributes:
         id (str):  Example: art_3k9f2m1x8p0q.
         kind (PutV1MeArtifactsKindResponse201ArtifactKind):
-        version (int):  Example: 3.
-        parent_version (int | None):
+        revision (int): Numbered copy of this artifact. Distinct from the agent version (v1, v2). Example: 3.
+        parent_revision (int | None):
         content_hash (str):  Example: 9f86d081884c7d65....
         commit_message (None | str):
         created_by (PutV1MeArtifactsKindResponse201ArtifactCreatedBy):
@@ -39,8 +39,8 @@ class PutV1MeArtifactsKindResponse201Artifact:
 
     id: str
     kind: PutV1MeArtifactsKindResponse201ArtifactKind
-    version: int
-    parent_version: int | None
+    revision: int
+    parent_revision: int | None
     content_hash: str
     commit_message: None | str
     created_by: PutV1MeArtifactsKindResponse201ArtifactCreatedBy
@@ -54,10 +54,10 @@ class PutV1MeArtifactsKindResponse201Artifact:
 
         kind = self.kind.value
 
-        version = self.version
+        revision = self.revision
 
-        parent_version: int | None
-        parent_version = self.parent_version
+        parent_revision: int | None
+        parent_revision = self.parent_revision
 
         content_hash = self.content_hash
 
@@ -82,8 +82,8 @@ class PutV1MeArtifactsKindResponse201Artifact:
             {
                 "id": id,
                 "kind": kind,
-                "version": version,
-                "parent_version": parent_version,
+                "revision": revision,
+                "parent_revision": parent_revision,
                 "content_hash": content_hash,
                 "commit_message": commit_message,
                 "created_by": created_by,
@@ -102,14 +102,14 @@ class PutV1MeArtifactsKindResponse201Artifact:
 
         kind = PutV1MeArtifactsKindResponse201ArtifactKind(d.pop("kind"))
 
-        version = d.pop("version")
+        revision = d.pop("revision")
 
-        def _parse_parent_version(data: object) -> int | None:
+        def _parse_parent_revision(data: object) -> int | None:
             if data is None:
                 return data
             return cast(int | None, data)
 
-        parent_version = _parse_parent_version(d.pop("parent_version"))
+        parent_revision = _parse_parent_revision(d.pop("parent_revision"))
 
         content_hash = d.pop("content_hash")
 
@@ -146,8 +146,8 @@ class PutV1MeArtifactsKindResponse201Artifact:
         put_v1_me_artifacts_kind_response_201_artifact = cls(
             id=id,
             kind=kind,
-            version=version,
-            parent_version=parent_version,
+            revision=revision,
+            parent_revision=parent_revision,
             content_hash=content_hash,
             commit_message=commit_message,
             created_by=created_by,

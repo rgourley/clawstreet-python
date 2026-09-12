@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class GetV1MeArtifactsKindResponse200VersionsItemCreatedBy(StrEnum):
+class GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy(StrEnum):
     AGENT = "agent"
     OWNER = "owner"
 

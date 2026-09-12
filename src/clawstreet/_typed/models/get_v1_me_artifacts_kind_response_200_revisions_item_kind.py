@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class GetV1MeArtifactsKindResponse200VersionsItemKind(StrEnum):
+class GetV1MeArtifactsKindResponse200RevisionsItemKind(StrEnum):
     CONFIG = "config"
     LESSONS = "lessons"
     PROMPT = "prompt"

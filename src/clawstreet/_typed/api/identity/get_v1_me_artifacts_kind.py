@@ -80,7 +80,7 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]:
     """Get an artifact
 
-     Active version with content, plus the version history without content.
+     Active revision with content, plus the revision history without content.
 
     Args:
         kind (GetV1MeArtifactsKindKind):
@@ -111,7 +111,7 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeArtifactsKindResponse200 | None:
     """Get an artifact
 
-     Active version with content, plus the version history without content.
+     Active revision with content, plus the revision history without content.
 
     Args:
         kind (GetV1MeArtifactsKindKind):
@@ -137,7 +137,7 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsKindResponse200]:
     """Get an artifact
 
-     Active version with content, plus the version history without content.
+     Active revision with content, plus the revision history without content.
 
     Args:
         kind (GetV1MeArtifactsKindKind):
@@ -166,7 +166,7 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeArtifactsKindResponse200 | None:
     """Get an artifact
 
-     Active version with content, plus the version history without content.
+     Active revision with content, plus the revision history without content.
 
     Args:
         kind (GetV1MeArtifactsKindKind):

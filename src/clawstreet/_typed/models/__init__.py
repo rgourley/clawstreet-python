@@ -131,17 +131,17 @@ from .get_v1_me_agents_response_200 import GetV1MeAgentsResponse200
 from .get_v1_me_api_keys_response_200 import GetV1MeApiKeysResponse200
 from .get_v1_me_artifacts_kind_kind import GetV1MeArtifactsKindKind
 from .get_v1_me_artifacts_kind_response_200 import GetV1MeArtifactsKindResponse200
-from .get_v1_me_artifacts_kind_response_200_versions_item import (
-    GetV1MeArtifactsKindResponse200VersionsItem,
+from .get_v1_me_artifacts_kind_response_200_revisions_item import (
+    GetV1MeArtifactsKindResponse200RevisionsItem,
 )
-from .get_v1_me_artifacts_kind_response_200_versions_item_created_by import (
-    GetV1MeArtifactsKindResponse200VersionsItemCreatedBy,
+from .get_v1_me_artifacts_kind_response_200_revisions_item_created_by import (
+    GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy,
 )
-from .get_v1_me_artifacts_kind_response_200_versions_item_kind import (
-    GetV1MeArtifactsKindResponse200VersionsItemKind,
+from .get_v1_me_artifacts_kind_response_200_revisions_item_kind import (
+    GetV1MeArtifactsKindResponse200RevisionsItemKind,
 )
-from .get_v1_me_artifacts_kind_response_200_versions_item_status import (
-    GetV1MeArtifactsKindResponse200VersionsItemStatus,
+from .get_v1_me_artifacts_kind_response_200_revisions_item_status import (
+    GetV1MeArtifactsKindResponse200RevisionsItemStatus,
 )
 from .get_v1_me_artifacts_response_200 import GetV1MeArtifactsResponse200
 from .get_v1_me_artifacts_response_200_data_item import (
@@ -156,6 +156,7 @@ from .get_v1_me_artifacts_response_200_data_item_kind import (
 from .get_v1_me_artifacts_response_200_data_item_status import (
     GetV1MeArtifactsResponse200DataItemStatus,
 )
+from .get_v1_me_journal_response_200 import GetV1MeJournalResponse200
 from .get_v1_me_response_200 import GetV1MeResponse200
 from .get_v1_me_response_200_agent import GetV1MeResponse200Agent
 from .get_v1_movers_direction import GetV1MoversDirection
@@ -257,6 +258,9 @@ from .get_v1_thoughts_id_reactions_response_200 import (
     GetV1ThoughtsIdReactionsResponse200,
 )
 from .get_v1_thoughts_id_response_200 import GetV1ThoughtsIdResponse200
+from .journal_note import JournalNote
+from .journal_note_target_type_0 import JournalNoteTargetType0
+from .journal_note_target_type_0_type import JournalNoteTargetType0Type
 from .margin_event import MarginEvent
 from .margin_event_event_type import MarginEventEventType
 from .order import Order
@@ -418,15 +422,16 @@ __all__ = (
     "GetV1MeApiKeysResponse200",
     "GetV1MeArtifactsKindKind",
     "GetV1MeArtifactsKindResponse200",
-    "GetV1MeArtifactsKindResponse200VersionsItem",
-    "GetV1MeArtifactsKindResponse200VersionsItemCreatedBy",
-    "GetV1MeArtifactsKindResponse200VersionsItemKind",
-    "GetV1MeArtifactsKindResponse200VersionsItemStatus",
+    "GetV1MeArtifactsKindResponse200RevisionsItem",
+    "GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy",
+    "GetV1MeArtifactsKindResponse200RevisionsItemKind",
+    "GetV1MeArtifactsKindResponse200RevisionsItemStatus",
     "GetV1MeArtifactsResponse200",
     "GetV1MeArtifactsResponse200DataItem",
     "GetV1MeArtifactsResponse200DataItemCreatedBy",
     "GetV1MeArtifactsResponse200DataItemKind",
     "GetV1MeArtifactsResponse200DataItemStatus",
+    "GetV1MeJournalResponse200",
     "GetV1MeResponse200",
     "GetV1MeResponse200Agent",
     "GetV1MoversDirection",
@@ -476,6 +481,9 @@ __all__ = (
     "GetV1ThoughtsIdCommentsResponse200",
     "GetV1ThoughtsIdReactionsResponse200",
     "GetV1ThoughtsIdResponse200",
+    "JournalNote",
+    "JournalNoteTargetType0",
+    "JournalNoteTargetType0Type",
     "MarginEvent",
     "MarginEventEventType",
     "Order",

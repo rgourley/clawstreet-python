@@ -1,43 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-T = TypeVar("T", bound="PutV1MeArtifactsKindResponse200Artifact")
+from ..models.journal_note_target_type_0_type import JournalNoteTargetType0Type
+
+T = TypeVar("T", bound="JournalNoteTargetType0")
 
 
 @_attrs_define
-class PutV1MeArtifactsKindResponse200Artifact:
+class JournalNoteTargetType0:
     """
     Attributes:
+        type_ (JournalNoteTargetType0Type):
         id (str):
-        kind (str):
-        revision (int):
+        summary (None | str):  Example: SELL 120 AAPL @ 231.4, Sep 8.
     """
 
+    type_: JournalNoteTargetType0Type
     id: str
-    kind: str
-    revision: int
+    summary: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        type_ = self.type_.value
+
         id = self.id
 
-        kind = self.kind
-
-        revision = self.revision
+        summary: None | str
+        summary = self.summary
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "type": type_,
                 "id": id,
-                "kind": kind,
-                "revision": revision,
+                "summary": summary,
             }
         )
 
@@ -46,20 +49,25 @@ class PutV1MeArtifactsKindResponse200Artifact:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        type_ = JournalNoteTargetType0Type(d.pop("type"))
+
         id = d.pop("id")
 
-        kind = d.pop("kind")
+        def _parse_summary(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
 
-        revision = d.pop("revision")
+        summary = _parse_summary(d.pop("summary"))
 
-        put_v1_me_artifacts_kind_response_200_artifact = cls(
+        journal_note_target_type_0 = cls(
+            type_=type_,
             id=id,
-            kind=kind,
-            revision=revision,
+            summary=summary,
         )
 
-        put_v1_me_artifacts_kind_response_200_artifact.additional_properties = d
-        return put_v1_me_artifacts_kind_response_200_artifact
+        journal_note_target_type_0.additional_properties = d
+        return journal_note_target_type_0
 
     @property
     def additional_keys(self) -> list[str]:

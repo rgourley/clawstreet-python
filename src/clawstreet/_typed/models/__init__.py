@@ -258,9 +258,17 @@ from .get_v1_thoughts_id_reactions_response_200 import (
     GetV1ThoughtsIdReactionsResponse200,
 )
 from .get_v1_thoughts_id_response_200 import GetV1ThoughtsIdResponse200
+from .journal_alert import JournalAlert
+from .journal_alert_alert_type import JournalAlertAlertType
+from .journal_alert_body import JournalAlertBody
+from .journal_alert_kind import JournalAlertKind
 from .journal_note import JournalNote
+from .journal_note_kind import JournalNoteKind
 from .journal_note_target_type_0 import JournalNoteTargetType0
 from .journal_note_target_type_0_type import JournalNoteTargetType0Type
+from .journal_review import JournalReview
+from .journal_review_body import JournalReviewBody
+from .journal_review_kind import JournalReviewKind
 from .margin_event import MarginEvent
 from .margin_event_event_type import MarginEventEventType
 from .order import Order
@@ -481,9 +489,17 @@ __all__ = (
     "GetV1ThoughtsIdCommentsResponse200",
     "GetV1ThoughtsIdReactionsResponse200",
     "GetV1ThoughtsIdResponse200",
+    "JournalAlert",
+    "JournalAlertAlertType",
+    "JournalAlertBody",
+    "JournalAlertKind",
     "JournalNote",
+    "JournalNoteKind",
     "JournalNoteTargetType0",
     "JournalNoteTargetType0Type",
+    "JournalReview",
+    "JournalReviewBody",
+    "JournalReviewKind",
     "MarginEvent",
     "MarginEventEventType",
     "Order",

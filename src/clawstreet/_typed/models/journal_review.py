@@ -8,40 +8,43 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-from ..models.journal_note_kind import JournalNoteKind
+from ..models.journal_review_kind import JournalReviewKind
 
 if TYPE_CHECKING:
-    from ..models.journal_note_target_type_0 import JournalNoteTargetType0
+    from ..models.journal_review_body import JournalReviewBody
 
 
-T = TypeVar("T", bound="JournalNote")
+T = TypeVar("T", bound="JournalReview")
 
 
 @_attrs_define
-class JournalNote:
+class JournalReview:
     """
     Attributes:
-        kind (JournalNoteKind):
-        id (str):  Example: jnl_8x2k1m9q4p0z.
+        kind (JournalReviewKind):
+        id (str):  Example: jnl_9p2m4k7s1x0q.
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        body (str):  Example: Stop chasing WIF after 3 PM. Two of the three losses this week were late-session entries..
-        target (JournalNoteTargetType0 | None):
+        period_start (str):  Example: 2026-08-31.
+        period_end (str):  Example: 2026-09-06.
+        title (str):  Example: MeanStreak, week of Aug 31: +2.4%, +$3,118 realized, 38 trades..
+        summary (None | str):
+        body (JournalReviewBody): The computed digest: return, realized P&L by symbol, hour, weekday, what changed,
+            notes.
     """
 
-    kind: JournalNoteKind
+    kind: JournalReviewKind
     id: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    body: str
-    target: JournalNoteTargetType0 | None
+    period_start: str
+    period_end: str
+    title: str
+    summary: None | str
+    body: JournalReviewBody
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
-
         kind = self.kind.value
 
         id = self.id
@@ -50,13 +53,16 @@ class JournalNote:
 
         updated_at = self.updated_at.isoformat()
 
-        body = self.body
+        period_start = self.period_start
 
-        target: dict[str, Any] | None
-        if isinstance(self.target, JournalNoteTargetType0):
-            target = self.target.to_dict()
-        else:
-            target = self.target
+        period_end = self.period_end
+
+        title = self.title
+
+        summary: None | str
+        summary = self.summary
+
+        body = self.body.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -66,8 +72,11 @@ class JournalNote:
                 "id": id,
                 "created_at": created_at,
                 "updated_at": updated_at,
+                "period_start": period_start,
+                "period_end": period_end,
+                "title": title,
+                "summary": summary,
                 "body": body,
-                "target": target,
             }
         )
 
@@ -75,12 +84,10 @@ class JournalNote:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
+        from ..models.journal_review_body import JournalReviewBody
 
         d = dict(src_dict)
-        kind = JournalNoteKind(d.pop("kind"))
+        kind = JournalReviewKind(d.pop("kind"))
 
         id = d.pop("id")
 
@@ -88,34 +95,35 @@ class JournalNote:
 
         updated_at = datetime.datetime.fromisoformat(d.pop("updated_at"))
 
-        body = d.pop("body")
+        period_start = d.pop("period_start")
 
-        def _parse_target(data: object) -> JournalNoteTargetType0 | None:
+        period_end = d.pop("period_end")
+
+        title = d.pop("title")
+
+        def _parse_summary(data: object) -> None | str:
             if data is None:
                 return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                target_type_0 = JournalNoteTargetType0.from_dict(data)
+            return cast(None | str, data)
 
-                return target_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(JournalNoteTargetType0 | None, data)
+        summary = _parse_summary(d.pop("summary"))
 
-        target = _parse_target(d.pop("target"))
+        body = JournalReviewBody.from_dict(d.pop("body"))
 
-        journal_note = cls(
+        journal_review = cls(
             kind=kind,
             id=id,
             created_at=created_at,
             updated_at=updated_at,
+            period_start=period_start,
+            period_end=period_end,
+            title=title,
+            summary=summary,
             body=body,
-            target=target,
         )
 
-        journal_note.additional_properties = d
-        return journal_note
+        journal_review.additional_properties = d
+        return journal_review
 
     @property
     def additional_keys(self) -> list[str]:

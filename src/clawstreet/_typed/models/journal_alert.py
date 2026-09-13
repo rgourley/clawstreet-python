@@ -8,40 +8,41 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-from ..models.journal_note_kind import JournalNoteKind
+from ..models.journal_alert_alert_type import JournalAlertAlertType
+from ..models.journal_alert_kind import JournalAlertKind
 
 if TYPE_CHECKING:
-    from ..models.journal_note_target_type_0 import JournalNoteTargetType0
+    from ..models.journal_alert_body import JournalAlertBody
 
 
-T = TypeVar("T", bound="JournalNote")
+T = TypeVar("T", bound="JournalAlert")
 
 
 @_attrs_define
-class JournalNote:
+class JournalAlert:
     """
     Attributes:
-        kind (JournalNoteKind):
-        id (str):  Example: jnl_8x2k1m9q4p0z.
+        kind (JournalAlertKind):
+        id (str):  Example: jnl_4k9s2m1x7q0b.
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        body (str):  Example: Stop chasing WIF after 3 PM. Two of the three losses this week were late-session entries..
-        target (JournalNoteTargetType0 | None):
+        alert_type (JournalAlertAlertType):
+        title (str):  Example: Bear Claw is down 10.4% from its 30-day peak..
+        body (JournalAlertBody): The numbers behind the title. Fields vary by alert_type.
+        cleared_at (datetime.datetime | None): Set once the condition no longer holds.
     """
 
-    kind: JournalNoteKind
+    kind: JournalAlertKind
     id: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    body: str
-    target: JournalNoteTargetType0 | None
+    alert_type: JournalAlertAlertType
+    title: str
+    body: JournalAlertBody
+    cleared_at: datetime.datetime | None
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
-
         kind = self.kind.value
 
         id = self.id
@@ -50,13 +51,17 @@ class JournalNote:
 
         updated_at = self.updated_at.isoformat()
 
-        body = self.body
+        alert_type = self.alert_type.value
 
-        target: dict[str, Any] | None
-        if isinstance(self.target, JournalNoteTargetType0):
-            target = self.target.to_dict()
+        title = self.title
+
+        body = self.body.to_dict()
+
+        cleared_at: None | str
+        if isinstance(self.cleared_at, datetime.datetime):
+            cleared_at = self.cleared_at.isoformat()
         else:
-            target = self.target
+            cleared_at = self.cleared_at
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -66,8 +71,10 @@ class JournalNote:
                 "id": id,
                 "created_at": created_at,
                 "updated_at": updated_at,
+                "alert_type": alert_type,
+                "title": title,
                 "body": body,
-                "target": target,
+                "cleared_at": cleared_at,
             }
         )
 
@@ -75,12 +82,10 @@ class JournalNote:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
+        from ..models.journal_alert_body import JournalAlertBody
 
         d = dict(src_dict)
-        kind = JournalNoteKind(d.pop("kind"))
+        kind = JournalAlertKind(d.pop("kind"))
 
         id = d.pop("id")
 
@@ -88,34 +93,40 @@ class JournalNote:
 
         updated_at = datetime.datetime.fromisoformat(d.pop("updated_at"))
 
-        body = d.pop("body")
+        alert_type = JournalAlertAlertType(d.pop("alert_type"))
 
-        def _parse_target(data: object) -> JournalNoteTargetType0 | None:
+        title = d.pop("title")
+
+        body = JournalAlertBody.from_dict(d.pop("body"))
+
+        def _parse_cleared_at(data: object) -> datetime.datetime | None:
             if data is None:
                 return data
             try:
-                if not isinstance(data, dict):
+                if not isinstance(data, str):
                     raise TypeError()
-                target_type_0 = JournalNoteTargetType0.from_dict(data)
+                cleared_at_type_0 = datetime.datetime.fromisoformat(data)
 
-                return target_type_0
+                return cleared_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(JournalNoteTargetType0 | None, data)
+            return cast(datetime.datetime | None, data)
 
-        target = _parse_target(d.pop("target"))
+        cleared_at = _parse_cleared_at(d.pop("cleared_at"))
 
-        journal_note = cls(
+        journal_alert = cls(
             kind=kind,
             id=id,
             created_at=created_at,
             updated_at=updated_at,
+            alert_type=alert_type,
+            title=title,
             body=body,
-            target=target,
+            cleared_at=cleared_at,
         )
 
-        journal_note.additional_properties = d
-        return journal_note
+        journal_alert.additional_properties = d
+        return journal_alert
 
     @property
     def additional_keys(self) -> list[str]:

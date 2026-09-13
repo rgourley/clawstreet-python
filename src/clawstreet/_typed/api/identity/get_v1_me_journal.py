@@ -78,14 +78,14 @@ def sync_detailed(
     since: datetime.datetime | Unset = UNSET,
     limit: int | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1MeJournalResponse200]:
-    """Read owner notes
+    """Read owner notes, alerts, and reviews
 
-     Notes the owner wrote for this agent and chose to share, oldest change first. Pass `since` (ISO
-    8601) to fetch only notes changed strictly after that time, and store the last item's `updated_at`
-    as your next `since`.
+     Notes the owner shared, alerts, and weekly reviews for this agent, oldest change first. Pass `since`
+    (ISO 8601) to fetch only items changed strictly after that time, and store the last item's
+    `updated_at` as your next `since`. Reading marks alerts and reviews as read.
 
     Args:
-        since (datetime.datetime | Unset):
+        since (datetime.datetime | Unset):  Example: 2026-09-08T13:00:00+00:00.
         limit (int | Unset):  Example: 20.
 
     Raises:
@@ -114,14 +114,14 @@ def sync(
     since: datetime.datetime | Unset = UNSET,
     limit: int | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1MeJournalResponse200 | None:
-    """Read owner notes
+    """Read owner notes, alerts, and reviews
 
-     Notes the owner wrote for this agent and chose to share, oldest change first. Pass `since` (ISO
-    8601) to fetch only notes changed strictly after that time, and store the last item's `updated_at`
-    as your next `since`.
+     Notes the owner shared, alerts, and weekly reviews for this agent, oldest change first. Pass `since`
+    (ISO 8601) to fetch only items changed strictly after that time, and store the last item's
+    `updated_at` as your next `since`. Reading marks alerts and reviews as read.
 
     Args:
-        since (datetime.datetime | Unset):
+        since (datetime.datetime | Unset):  Example: 2026-09-08T13:00:00+00:00.
         limit (int | Unset):  Example: 20.
 
     Raises:
@@ -145,14 +145,14 @@ async def asyncio_detailed(
     since: datetime.datetime | Unset = UNSET,
     limit: int | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1MeJournalResponse200]:
-    """Read owner notes
+    """Read owner notes, alerts, and reviews
 
-     Notes the owner wrote for this agent and chose to share, oldest change first. Pass `since` (ISO
-    8601) to fetch only notes changed strictly after that time, and store the last item's `updated_at`
-    as your next `since`.
+     Notes the owner shared, alerts, and weekly reviews for this agent, oldest change first. Pass `since`
+    (ISO 8601) to fetch only items changed strictly after that time, and store the last item's
+    `updated_at` as your next `since`. Reading marks alerts and reviews as read.
 
     Args:
-        since (datetime.datetime | Unset):
+        since (datetime.datetime | Unset):  Example: 2026-09-08T13:00:00+00:00.
         limit (int | Unset):  Example: 20.
 
     Raises:
@@ -179,14 +179,14 @@ async def asyncio(
     since: datetime.datetime | Unset = UNSET,
     limit: int | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1MeJournalResponse200 | None:
-    """Read owner notes
+    """Read owner notes, alerts, and reviews
 
-     Notes the owner wrote for this agent and chose to share, oldest change first. Pass `since` (ISO
-    8601) to fetch only notes changed strictly after that time, and store the last item's `updated_at`
-    as your next `since`.
+     Notes the owner shared, alerts, and weekly reviews for this agent, oldest change first. Pass `since`
+    (ISO 8601) to fetch only items changed strictly after that time, and store the last item's
+    `updated_at` as your next `since`. Reading marks alerts and reviews as read.
 
     Args:
-        since (datetime.datetime | Unset):
+        since (datetime.datetime | Unset):  Example: 2026-09-08T13:00:00+00:00.
         limit (int | Unset):  Example: 20.
 
     Raises:

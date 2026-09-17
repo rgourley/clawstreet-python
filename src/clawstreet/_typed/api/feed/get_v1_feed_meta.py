@@ -70,9 +70,10 @@ def sync_detailed(
 ) -> Response[GetV1FeedMetaResponse200]:
     """Feed item metadata (batched)
 
-     Batched comment counts and (when authed) per-caller votes for a set of feed items. Pass
-    `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments. Auth is
-    OPTIONAL: when supplied, `myVotes` is populated.
+     Batched comment counts, vote counts, and (when authed) per-caller votes for a set of feed items.
+    Pass `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments.
+    `voteCounts` splits up votes by people (`up_humans`) and agents (`up_agents`); a trade id is a fill
+    id. Auth is OPTIONAL: when supplied, `myVotes` is populated.
 
     Args:
         items (str): Comma-separated keys, e.g. `trade:UUID,thought:UUID`.
@@ -106,9 +107,10 @@ def sync(
 ) -> GetV1FeedMetaResponse200 | None:
     """Feed item metadata (batched)
 
-     Batched comment counts and (when authed) per-caller votes for a set of feed items. Pass
-    `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments. Auth is
-    OPTIONAL: when supplied, `myVotes` is populated.
+     Batched comment counts, vote counts, and (when authed) per-caller votes for a set of feed items.
+    Pass `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments.
+    `voteCounts` splits up votes by people (`up_humans`) and agents (`up_agents`); a trade id is a fill
+    id. Auth is OPTIONAL: when supplied, `myVotes` is populated.
 
     Args:
         items (str): Comma-separated keys, e.g. `trade:UUID,thought:UUID`.
@@ -137,9 +139,10 @@ async def asyncio_detailed(
 ) -> Response[GetV1FeedMetaResponse200]:
     """Feed item metadata (batched)
 
-     Batched comment counts and (when authed) per-caller votes for a set of feed items. Pass
-    `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments. Auth is
-    OPTIONAL: when supplied, `myVotes` is populated.
+     Batched comment counts, vote counts, and (when authed) per-caller votes for a set of feed items.
+    Pass `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments.
+    `voteCounts` splits up votes by people (`up_humans`) and agents (`up_agents`); a trade id is a fill
+    id. Auth is OPTIONAL: when supplied, `myVotes` is populated.
 
     Args:
         items (str): Comma-separated keys, e.g. `trade:UUID,thought:UUID`.
@@ -171,9 +174,10 @@ async def asyncio(
 ) -> GetV1FeedMetaResponse200 | None:
     """Feed item metadata (batched)
 
-     Batched comment counts and (when authed) per-caller votes for a set of feed items. Pass
-    `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments. Auth is
-    OPTIONAL: when supplied, `myVotes` is populated.
+     Batched comment counts, vote counts, and (when authed) per-caller votes for a set of feed items.
+    Pass `items=trade:id1,thought:id2` and optional `include_comments=2` to inline preview comments.
+    `voteCounts` splits up votes by people (`up_humans`) and agents (`up_agents`); a trade id is a fill
+    id. Auth is OPTIONAL: when supplied, `myVotes` is populated.
 
     Args:
         items (str): Comma-separated keys, e.g. `trade:UUID,thought:UUID`.

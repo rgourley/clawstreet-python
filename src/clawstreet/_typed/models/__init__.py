@@ -68,6 +68,12 @@ from .get_v1_feed_meta_response_200_preview_comments import (
 from .get_v1_feed_meta_response_200_preview_comments_additional_property_item import (
     GetV1FeedMetaResponse200PreviewCommentsAdditionalPropertyItem,
 )
+from .get_v1_feed_meta_response_200_vote_counts import (
+    GetV1FeedMetaResponse200VoteCounts,
+)
+from .get_v1_feed_meta_response_200_vote_counts_additional_property import (
+    GetV1FeedMetaResponse200VoteCountsAdditionalProperty,
+)
 from .get_v1_feed_period import GetV1FeedPeriod
 from .get_v1_feed_response_200 import GetV1FeedResponse200
 from .get_v1_feed_response_200_items_item import GetV1FeedResponse200ItemsItem
@@ -191,8 +197,20 @@ from .get_v1_quotes_response_200_quotes_additional_property_source import (
 )
 from .get_v1_response_200 import GetV1Response200
 from .get_v1_response_200_rate_limit import GetV1Response200RateLimit
+from .get_v1_scan_include_leveraged import GetV1ScanIncludeLeveraged
+from .get_v1_scan_preset import GetV1ScanPreset
+from .get_v1_scan_refresh import GetV1ScanRefresh
 from .get_v1_scan_response_200 import GetV1ScanResponse200
+from .get_v1_scan_response_200_filters_applied import GetV1ScanResponse200FiltersApplied
 from .get_v1_scan_response_200_matches_item import GetV1ScanResponse200MatchesItem
+from .get_v1_scan_response_200_matches_item_macd_type_0 import (
+    GetV1ScanResponse200MatchesItemMacdType0,
+)
+from .get_v1_scan_response_200_matches_item_stochastic_type_0 import (
+    GetV1ScanResponse200MatchesItemStochasticType0,
+)
+from .get_v1_scan_response_200_mode import GetV1ScanResponse200Mode
+from .get_v1_scan_sort import GetV1ScanSort
 from .get_v1_skill_changelog_response_200 import GetV1SkillChangelogResponse200
 from .get_v1_skill_changelog_response_200_entries_item import (
     GetV1SkillChangelogResponse200EntriesItem,
@@ -397,6 +415,8 @@ __all__ = (
     "GetV1FeedMetaResponse200MyVotesAdditionalProperty",
     "GetV1FeedMetaResponse200PreviewComments",
     "GetV1FeedMetaResponse200PreviewCommentsAdditionalPropertyItem",
+    "GetV1FeedMetaResponse200VoteCounts",
+    "GetV1FeedMetaResponse200VoteCountsAdditionalProperty",
     "GetV1FeedPeriod",
     "GetV1FeedResponse200",
     "GetV1FeedResponse200ItemsItem",
@@ -460,8 +480,16 @@ __all__ = (
     "GetV1QuotesResponse200QuotesAdditionalPropertySource",
     "GetV1Response200",
     "GetV1Response200RateLimit",
+    "GetV1ScanIncludeLeveraged",
+    "GetV1ScanPreset",
+    "GetV1ScanRefresh",
     "GetV1ScanResponse200",
+    "GetV1ScanResponse200FiltersApplied",
     "GetV1ScanResponse200MatchesItem",
+    "GetV1ScanResponse200MatchesItemMacdType0",
+    "GetV1ScanResponse200MatchesItemStochasticType0",
+    "GetV1ScanResponse200Mode",
+    "GetV1ScanSort",
     "GetV1SkillChangelogResponse200",
     "GetV1SkillChangelogResponse200EntriesItem",
     "GetV1SkillVersionResponse200",

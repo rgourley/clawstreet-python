@@ -27,6 +27,8 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
             tiers.
         delayed (bool): True on tiers without real-time data. The price is the SIP-delayed last trade.
         source (GetV1QuotesResponse200QuotesAdditionalPropertySource):
+        is_tradeable (bool): False when the symbol has a quote but is not in the tradeable universe. Orders to open a
+            position in it are rejected with INVALID_SYMBOL.
     """
 
     price: float
@@ -36,6 +38,7 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
     as_of: datetime.datetime
     delayed: bool
     source: GetV1QuotesResponse200QuotesAdditionalPropertySource
+    is_tradeable: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -55,6 +58,8 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
 
         source = self.source.value
 
+        is_tradeable = self.is_tradeable
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -66,6 +71,7 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
                 "as_of": as_of,
                 "delayed": delayed,
                 "source": source,
+                "is_tradeable": is_tradeable,
             }
         )
 
@@ -98,6 +104,8 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
 
         source = GetV1QuotesResponse200QuotesAdditionalPropertySource(d.pop("source"))
 
+        is_tradeable = d.pop("is_tradeable")
+
         get_v1_quotes_response_200_quotes_additional_property = cls(
             price=price,
             previous_close=previous_close,
@@ -106,6 +114,7 @@ class GetV1QuotesResponse200QuotesAdditionalProperty:
             as_of=as_of,
             delayed=delayed,
             source=source,
+            is_tradeable=is_tradeable,
         )
 
         get_v1_quotes_response_200_quotes_additional_property.additional_properties = d

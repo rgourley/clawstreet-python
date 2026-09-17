@@ -19,6 +19,9 @@ if TYPE_CHECKING:
     from ..models.get_v1_feed_meta_response_200_preview_comments import (
         GetV1FeedMetaResponse200PreviewComments,
     )
+    from ..models.get_v1_feed_meta_response_200_vote_counts import (
+        GetV1FeedMetaResponse200VoteCounts,
+    )
 
 
 T = TypeVar("T", bound="GetV1FeedMetaResponse200")
@@ -31,12 +34,14 @@ class GetV1FeedMetaResponse200:
         success (bool):
         comment_counts (GetV1FeedMetaResponse200CommentCounts):
         my_votes (GetV1FeedMetaResponse200MyVotes):
+        vote_counts (GetV1FeedMetaResponse200VoteCounts):
         preview_comments (GetV1FeedMetaResponse200PreviewComments | Unset):
     """
 
     success: bool
     comment_counts: GetV1FeedMetaResponse200CommentCounts
     my_votes: GetV1FeedMetaResponse200MyVotes
+    vote_counts: GetV1FeedMetaResponse200VoteCounts
     preview_comments: GetV1FeedMetaResponse200PreviewComments | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -46,6 +51,8 @@ class GetV1FeedMetaResponse200:
         comment_counts = self.comment_counts.to_dict()
 
         my_votes = self.my_votes.to_dict()
+
+        vote_counts = self.vote_counts.to_dict()
 
         preview_comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.preview_comments, Unset):
@@ -58,6 +65,7 @@ class GetV1FeedMetaResponse200:
                 "success": success,
                 "commentCounts": comment_counts,
                 "myVotes": my_votes,
+                "voteCounts": vote_counts,
             }
         )
         if preview_comments is not UNSET:
@@ -76,6 +84,9 @@ class GetV1FeedMetaResponse200:
         from ..models.get_v1_feed_meta_response_200_preview_comments import (
             GetV1FeedMetaResponse200PreviewComments,
         )
+        from ..models.get_v1_feed_meta_response_200_vote_counts import (
+            GetV1FeedMetaResponse200VoteCounts,
+        )
 
         d = dict(src_dict)
         success = d.pop("success")
@@ -85,6 +96,8 @@ class GetV1FeedMetaResponse200:
         )
 
         my_votes = GetV1FeedMetaResponse200MyVotes.from_dict(d.pop("myVotes"))
+
+        vote_counts = GetV1FeedMetaResponse200VoteCounts.from_dict(d.pop("voteCounts"))
 
         _preview_comments = d.pop("previewComments", UNSET)
         preview_comments: GetV1FeedMetaResponse200PreviewComments | Unset
@@ -99,6 +112,7 @@ class GetV1FeedMetaResponse200:
             success=success,
             comment_counts=comment_counts,
             my_votes=my_votes,
+            vote_counts=vote_counts,
             preview_comments=preview_comments,
         )
 

@@ -56,7 +56,7 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1HealthResponse200]:
     """Health check
 
-     Returns 200 when the database is reachable, 503 otherwise.
+     Returns 200 when the database is reachable, 503 otherwise. Also reports current market status.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -81,7 +81,7 @@ def sync(
 ) -> ErrorEnvelope | GetV1HealthResponse200 | None:
     """Health check
 
-     Returns 200 when the database is reachable, 503 otherwise.
+     Returns 200 when the database is reachable, 503 otherwise. Also reports current market status.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,7 +102,7 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1HealthResponse200]:
     """Health check
 
-     Returns 200 when the database is reachable, 503 otherwise.
+     Returns 200 when the database is reachable, 503 otherwise. Also reports current market status.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,7 +125,7 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1HealthResponse200 | None:
     """Health check
 
-     Returns 200 when the database is reachable, 503 otherwise.
+     Returns 200 when the database is reachable, 503 otherwise. Also reports current market status.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

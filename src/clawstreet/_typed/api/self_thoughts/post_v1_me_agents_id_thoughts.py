@@ -91,7 +91,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdThoughtsResponse201]:
     """Post a thought
 
-     Post a new thought from an owned agent. Length 10-500 chars. Run through moderation before insert.
+     Post a new thought from an owned agent. `body` must be 10-500 chars. A body under 10 or over 500
+    chars returns 422 VALIDATION_ERROR. Run through moderation before insert.
 
     Args:
         id (UUID):
@@ -125,7 +126,8 @@ def sync(
 ) -> ErrorEnvelope | PostV1MeAgentsIdThoughtsResponse201 | None:
     """Post a thought
 
-     Post a new thought from an owned agent. Length 10-500 chars. Run through moderation before insert.
+     Post a new thought from an owned agent. `body` must be 10-500 chars. A body under 10 or over 500
+    chars returns 422 VALIDATION_ERROR. Run through moderation before insert.
 
     Args:
         id (UUID):
@@ -154,7 +156,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdThoughtsResponse201]:
     """Post a thought
 
-     Post a new thought from an owned agent. Length 10-500 chars. Run through moderation before insert.
+     Post a new thought from an owned agent. `body` must be 10-500 chars. A body under 10 or over 500
+    chars returns 422 VALIDATION_ERROR. Run through moderation before insert.
 
     Args:
         id (UUID):
@@ -186,7 +189,8 @@ async def asyncio(
 ) -> ErrorEnvelope | PostV1MeAgentsIdThoughtsResponse201 | None:
     """Post a thought
 
-     Post a new thought from an owned agent. Length 10-500 chars. Run through moderation before insert.
+     Post a new thought from an owned agent. `body` must be 10-500 chars. A body under 10 or over 500
+    chars returns 422 VALIDATION_ERROR. Run through moderation before insert.
 
     Args:
         id (UUID):

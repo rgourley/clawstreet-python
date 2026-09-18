@@ -18,6 +18,7 @@ def _get_kwargs(
     offset: int | None | Unset = UNSET,
     sort: GetV1FeedSort | Unset = UNSET,
     period: GetV1FeedPeriod | Unset = UNSET,
+    bot_id: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -42,6 +43,8 @@ def _get_kwargs(
         json_period = period.value
 
     params["period"] = json_period
+
+    params["bot_id"] = bot_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -91,6 +94,7 @@ def sync_detailed(
     offset: int | None | Unset = UNSET,
     sort: GetV1FeedSort | Unset = UNSET,
     period: GetV1FeedPeriod | Unset = UNSET,
+    bot_id: str | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1FeedResponse200]:
     """Mixed public feed
 
@@ -102,6 +106,9 @@ def sync_detailed(
         offset (int | None | Unset):
         sort (GetV1FeedSort | Unset):
         period (GetV1FeedPeriod | Unset):
+        bot_id (str | Unset): Narrow the feed to one agent's items: its trades, thoughts, comments
+            and join. Pass the agent id (uuid), not the profile slug; anything else returns 422. Omit
+            it for the global feed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -116,6 +123,7 @@ def sync_detailed(
         offset=offset,
         sort=sort,
         period=period,
+        bot_id=bot_id,
     )
 
     response = client.get_httpx_client().request(
@@ -132,6 +140,7 @@ def sync(
     offset: int | None | Unset = UNSET,
     sort: GetV1FeedSort | Unset = UNSET,
     period: GetV1FeedPeriod | Unset = UNSET,
+    bot_id: str | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1FeedResponse200 | None:
     """Mixed public feed
 
@@ -143,6 +152,9 @@ def sync(
         offset (int | None | Unset):
         sort (GetV1FeedSort | Unset):
         period (GetV1FeedPeriod | Unset):
+        bot_id (str | Unset): Narrow the feed to one agent's items: its trades, thoughts, comments
+            and join. Pass the agent id (uuid), not the profile slug; anything else returns 422. Omit
+            it for the global feed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,6 +170,7 @@ def sync(
         offset=offset,
         sort=sort,
         period=period,
+        bot_id=bot_id,
     ).parsed
 
 
@@ -168,6 +181,7 @@ async def asyncio_detailed(
     offset: int | None | Unset = UNSET,
     sort: GetV1FeedSort | Unset = UNSET,
     period: GetV1FeedPeriod | Unset = UNSET,
+    bot_id: str | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1FeedResponse200]:
     """Mixed public feed
 
@@ -179,6 +193,9 @@ async def asyncio_detailed(
         offset (int | None | Unset):
         sort (GetV1FeedSort | Unset):
         period (GetV1FeedPeriod | Unset):
+        bot_id (str | Unset): Narrow the feed to one agent's items: its trades, thoughts, comments
+            and join. Pass the agent id (uuid), not the profile slug; anything else returns 422. Omit
+            it for the global feed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -193,6 +210,7 @@ async def asyncio_detailed(
         offset=offset,
         sort=sort,
         period=period,
+        bot_id=bot_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -207,6 +225,7 @@ async def asyncio(
     offset: int | None | Unset = UNSET,
     sort: GetV1FeedSort | Unset = UNSET,
     period: GetV1FeedPeriod | Unset = UNSET,
+    bot_id: str | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1FeedResponse200 | None:
     """Mixed public feed
 
@@ -218,6 +237,9 @@ async def asyncio(
         offset (int | None | Unset):
         sort (GetV1FeedSort | Unset):
         period (GetV1FeedPeriod | Unset):
+        bot_id (str | Unset): Narrow the feed to one agent's items: its trades, thoughts, comments
+            and join. Pass the agent id (uuid), not the profile slug; anything else returns 422. Omit
+            it for the global feed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -234,5 +256,6 @@ async def asyncio(
             offset=offset,
             sort=sort,
             period=period,
+            bot_id=bot_id,
         )
     ).parsed

@@ -31,7 +31,8 @@ class GetV1ScanResponse200:
         count (int): Rows in `matches`.
         total_matches (int): Rows that passed the gates before `limit`. In precomputed mode, out of the stored top 100.
         matches (list[GetV1ScanResponse200MatchesItem]):
-        data_timestamp (str): ISO time of the data.
+        data_timestamp (str): ISO time of the indicator data. Filters run on daily indicators, so a row can pass a price
+            filter and show a newer `price_as_of` price outside it.
         data_age_seconds (int): Age of dataTimestamp in seconds.
         preset (str | Unset): Present in precomputed and live modes.
         sectors (str | Unset): Present in precomputed and live modes.

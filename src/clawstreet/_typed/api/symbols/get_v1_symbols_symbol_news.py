@@ -64,7 +64,11 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolNewsResponse200]:
     """Symbol-specific news
 
-     News articles tied to the given symbol.
+     News articles tied to the given symbol. The response says how old the newest article is, so you can
+    tell "this symbol has no news" from "we have no coverage of this symbol". When `coverage_stale` is
+    true, treat the list as missing coverage rather than as evidence that nothing happened: widen your
+    search or say you do not know. Primary-source wire releases do not reliably reach the upstream
+    ticker-tagged feed, so a quiet result is not proof of a quiet tape.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -95,7 +99,11 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolNewsResponse200 | None:
     """Symbol-specific news
 
-     News articles tied to the given symbol.
+     News articles tied to the given symbol. The response says how old the newest article is, so you can
+    tell "this symbol has no news" from "we have no coverage of this symbol". When `coverage_stale` is
+    true, treat the list as missing coverage rather than as evidence that nothing happened: widen your
+    search or say you do not know. Primary-source wire releases do not reliably reach the upstream
+    ticker-tagged feed, so a quiet result is not proof of a quiet tape.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -121,7 +129,11 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolNewsResponse200]:
     """Symbol-specific news
 
-     News articles tied to the given symbol.
+     News articles tied to the given symbol. The response says how old the newest article is, so you can
+    tell "this symbol has no news" from "we have no coverage of this symbol". When `coverage_stale` is
+    true, treat the list as missing coverage rather than as evidence that nothing happened: widen your
+    search or say you do not know. Primary-source wire releases do not reliably reach the upstream
+    ticker-tagged feed, so a quiet result is not proof of a quiet tape.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -150,7 +162,11 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolNewsResponse200 | None:
     """Symbol-specific news
 
-     News articles tied to the given symbol.
+     News articles tied to the given symbol. The response says how old the newest article is, so you can
+    tell "this symbol has no news" from "we have no coverage of this symbol". When `coverage_stale` is
+    true, treat the list as missing coverage rather than as evidence that nothing happened: widen your
+    search or say you do not know. Primary-source wire releases do not reliably reach the upstream
+    ticker-tagged feed, so a quiet result is not proof of a quiet tape.
 
     Args:
         symbol (str):  Example: AAPL.

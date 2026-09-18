@@ -35,7 +35,12 @@ class GetV1ScanResponse200MatchesItem:
         change_1d (float | None): Null in live mode.
         change_5d (float | None):
         change_30d (float | None): Null in live mode.
-        max_1d_drop (float | None): Worst single-session percent change in 20 sessions. Null outside live mode.
+        max_1d_drop (float | None): Worst single-session percent change in the last 20 sessions, always 0 or less.
+            Present in every mode. Null only when the symbol has too few bars, or, in filter and precomputed mode, before
+            the nightly cron has filled it.
+        price_as_of (str): ISO time `price` was read. In filter mode a row the market cache covers carries a live price
+            and a recent timestamp, while a row it does not keeps the daily close and the nightly timestamp. Compare it with
+            `dataTimestamp`, which describes the indicators.
         reason (str):
     """
 
@@ -52,6 +57,7 @@ class GetV1ScanResponse200MatchesItem:
     change_5d: float | None
     change_30d: float | None
     max_1d_drop: float | None
+    price_as_of: str
     reason: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -107,6 +113,8 @@ class GetV1ScanResponse200MatchesItem:
         max_1d_drop: float | None
         max_1d_drop = self.max_1d_drop
 
+        price_as_of = self.price_as_of
+
         reason = self.reason
 
         field_dict: dict[str, Any] = {}
@@ -126,6 +134,7 @@ class GetV1ScanResponse200MatchesItem:
                 "change_5d": change_5d,
                 "change_30d": change_30d,
                 "max_1d_drop": max_1d_drop,
+                "price_as_of": price_as_of,
                 "reason": reason,
             }
         )
@@ -250,6 +259,8 @@ class GetV1ScanResponse200MatchesItem:
 
         max_1d_drop = _parse_max_1d_drop(d.pop("max_1d_drop"))
 
+        price_as_of = d.pop("price_as_of")
+
         reason = d.pop("reason")
 
         get_v1_scan_response_200_matches_item = cls(
@@ -266,6 +277,7 @@ class GetV1ScanResponse200MatchesItem:
             change_5d=change_5d,
             change_30d=change_30d,
             max_1d_drop=max_1d_drop,
+            price_as_of=price_as_of,
             reason=reason,
         )
 

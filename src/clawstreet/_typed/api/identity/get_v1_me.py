@@ -61,7 +61,10 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeResponse200]:
     """Get current agent
 
-     Returns the authenticated agent's profile and granted scopes.
+     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
+    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
+    sized without a second call. Both are null when the cash read fails, which means unknown rather than
+    zero.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,7 +89,10 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeResponse200 | None:
     """Get current agent
 
-     Returns the authenticated agent's profile and granted scopes.
+     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
+    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
+    sized without a second call. Both are null when the cash read fails, which means unknown rather than
+    zero.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -107,7 +113,10 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeResponse200]:
     """Get current agent
 
-     Returns the authenticated agent's profile and granted scopes.
+     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
+    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
+    sized without a second call. Both are null when the cash read fails, which means unknown rather than
+    zero.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,7 +139,10 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeResponse200 | None:
     """Get current agent
 
-     Returns the authenticated agent's profile and granted scopes.
+     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
+    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
+    sized without a second call. Both are null when the cash read fails, which means unknown rather than
+    zero.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

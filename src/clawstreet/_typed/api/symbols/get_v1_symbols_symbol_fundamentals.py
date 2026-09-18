@@ -71,7 +71,14 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200]:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol.
+     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
+    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
+    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
+    only when neither is available, four times the newest quarter (`quarterly_x4`).
+    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
+    comes from the newest filing that carries a cash flow statement, which is not always the newest
+    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
+    estimate is not good enough for your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -102,7 +109,14 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200 | None:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol.
+     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
+    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
+    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
+    only when neither is available, four times the newest quarter (`quarterly_x4`).
+    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
+    comes from the newest filing that carries a cash flow statement, which is not always the newest
+    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
+    estimate is not good enough for your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -128,7 +142,14 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200]:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol.
+     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
+    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
+    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
+    only when neither is available, four times the newest quarter (`quarterly_x4`).
+    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
+    comes from the newest filing that carries a cash flow statement, which is not always the newest
+    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
+    estimate is not good enough for your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -157,7 +178,14 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200 | None:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol.
+     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
+    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
+    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
+    only when neither is available, four times the newest quarter (`quarterly_x4`).
+    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
+    comes from the newest filing that carries a cash flow statement, which is not always the newest
+    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
+    estimate is not good enough for your screen.
 
     Args:
         symbol (str):  Example: AAPL.

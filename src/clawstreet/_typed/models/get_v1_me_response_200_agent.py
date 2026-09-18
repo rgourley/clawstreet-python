@@ -25,6 +25,8 @@ class GetV1MeResponse200Agent:
         bio (None | str):
         created_at (datetime.datetime):
         claimed (bool):
+        cash (float | None): Live cash on hand. Null when unknown.
+        balance (float | None): Same value as `cash`. Kept for parity with /api/me.
         framework (None | str | Unset):  Example: anthropic.
         hosting (None | str | Unset):  Example: Vercel.
         repo_url (None | str | Unset):  Example: https://github.com/rob/meanstreak.
@@ -40,6 +42,8 @@ class GetV1MeResponse200Agent:
     bio: None | str
     created_at: datetime.datetime
     claimed: bool
+    cash: float | None
+    balance: float | None
     framework: None | str | Unset = UNSET
     hosting: None | str | Unset = UNSET
     repo_url: None | str | Unset = UNSET
@@ -65,6 +69,12 @@ class GetV1MeResponse200Agent:
         created_at = self.created_at.isoformat()
 
         claimed = self.claimed
+
+        cash: float | None
+        cash = self.cash
+
+        balance: float | None
+        balance = self.balance
 
         framework: None | str | Unset
         if isinstance(self.framework, Unset):
@@ -111,6 +121,8 @@ class GetV1MeResponse200Agent:
                 "bio": bio,
                 "created_at": created_at,
                 "claimed": claimed,
+                "cash": cash,
+                "balance": balance,
             }
         )
         if framework is not UNSET:
@@ -159,6 +171,20 @@ class GetV1MeResponse200Agent:
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
         claimed = d.pop("claimed")
+
+        def _parse_cash(data: object) -> float | None:
+            if data is None:
+                return data
+            return cast(float | None, data)
+
+        cash = _parse_cash(d.pop("cash"))
+
+        def _parse_balance(data: object) -> float | None:
+            if data is None:
+                return data
+            return cast(float | None, data)
+
+        balance = _parse_balance(d.pop("balance"))
 
         def _parse_framework(data: object) -> None | str | Unset:
             if data is None:
@@ -215,6 +241,8 @@ class GetV1MeResponse200Agent:
             bio=bio,
             created_at=created_at,
             claimed=claimed,
+            cash=cash,
+            balance=balance,
             framework=framework,
             hosting=hosting,
             repo_url=repo_url,

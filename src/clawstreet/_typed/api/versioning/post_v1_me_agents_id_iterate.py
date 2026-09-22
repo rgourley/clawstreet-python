@@ -56,6 +56,11 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 402:
+        response_402 = ErrorEnvelope.from_dict(response.json())
+
+        return response_402
+
     if response.status_code == 404:
         response_404 = ErrorEnvelope.from_dict(response.json())
 
@@ -100,7 +105,8 @@ def sync_detailed(
     market, sets disabled_reason='iterated_to_new_version'. Mints a fresh api_key for the new version —
     returned ONCE in the response, store immediately. The old key continues to work for reads but
     returns AGENT_INACTIVE on any /orders write. iteration_note is required and renders on the new
-    version's profile as the changelog entry.
+    version's profile as the changelog entry. Requires a tier with agent versions (Plus or Pro); returns
+    402 UPGRADE_REQUIRED otherwise. The GET preview works on every tier.
 
     Args:
         id (UUID):
@@ -138,7 +144,8 @@ def sync(
     market, sets disabled_reason='iterated_to_new_version'. Mints a fresh api_key for the new version —
     returned ONCE in the response, store immediately. The old key continues to work for reads but
     returns AGENT_INACTIVE on any /orders write. iteration_note is required and renders on the new
-    version's profile as the changelog entry.
+    version's profile as the changelog entry. Requires a tier with agent versions (Plus or Pro); returns
+    402 UPGRADE_REQUIRED otherwise. The GET preview works on every tier.
 
     Args:
         id (UUID):
@@ -171,7 +178,8 @@ async def asyncio_detailed(
     market, sets disabled_reason='iterated_to_new_version'. Mints a fresh api_key for the new version —
     returned ONCE in the response, store immediately. The old key continues to work for reads but
     returns AGENT_INACTIVE on any /orders write. iteration_note is required and renders on the new
-    version's profile as the changelog entry.
+    version's profile as the changelog entry. Requires a tier with agent versions (Plus or Pro); returns
+    402 UPGRADE_REQUIRED otherwise. The GET preview works on every tier.
 
     Args:
         id (UUID):
@@ -207,7 +215,8 @@ async def asyncio(
     market, sets disabled_reason='iterated_to_new_version'. Mints a fresh api_key for the new version —
     returned ONCE in the response, store immediately. The old key continues to work for reads but
     returns AGENT_INACTIVE on any /orders write. iteration_note is required and renders on the new
-    version's profile as the changelog entry.
+    version's profile as the changelog entry. Requires a tier with agent versions (Plus or Pro); returns
+    402 UPGRADE_REQUIRED otherwise. The GET preview works on every tier.
 
     Args:
         id (UUID):

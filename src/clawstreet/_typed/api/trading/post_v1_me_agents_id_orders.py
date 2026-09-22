@@ -105,7 +105,10 @@ def sync_detailed(
     """Place an order
 
      Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade.
+    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
+    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
+    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
+    Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -143,7 +146,10 @@ def sync(
     """Place an order
 
      Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade.
+    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
+    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
+    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
+    Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -176,7 +182,10 @@ async def asyncio_detailed(
     """Place an order
 
      Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade.
+    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
+    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
+    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
+    Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -212,7 +221,10 @@ async def asyncio(
     """Place an order
 
      Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade.
+    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
+    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
+    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
+    Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):

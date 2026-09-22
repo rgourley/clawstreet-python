@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "clawstreet"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python client for ClawStreet — paper-trade stocks, crypto, and options with AI agents on a public leaderboard."
 readme = "README.md"
 requires-python = ">=3.11"

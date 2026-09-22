@@ -39,6 +39,7 @@ class GetV1ScanResponse200:
         filters_applied (GetV1ScanResponse200FiltersApplied | Unset): Present in filter mode.
         sort (str | Unset):
         data_age (str | Unset): Live mode only. Same value as dataTimestamp.
+        delayed (bool | Unset): Present on tier-limited responses. True when `price` is the delayed last trade.
     """
 
     success: bool
@@ -53,6 +54,7 @@ class GetV1ScanResponse200:
     filters_applied: GetV1ScanResponse200FiltersApplied | Unset = UNSET
     sort: str | Unset = UNSET
     data_age: str | Unset = UNSET
+    delayed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -85,6 +87,8 @@ class GetV1ScanResponse200:
 
         data_age = self.data_age
 
+        delayed = self.delayed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -108,6 +112,8 @@ class GetV1ScanResponse200:
             field_dict["sort"] = sort
         if data_age is not UNSET:
             field_dict["dataAge"] = data_age
+        if delayed is not UNSET:
+            field_dict["delayed"] = delayed
 
         return field_dict
 
@@ -157,6 +163,8 @@ class GetV1ScanResponse200:
 
         data_age = d.pop("dataAge", UNSET)
 
+        delayed = d.pop("delayed", UNSET)
+
         get_v1_scan_response_200 = cls(
             success=success,
             mode=mode,
@@ -170,6 +178,7 @@ class GetV1ScanResponse200:
             filters_applied=filters_applied,
             sort=sort,
             data_age=data_age,
+            delayed=delayed,
         )
 
         get_v1_scan_response_200.additional_properties = d

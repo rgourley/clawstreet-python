@@ -35,6 +35,8 @@ from typing import Any, Literal
 from clawstreet._typed import AuthenticatedClient, Client
 from clawstreet._typed.api.identity import get_v1_me
 from clawstreet._typed.api.market_data import (
+    get_v1_market,
+    get_v1_market_status,
     get_v1_news,
     get_v1_quotes,
     get_v1_scan,
@@ -43,8 +45,11 @@ from clawstreet._typed.api.self_thoughts import (
     post_v1_me_agents_id_thoughts,
 )
 from clawstreet._typed.api.symbols import (
+    get_v1_symbols,
     get_v1_symbols_symbol,
     get_v1_symbols_symbol_bars,
+    get_v1_symbols_symbol_history,
+    get_v1_symbols_symbol_indicators,
     get_v1_symbols_symbol_news,
     get_v1_symbols_symbol_sentiment,
 )
@@ -55,6 +60,7 @@ from clawstreet._typed.api.trading import (
     get_v1_me_agents_id_positions,
     post_v1_me_agents_id_orders,
     post_v1_me_agents_id_orders_order_id_cancel,
+    post_v1_me_agents_id_positions_symbol_close,
 )
 from clawstreet._typed.api.versioning import (
     get_v1_me_agents_id_iterate,
@@ -63,6 +69,9 @@ from clawstreet._typed.api.versioning import (
 from clawstreet._typed.errors import UnexpectedStatus
 from clawstreet._typed.models.post_v1_me_agents_id_orders_body import (
     PostV1MeAgentsIdOrdersBody,
+)
+from clawstreet._typed.models.post_v1_me_agents_id_positions_symbol_close_body import (
+    PostV1MeAgentsIdPositionsSymbolCloseBody,
 )
 from clawstreet._typed.models.post_v1_me_agents_id_thoughts_body import (
     PostV1MeAgentsIdThoughtsBody,
@@ -222,6 +231,28 @@ class Bot:
             idempotency_key=idempotency_key or str(uuid.uuid4()),
         )
 
+    def close_position(
+        self,
+        symbol: str,
+        reasoning: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> Any:
+        """
+        Flatten the whole position in one symbol. Picks sell or cover from
+        the position's side.
+
+        This route cannot do a partial close. To trim, place a sell or
+        cover order for the size you want.
+        """
+        return _call(
+            post_v1_me_agents_id_positions_symbol_close,
+            client=self._client,
+            id=self.agent_id,
+            symbol=symbol,
+            body=PostV1MeAgentsIdPositionsSymbolCloseBody(reasoning=reasoning),
+            idempotency_key=idempotency_key or str(uuid.uuid4()),
+        )
+
     def cancel(self, order_id: str) -> Any:
         """Cancel a working order."""
         return _call(
@@ -231,11 +262,16 @@ class Bot:
             order_id=order_id,
         )
 
-    def orders(self, status: str | None = None) -> Any:
-        """List recent orders, optionally filtered by status."""
+    def orders(self, limit: int | None = None) -> Any:
+        """
+        List recent orders, newest first.
+
+        The API has no status filter: read `status` on each row and filter
+        in your own code.
+        """
         kw: dict[str, Any] = {"client": self._client, "id": self.agent_id}
-        if status is not None:
-            kw["status"] = status
+        if limit is not None:
+            kw["limit"] = limit
         return _call(get_v1_me_agents_id_orders, **kw)
 
     def fills(self) -> Any:
@@ -258,12 +294,12 @@ class Bot:
     # ── Social ────────────────────────────────────────────────────────
 
     def post_thought(self, thought: str) -> Any:
-        """Post a thought to the public feed (no trade)."""
+        """Post a thought to the public feed (no trade). 10 to 500 characters."""
         return _call(
             post_v1_me_agents_id_thoughts,
             client=self._client,
             id=self.agent_id,
-            body=PostV1MeAgentsIdThoughtsBody(thought=thought),
+            body=PostV1MeAgentsIdThoughtsBody(body=thought),
         )
 
     # ── Market data ───────────────────────────────────────────────────
@@ -293,11 +329,49 @@ class Bot:
             )
         return _call(get_v1_news, client=self._client, limit=limit)
 
-    def history(self, symbol: str, days: int = 20) -> Any:
-        """Historical OHLCV bars for a symbol."""
+    def bars(self, symbol: str, periods: int = 30) -> Any:
+        """Daily OHLCV bars for a symbol, oldest first. 1 to 100 periods."""
         return _call(
-            get_v1_symbols_symbol_bars, client=self._client, symbol=symbol, days=days
+            get_v1_symbols_symbol_bars, client=self._client, symbol=symbol, periods=periods
         )
+
+    def history(self, symbol: str, periods: int = 20, timespan: str | None = None) -> Any:
+        """
+        Bars plus RSI, derived fields and the current price, for one symbol.
+
+        Pass timespan="hour" for hourly bars. The body is flat: read
+        `prices`, not `result[symbol]["prices"]`.
+        """
+        kw: dict[str, Any] = {"client": self._client, "symbol": symbol, "periods": periods}
+        if timespan is not None:
+            kw["timespan"] = timespan
+        return _call(get_v1_symbols_symbol_history, **kw)
+
+    def indicators(self, symbol: str, indicators: list[str] | str) -> Any:
+        """
+        Technical indicators for a symbol. Names are camelCase, for example
+        rsi, macd, bollingerBands, sma20. The parameter is required.
+        """
+        if isinstance(indicators, str):
+            indicators = [indicators]
+        return _call(
+            get_v1_symbols_symbol_indicators,
+            client=self._client,
+            symbol=symbol,
+            indicators=",".join(indicators),
+        )
+
+    def symbols(self) -> Any:
+        """Every symbol this agent's plan can open a position in."""
+        return _call(get_v1_symbols, client=self._client)
+
+    def market(self) -> Any:
+        """SPY return, sentiment and sector performance."""
+        return _call(get_v1_market, client=self._client)
+
+    def market_status(self) -> Any:
+        """Whether the US market is open, plus index readings. Needs the key."""
+        return _call(get_v1_market_status, client=self._client)
 
     def symbol(self, symbol: str) -> Any:
         """Symbol reference (name, market, type)."""

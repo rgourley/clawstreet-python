@@ -16,34 +16,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     symbol: str,
     *,
-    timespan: str | Unset = UNSET,
-    multiplier: int | None | Unset = UNSET,
-    from_: str | Unset = UNSET,
-    to: str | Unset = UNSET,
-    limit: int | None | Unset = UNSET,
+    periods: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["timespan"] = timespan
-
-    json_multiplier: int | None | Unset
-    if isinstance(multiplier, Unset):
-        json_multiplier = UNSET
-    else:
-        json_multiplier = multiplier
-    params["multiplier"] = json_multiplier
-
-    params["from"] = from_
-
-    params["to"] = to
-
-    json_limit: int | None | Unset
-    if isinstance(limit, Unset):
-        json_limit = UNSET
-    else:
-        json_limit = limit
-    params["limit"] = json_limit
+    params["periods"] = periods
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -71,6 +49,11 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 402:
+        response_402 = ErrorEnvelope.from_dict(response.json())
+
+        return response_402
+
     if response.status_code == 404:
         response_404 = ErrorEnvelope.from_dict(response.json())
 
@@ -97,23 +80,17 @@ def sync_detailed(
     symbol: str,
     *,
     client: AuthenticatedClient,
-    timespan: str | Unset = UNSET,
-    multiplier: int | None | Unset = UNSET,
-    from_: str | Unset = UNSET,
-    to: str | Unset = UNSET,
-    limit: int | None | Unset = UNSET,
+    periods: int | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]:
-    """Historical OHLC bars
+    """Historical daily bars
 
-     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+     Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
+    default 30). A tier sees at most its market-history days: asking for more returns 402
+    `UPGRADE_REQUIRED` with `history_days` in the details.
 
     Args:
         symbol (str):  Example: AAPL.
-        timespan (str | Unset):  Example: day.
-        multiplier (int | None | Unset):
-        from_ (str | Unset):
-        to (str | Unset):
-        limit (int | None | Unset):
+        periods (int | Unset): Trading days of bars. Default 30. Example: 30.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,11 +102,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         symbol=symbol,
-        timespan=timespan,
-        multiplier=multiplier,
-        from_=from_,
-        to=to,
-        limit=limit,
+        periods=periods,
     )
 
     response = client.get_httpx_client().request(
@@ -143,23 +116,17 @@ def sync(
     symbol: str,
     *,
     client: AuthenticatedClient,
-    timespan: str | Unset = UNSET,
-    multiplier: int | None | Unset = UNSET,
-    from_: str | Unset = UNSET,
-    to: str | Unset = UNSET,
-    limit: int | None | Unset = UNSET,
+    periods: int | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200 | None:
-    """Historical OHLC bars
+    """Historical daily bars
 
-     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+     Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
+    default 30). A tier sees at most its market-history days: asking for more returns 402
+    `UPGRADE_REQUIRED` with `history_days` in the details.
 
     Args:
         symbol (str):  Example: AAPL.
-        timespan (str | Unset):  Example: day.
-        multiplier (int | None | Unset):
-        from_ (str | Unset):
-        to (str | Unset):
-        limit (int | None | Unset):
+        periods (int | Unset): Trading days of bars. Default 30. Example: 30.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -172,11 +139,7 @@ def sync(
     return sync_detailed(
         symbol=symbol,
         client=client,
-        timespan=timespan,
-        multiplier=multiplier,
-        from_=from_,
-        to=to,
-        limit=limit,
+        periods=periods,
     ).parsed
 
 
@@ -184,23 +147,17 @@ async def asyncio_detailed(
     symbol: str,
     *,
     client: AuthenticatedClient,
-    timespan: str | Unset = UNSET,
-    multiplier: int | None | Unset = UNSET,
-    from_: str | Unset = UNSET,
-    to: str | Unset = UNSET,
-    limit: int | None | Unset = UNSET,
+    periods: int | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200]:
-    """Historical OHLC bars
+    """Historical daily bars
 
-     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+     Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
+    default 30). A tier sees at most its market-history days: asking for more returns 402
+    `UPGRADE_REQUIRED` with `history_days` in the details.
 
     Args:
         symbol (str):  Example: AAPL.
-        timespan (str | Unset):  Example: day.
-        multiplier (int | None | Unset):
-        from_ (str | Unset):
-        to (str | Unset):
-        limit (int | None | Unset):
+        periods (int | Unset): Trading days of bars. Default 30. Example: 30.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -212,11 +169,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         symbol=symbol,
-        timespan=timespan,
-        multiplier=multiplier,
-        from_=from_,
-        to=to,
-        limit=limit,
+        periods=periods,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -228,23 +181,17 @@ async def asyncio(
     symbol: str,
     *,
     client: AuthenticatedClient,
-    timespan: str | Unset = UNSET,
-    multiplier: int | None | Unset = UNSET,
-    from_: str | Unset = UNSET,
-    to: str | Unset = UNSET,
-    limit: int | None | Unset = UNSET,
+    periods: int | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1SymbolsSymbolBarsResponse200 | None:
-    """Historical OHLC bars
+    """Historical daily bars
 
-     Time-bucketed OHLC bars for a symbol. Query params control timespan and lookback window.
+     Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
+    default 30). A tier sees at most its market-history days: asking for more returns 402
+    `UPGRADE_REQUIRED` with `history_days` in the details.
 
     Args:
         symbol (str):  Example: AAPL.
-        timespan (str | Unset):  Example: day.
-        multiplier (int | None | Unset):
-        from_ (str | Unset):
-        to (str | Unset):
-        limit (int | None | Unset):
+        periods (int | Unset): Trading days of bars. Default 30. Example: 30.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -258,10 +205,6 @@ async def asyncio(
         await asyncio_detailed(
             symbol=symbol,
             client=client,
-            timespan=timespan,
-            multiplier=multiplier,
-            from_=from_,
-            to=to,
-            limit=limit,
+            periods=periods,
         )
     ).parsed

@@ -72,7 +72,9 @@ def sync_detailed(
 
      Server-Sent Events stream. Emits the following event types: `connected`, `quote`, `heartbeat`,
     `error`. Reconnect on disconnect; events resume from latest-seen timestamp. Heartbeats every 30s
-    keep the connection alive.
+    keep the connection alive. Tiers without real-time data get the SIP-delayed last trade (about 15
+    minutes old), polled every 15 seconds, and every `connected` and `quote` event carries `delayed:
+    true`. Real-time tiers get fair market value every second with `delayed: false`.
 
     Args:
         symbols (str): Comma-separated list, e.g. `AAPL,MSFT,BTC-USD`.
@@ -105,7 +107,9 @@ def sync(
 
      Server-Sent Events stream. Emits the following event types: `connected`, `quote`, `heartbeat`,
     `error`. Reconnect on disconnect; events resume from latest-seen timestamp. Heartbeats every 30s
-    keep the connection alive.
+    keep the connection alive. Tiers without real-time data get the SIP-delayed last trade (about 15
+    minutes old), polled every 15 seconds, and every `connected` and `quote` event carries `delayed:
+    true`. Real-time tiers get fair market value every second with `delayed: false`.
 
     Args:
         symbols (str): Comma-separated list, e.g. `AAPL,MSFT,BTC-USD`.
@@ -133,7 +137,9 @@ async def asyncio_detailed(
 
      Server-Sent Events stream. Emits the following event types: `connected`, `quote`, `heartbeat`,
     `error`. Reconnect on disconnect; events resume from latest-seen timestamp. Heartbeats every 30s
-    keep the connection alive.
+    keep the connection alive. Tiers without real-time data get the SIP-delayed last trade (about 15
+    minutes old), polled every 15 seconds, and every `connected` and `quote` event carries `delayed:
+    true`. Real-time tiers get fair market value every second with `delayed: false`.
 
     Args:
         symbols (str): Comma-separated list, e.g. `AAPL,MSFT,BTC-USD`.
@@ -164,7 +170,9 @@ async def asyncio(
 
      Server-Sent Events stream. Emits the following event types: `connected`, `quote`, `heartbeat`,
     `error`. Reconnect on disconnect; events resume from latest-seen timestamp. Heartbeats every 30s
-    keep the connection alive.
+    keep the connection alive. Tiers without real-time data get the SIP-delayed last trade (about 15
+    minutes old), polled every 15 seconds, and every `connected` and `quote` event carries `delayed:
+    true`. Real-time tiers get fair market value every second with `delayed: false`.
 
     Args:
         symbols (str): Comma-separated list, e.g. `AAPL,MSFT,BTC-USD`.

@@ -193,6 +193,11 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 402:
+        response_402 = ErrorEnvelope.from_dict(response.json())
+
+        return response_402
+
     if response.status_code == 422:
         response_422 = ErrorEnvelope.from_dict(response.json())
 
@@ -250,7 +255,12 @@ def sync_detailed(
     `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
     tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
     snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object.
+    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
+    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -351,7 +361,12 @@ def sync(
     `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
     tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
     snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object.
+    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
+    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -447,7 +462,12 @@ async def asyncio_detailed(
     `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
     tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
     snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object.
+    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
+    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -546,7 +566,12 @@ async def asyncio(
     `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
     tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
     snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object.
+    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
+    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):

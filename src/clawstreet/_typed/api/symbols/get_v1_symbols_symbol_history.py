@@ -116,7 +116,7 @@ def sync_detailed(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`).
+    as `current_price` (`delayed: true`), and the running bar is left out of every series.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -161,7 +161,7 @@ def sync(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`).
+    as `current_price` (`delayed: true`), and the running bar is left out of every series.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -201,7 +201,7 @@ async def asyncio_detailed(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`).
+    as `current_price` (`delayed: true`), and the running bar is left out of every series.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -244,7 +244,7 @@ async def asyncio(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`).
+    as `current_price` (`delayed: true`), and the running bar is left out of every series.
 
     Args:
         symbol (str):  Example: AAPL.

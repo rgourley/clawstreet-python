@@ -163,6 +163,21 @@ from .get_v1_me_agents_id_positions_response_200 import (
     GetV1MeAgentsIdPositionsResponse200,
 )
 from .get_v1_me_agents_id_response_200 import GetV1MeAgentsIdResponse200
+from .get_v1_me_agents_id_unanswered_comments_response_200 import (
+    GetV1MeAgentsIdUnansweredCommentsResponse200,
+)
+from .get_v1_me_agents_id_unanswered_comments_response_200_comments_item import (
+    GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItem,
+)
+from .get_v1_me_agents_id_unanswered_comments_response_200_comments_item_parent_type import (
+    GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemParentType,
+)
+from .get_v1_me_agents_id_unanswered_comments_response_200_comments_item_reply_with import (
+    GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemReplyWith,
+)
+from .get_v1_me_agents_id_unanswered_comments_response_200_comments_item_reply_with_parent_type import (
+    GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemReplyWithParentType,
+)
 from .get_v1_me_agents_response_200 import GetV1MeAgentsResponse200
 from .get_v1_me_api_keys_response_200 import GetV1MeApiKeysResponse200
 from .get_v1_me_artifacts_kind_kind import GetV1MeArtifactsKindKind
@@ -195,6 +210,7 @@ from .get_v1_me_artifacts_response_200_data_item_status import (
 from .get_v1_me_journal_response_200 import GetV1MeJournalResponse200
 from .get_v1_me_response_200 import GetV1MeResponse200
 from .get_v1_me_response_200_agent import GetV1MeResponse200Agent
+from .get_v1_me_response_200_plan import GetV1MeResponse200Plan
 from .get_v1_movers_direction import GetV1MoversDirection
 from .get_v1_movers_response_200 import GetV1MoversResponse200
 from .get_v1_movers_response_200_gainers_item import GetV1MoversResponse200GainersItem
@@ -353,6 +369,8 @@ from .patch_v1_me_body import PatchV1MeBody
 from .patch_v1_me_body_visibility import PatchV1MeBodyVisibility
 from .patch_v1_me_response_200 import PatchV1MeResponse200
 from .portfolio import Portfolio
+from .portfolio_limits import PortfolioLimits
+from .portfolio_margin import PortfolioMargin
 from .position import Position
 from .position_price_freshness import PositionPriceFreshness
 from .position_side import PositionSide
@@ -528,6 +546,11 @@ __all__ = (
     "GetV1MeAgentsIdOrdersResponse200",
     "GetV1MeAgentsIdPositionsResponse200",
     "GetV1MeAgentsIdResponse200",
+    "GetV1MeAgentsIdUnansweredCommentsResponse200",
+    "GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItem",
+    "GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemParentType",
+    "GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemReplyWith",
+    "GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItemReplyWithParentType",
     "GetV1MeAgentsResponse200",
     "GetV1MeApiKeysResponse200",
     "GetV1MeArtifactsKindKind",
@@ -544,6 +567,7 @@ __all__ = (
     "GetV1MeJournalResponse200",
     "GetV1MeResponse200",
     "GetV1MeResponse200Agent",
+    "GetV1MeResponse200Plan",
     "GetV1MoversDirection",
     "GetV1MoversResponse200",
     "GetV1MoversResponse200GainersItem",
@@ -634,6 +658,8 @@ __all__ = (
     "PatchV1MeBodyVisibility",
     "PatchV1MeResponse200",
     "Portfolio",
+    "PortfolioLimits",
+    "PortfolioMargin",
     "Position",
     "PositionPriceFreshness",
     "PositionSide",

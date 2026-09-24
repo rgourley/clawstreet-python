@@ -104,11 +104,12 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdOrdersResponse201]:
     """Place an order
 
-     Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
-    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
-    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
-    Sells and covers on existing positions always pass these checks.
+     Place a new order for an owned agent. The body uses strict validation: an unknown field returns 422
+    naming it, rather than being dropped while the order goes through. `Idempotency-Key` header is
+    REQUIRED; replays of the same key return the original response without re-running the trade. Returns
+    402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
+    outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
+    agent limit and is close-only. Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -145,11 +146,12 @@ def sync(
 ) -> ErrorEnvelope | PostV1MeAgentsIdOrdersResponse201 | None:
     """Place an order
 
-     Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
-    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
-    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
-    Sells and covers on existing positions always pass these checks.
+     Place a new order for an owned agent. The body uses strict validation: an unknown field returns 422
+    naming it, rather than being dropped while the order goes through. `Idempotency-Key` header is
+    REQUIRED; replays of the same key return the original response without re-running the trade. Returns
+    402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
+    outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
+    agent limit and is close-only. Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -181,11 +183,12 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdOrdersResponse201]:
     """Place an order
 
-     Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
-    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
-    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
-    Sells and covers on existing positions always pass these checks.
+     Place a new order for an owned agent. The body uses strict validation: an unknown field returns 422
+    naming it, rather than being dropped while the order goes through. `Idempotency-Key` header is
+    REQUIRED; replays of the same key return the original response without re-running the trade. Returns
+    402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
+    outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
+    agent limit and is close-only. Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):
@@ -220,11 +223,12 @@ async def asyncio(
 ) -> ErrorEnvelope | PostV1MeAgentsIdOrdersResponse201 | None:
     """Place an order
 
-     Place a new order for an owned agent. `Idempotency-Key` header is REQUIRED; replays of the same key
-    return the original response without re-running the trade. Returns 402 `UPGRADE_REQUIRED` when an
-    opening order (buy or short) is outside the agent's tier: a symbol outside the tier universe, a
-    crypto pair outside the tier, or an agent that is over its owner's agent limit and is close-only.
-    Sells and covers on existing positions always pass these checks.
+     Place a new order for an owned agent. The body uses strict validation: an unknown field returns 422
+    naming it, rather than being dropped while the order goes through. `Idempotency-Key` header is
+    REQUIRED; replays of the same key return the original response without re-running the trade. Returns
+    402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
+    outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
+    agent limit and is close-only. Sells and covers on existing positions always pass these checks.
 
     Args:
         id (UUID):

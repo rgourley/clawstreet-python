@@ -249,18 +249,19 @@ def sync_detailed(
 
      Screener endpoint with presets, composable filters, and sorts. Inherits all query params from the
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
-    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; can take
-    20-30s), or `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and
-    `filter` modes, price and change fields are from the last completed daily bar: check
-    `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
-    tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
-    snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
-    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
-    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
-    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
-    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
-    true`. A row with no delayed price has `price` and `change_1d` null.
+    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
+    caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
+    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
+    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
+    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
+    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
+    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
+    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
+    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
+    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
+    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
+    null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -284,8 +285,8 @@ def sync_detailed(
         max_price (float | None | Unset):
         min_daily_dollar_volume (float | None | Unset):
         include_leveraged (GetV1ScanIncludeLeveraged | Unset):
-        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache. Applies to live presets
-            only.
+        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache and the five-minute live-
+            scan cache. Applies to live presets only, and costs a full 30-40s compute.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -355,18 +356,19 @@ def sync(
 
      Screener endpoint with presets, composable filters, and sorts. Inherits all query params from the
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
-    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; can take
-    20-30s), or `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and
-    `filter` modes, price and change fields are from the last completed daily bar: check
-    `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
-    tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
-    snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
-    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
-    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
-    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
-    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
-    true`. A row with no delayed price has `price` and `change_1d` null.
+    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
+    caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
+    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
+    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
+    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
+    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
+    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
+    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
+    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
+    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
+    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
+    null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -390,8 +392,8 @@ def sync(
         max_price (float | None | Unset):
         min_daily_dollar_volume (float | None | Unset):
         include_leveraged (GetV1ScanIncludeLeveraged | Unset):
-        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache. Applies to live presets
-            only.
+        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache and the five-minute live-
+            scan cache. Applies to live presets only, and costs a full 30-40s compute.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -456,18 +458,19 @@ async def asyncio_detailed(
 
      Screener endpoint with presets, composable filters, and sorts. Inherits all query params from the
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
-    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; can take
-    20-30s), or `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and
-    `filter` modes, price and change fields are from the last completed daily bar: check
-    `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
-    tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
-    snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
-    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
-    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
-    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
-    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
-    true`. A row with no delayed price has `price` and `change_1d` null.
+    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
+    caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
+    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
+    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
+    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
+    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
+    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
+    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
+    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
+    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
+    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
+    null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -491,8 +494,8 @@ async def asyncio_detailed(
         max_price (float | None | Unset):
         min_daily_dollar_volume (float | None | Unset):
         include_leveraged (GetV1ScanIncludeLeveraged | Unset):
-        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache. Applies to live presets
-            only.
+        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache and the five-minute live-
+            scan cache. Applies to live presets only, and costs a full 30-40s compute.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -560,18 +563,19 @@ async def asyncio(
 
      Screener endpoint with presets, composable filters, and sorts. Inherits all query params from the
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
-    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; can take
-    20-30s), or `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and
-    `filter` modes, price and change fields are from the last completed daily bar: check
-    `dataAgeSeconds`. Without `sector` or `symbols`, filter mode reads at most 1000 cache rows, so some
-    tradeable symbols can be missing. Row keys mix camelCase (`bbPosition`, `volumeRatio`) and
-    snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter param, the response is
-    a help object. Tiers: a tier with the free universe runs presets only. `indicator`, `below`,
-    `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
-    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
-    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
-    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
-    true`. A row with no delayed price has `price` and `change_1d` null.
+    snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
+    caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
+    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
+    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
+    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
+    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
+    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
+    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
+    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
+    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
+    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
+    null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -595,8 +599,8 @@ async def asyncio(
         max_price (float | None | Unset):
         min_daily_dollar_volume (float | None | Unset):
         include_leveraged (GetV1ScanIncludeLeveraged | Unset):
-        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache. Applies to live presets
-            only.
+        refresh (GetV1ScanRefresh | Unset): Bypass the market data cache and the five-minute live-
+            scan cache. Applies to live presets only, and costs a full 30-40s compute.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

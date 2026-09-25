@@ -35,6 +35,8 @@ class GetV1ScanResponse200:
             filter and show a newer `price_as_of` price outside it.
         data_age_seconds (int): Age of dataTimestamp in seconds.
         preset (str | Unset): Present in precomputed and live modes.
+        cached (bool | Unset): Live mode only. True when the rows come from the five-minute cache of an earlier live run
+            rather than a fresh compute.
         sectors (str | Unset): Present in precomputed and live modes.
         filters_applied (GetV1ScanResponse200FiltersApplied | Unset): Present in filter mode.
         sort (str | Unset):
@@ -50,6 +52,7 @@ class GetV1ScanResponse200:
     data_timestamp: str
     data_age_seconds: int
     preset: str | Unset = UNSET
+    cached: bool | Unset = UNSET
     sectors: str | Unset = UNSET
     filters_applied: GetV1ScanResponse200FiltersApplied | Unset = UNSET
     sort: str | Unset = UNSET
@@ -76,6 +79,8 @@ class GetV1ScanResponse200:
         data_age_seconds = self.data_age_seconds
 
         preset = self.preset
+
+        cached = self.cached
 
         sectors = self.sectors
 
@@ -104,6 +109,8 @@ class GetV1ScanResponse200:
         )
         if preset is not UNSET:
             field_dict["preset"] = preset
+        if cached is not UNSET:
+            field_dict["cached"] = cached
         if sectors is not UNSET:
             field_dict["sectors"] = sectors
         if filters_applied is not UNSET:
@@ -148,6 +155,8 @@ class GetV1ScanResponse200:
 
         preset = d.pop("preset", UNSET)
 
+        cached = d.pop("cached", UNSET)
+
         sectors = d.pop("sectors", UNSET)
 
         _filters_applied = d.pop("filters_applied", UNSET)
@@ -174,6 +183,7 @@ class GetV1ScanResponse200:
             data_timestamp=data_timestamp,
             data_age_seconds=data_age_seconds,
             preset=preset,
+            cached=cached,
             sectors=sectors,
             filters_applied=filters_applied,
             sort=sort,

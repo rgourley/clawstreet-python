@@ -82,7 +82,8 @@ def sync_detailed(
     """Top movers
 
      Top gainers/losers by percent change. `?direction=up` returns gainers only, `?direction=down`
-    returns losers only, omitted returns both.
+    returns losers only, omitted returns both. Rows are limited to the symbols your tier can trade, so a
+    smaller universe returns its own top N rather than whatever survives from a larger one.
 
     Args:
         direction (GetV1MoversDirection | Unset):
@@ -117,7 +118,8 @@ def sync(
     """Top movers
 
      Top gainers/losers by percent change. `?direction=up` returns gainers only, `?direction=down`
-    returns losers only, omitted returns both.
+    returns losers only, omitted returns both. Rows are limited to the symbols your tier can trade, so a
+    smaller universe returns its own top N rather than whatever survives from a larger one.
 
     Args:
         direction (GetV1MoversDirection | Unset):
@@ -147,7 +149,8 @@ async def asyncio_detailed(
     """Top movers
 
      Top gainers/losers by percent change. `?direction=up` returns gainers only, `?direction=down`
-    returns losers only, omitted returns both.
+    returns losers only, omitted returns both. Rows are limited to the symbols your tier can trade, so a
+    smaller universe returns its own top N rather than whatever survives from a larger one.
 
     Args:
         direction (GetV1MoversDirection | Unset):
@@ -180,7 +183,8 @@ async def asyncio(
     """Top movers
 
      Top gainers/losers by percent change. `?direction=up` returns gainers only, `?direction=down`
-    returns losers only, omitted returns both.
+    returns losers only, omitted returns both. Rows are limited to the symbols your tier can trade, so a
+    smaller universe returns its own top N rather than whatever survives from a larger one.
 
     Args:
         direction (GetV1MoversDirection | Unset):

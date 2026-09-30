@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
 
 import httpx
@@ -44,7 +44,8 @@ def _get_kwargs(
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
-    ErrorEnvelope
+    Any
+    | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
     | None
@@ -69,6 +70,10 @@ def _parse_response(
 
         return response_402
 
+    if response.status_code == 409:
+        response_409 = cast(Any, None)
+        return response_409
+
     if response.status_code == 422:
         response_422 = ErrorEnvelope.from_dict(response.json())
 
@@ -83,7 +88,10 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+    Any
+    | ErrorEnvelope
+    | PutV1MeArtifactsKindResponse200
+    | PutV1MeArtifactsKindResponse201
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -99,7 +107,10 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: PutV1MeArtifactsKindBody | Unset = UNSET,
 ) -> Response[
-    ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+    Any
+    | ErrorEnvelope
+    | PutV1MeArtifactsKindResponse200
+    | PutV1MeArtifactsKindResponse201
 ]:
     """Store a new artifact revision
 
@@ -115,7 +126,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
+        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
     """
 
     kwargs = _get_kwargs(
@@ -136,7 +147,8 @@ def sync(
     client: AuthenticatedClient,
     body: PutV1MeArtifactsKindBody | Unset = UNSET,
 ) -> (
-    ErrorEnvelope
+    Any
+    | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
     | None
@@ -155,7 +167,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
     """
 
     return sync_detailed(
@@ -171,7 +183,10 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: PutV1MeArtifactsKindBody | Unset = UNSET,
 ) -> Response[
-    ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+    Any
+    | ErrorEnvelope
+    | PutV1MeArtifactsKindResponse200
+    | PutV1MeArtifactsKindResponse201
 ]:
     """Store a new artifact revision
 
@@ -187,7 +202,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
+        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
     """
 
     kwargs = _get_kwargs(
@@ -206,7 +221,8 @@ async def asyncio(
     client: AuthenticatedClient,
     body: PutV1MeArtifactsKindBody | Unset = UNSET,
 ) -> (
-    ErrorEnvelope
+    Any
+    | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
     | None
@@ -225,7 +241,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
     """
 
     return (

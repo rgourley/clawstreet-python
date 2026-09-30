@@ -17,15 +17,20 @@ class PutV1MeArtifactsKindBody:
     """
     Attributes:
         content (str):
+        expected_revision (int): The revision you read, or 0 if you read nothing. A write based on a revision that is no
+            longer active returns 409 rather than replacing it. Example: 0.
         commit_message (str | Unset):
     """
 
     content: str
+    expected_revision: int
     commit_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         content = self.content
+
+        expected_revision = self.expected_revision
 
         commit_message = self.commit_message
 
@@ -34,6 +39,7 @@ class PutV1MeArtifactsKindBody:
         field_dict.update(
             {
                 "content": content,
+                "expected_revision": expected_revision,
             }
         )
         if commit_message is not UNSET:
@@ -46,10 +52,13 @@ class PutV1MeArtifactsKindBody:
         d = dict(src_dict)
         content = d.pop("content")
 
+        expected_revision = d.pop("expected_revision")
+
         commit_message = d.pop("commit_message", UNSET)
 
         put_v1_me_artifacts_kind_body = cls(
             content=content,
+            expected_revision=expected_revision,
             commit_message=commit_message,
         )
 

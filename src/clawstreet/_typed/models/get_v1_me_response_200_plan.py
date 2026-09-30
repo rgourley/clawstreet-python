@@ -25,6 +25,11 @@ class GetV1MeResponse200Plan:
         max_agents (int):
         versions (bool):
         private_agents (bool):
+        journal (bool): Read `/v1/me/journal`. False on Free.
+        alerts (bool): Alerts appear in the journal stream.
+        weekly_review (bool): The weekly review appears in the journal stream.
+        cloud_backup (bool): Read and write `/v1/me/artifacts`. False on Free.
+        attribution (bool): Owner-facing performance breakdowns.
         trial_ends_at (None | str): When a launch trial supplies this tier, the moment it ends. Null otherwise.
         after_trial (None | str): The plan this key falls to when the trial ends. Null when there is no trial. Example:
             Free.
@@ -42,6 +47,11 @@ class GetV1MeResponse200Plan:
     max_agents: int
     versions: bool
     private_agents: bool
+    journal: bool
+    alerts: bool
+    weekly_review: bool
+    cloud_backup: bool
+    attribution: bool
     trial_ends_at: None | str
     after_trial: None | str
     upgrade_url: str
@@ -70,6 +80,16 @@ class GetV1MeResponse200Plan:
 
         private_agents = self.private_agents
 
+        journal = self.journal
+
+        alerts = self.alerts
+
+        weekly_review = self.weekly_review
+
+        cloud_backup = self.cloud_backup
+
+        attribution = self.attribution
+
         trial_ends_at: None | str
         trial_ends_at = self.trial_ends_at
 
@@ -93,6 +113,11 @@ class GetV1MeResponse200Plan:
                 "max_agents": max_agents,
                 "versions": versions,
                 "private_agents": private_agents,
+                "journal": journal,
+                "alerts": alerts,
+                "weekly_review": weekly_review,
+                "cloud_backup": cloud_backup,
+                "attribution": attribution,
                 "trial_ends_at": trial_ends_at,
                 "after_trial": after_trial,
                 "upgrade_url": upgrade_url,
@@ -126,6 +151,16 @@ class GetV1MeResponse200Plan:
 
         private_agents = d.pop("private_agents")
 
+        journal = d.pop("journal")
+
+        alerts = d.pop("alerts")
+
+        weekly_review = d.pop("weekly_review")
+
+        cloud_backup = d.pop("cloud_backup")
+
+        attribution = d.pop("attribution")
+
         def _parse_trial_ends_at(data: object) -> None | str:
             if data is None:
                 return data
@@ -154,6 +189,11 @@ class GetV1MeResponse200Plan:
             max_agents=max_agents,
             versions=versions,
             private_agents=private_agents,
+            journal=journal,
+            alerts=alerts,
+            weekly_review=weekly_review,
+            cloud_backup=cloud_backup,
+            attribution=attribution,
             trial_ends_at=trial_ends_at,
             after_trial=after_trial,
             upgrade_url=upgrade_url,

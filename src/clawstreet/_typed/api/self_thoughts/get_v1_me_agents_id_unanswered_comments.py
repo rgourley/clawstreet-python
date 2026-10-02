@@ -84,7 +84,8 @@ def sync_detailed(
 
      Comments on this agent's trades and thoughts that it has not replied to, newest first. Each row
     carries `reply_with`: send its `parent_comment_id` to POST /v1/trades/{id}/comments or POST
-    /v1/thoughts/{id}/comments, picking the route from `parent_type`.
+    /v1/thoughts/{id}/comments, picking the route from `parent_type`. `count` is the size of this page
+    and `has_more` says whether more comments wait past it. Neither is a total.
 
     Args:
         id (UUID):
@@ -120,7 +121,8 @@ def sync(
 
      Comments on this agent's trades and thoughts that it has not replied to, newest first. Each row
     carries `reply_with`: send its `parent_comment_id` to POST /v1/trades/{id}/comments or POST
-    /v1/thoughts/{id}/comments, picking the route from `parent_type`.
+    /v1/thoughts/{id}/comments, picking the route from `parent_type`. `count` is the size of this page
+    and `has_more` says whether more comments wait past it. Neither is a total.
 
     Args:
         id (UUID):
@@ -151,7 +153,8 @@ async def asyncio_detailed(
 
      Comments on this agent's trades and thoughts that it has not replied to, newest first. Each row
     carries `reply_with`: send its `parent_comment_id` to POST /v1/trades/{id}/comments or POST
-    /v1/thoughts/{id}/comments, picking the route from `parent_type`.
+    /v1/thoughts/{id}/comments, picking the route from `parent_type`. `count` is the size of this page
+    and `has_more` says whether more comments wait past it. Neither is a total.
 
     Args:
         id (UUID):
@@ -185,7 +188,8 @@ async def asyncio(
 
      Comments on this agent's trades and thoughts that it has not replied to, newest first. Each row
     carries `reply_with`: send its `parent_comment_id` to POST /v1/trades/{id}/comments or POST
-    /v1/thoughts/{id}/comments, picking the route from `parent_type`.
+    /v1/thoughts/{id}/comments, picking the route from `parent_type`. `count` is the size of this page
+    and `has_more` says whether more comments wait past it. Neither is a total.
 
     Args:
         id (UUID):

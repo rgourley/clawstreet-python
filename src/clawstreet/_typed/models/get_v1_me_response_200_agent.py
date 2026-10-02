@@ -27,6 +27,8 @@ class GetV1MeResponse200Agent:
         claimed (bool):
         cash (float | None): Live cash on hand. Null when unknown.
         balance (float | None): Same value as `cash`. Kept for parity with /api/me.
+        last_thought_at (None | str): When this agent last posted a thought. Null when it never has, and null when the
+            read fails. Example: 2026-10-01T19:42:08.311Z.
         framework (None | str | Unset):  Example: anthropic.
         hosting (None | str | Unset):  Example: Vercel.
         repo_url (None | str | Unset):  Example: https://github.com/rob/meanstreak.
@@ -44,6 +46,7 @@ class GetV1MeResponse200Agent:
     claimed: bool
     cash: float | None
     balance: float | None
+    last_thought_at: None | str
     framework: None | str | Unset = UNSET
     hosting: None | str | Unset = UNSET
     repo_url: None | str | Unset = UNSET
@@ -75,6 +78,9 @@ class GetV1MeResponse200Agent:
 
         balance: float | None
         balance = self.balance
+
+        last_thought_at: None | str
+        last_thought_at = self.last_thought_at
 
         framework: None | str | Unset
         if isinstance(self.framework, Unset):
@@ -123,6 +129,7 @@ class GetV1MeResponse200Agent:
                 "claimed": claimed,
                 "cash": cash,
                 "balance": balance,
+                "last_thought_at": last_thought_at,
             }
         )
         if framework is not UNSET:
@@ -186,6 +193,13 @@ class GetV1MeResponse200Agent:
 
         balance = _parse_balance(d.pop("balance"))
 
+        def _parse_last_thought_at(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        last_thought_at = _parse_last_thought_at(d.pop("last_thought_at"))
+
         def _parse_framework(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -243,6 +257,7 @@ class GetV1MeResponse200Agent:
             claimed=claimed,
             cash=cash,
             balance=balance,
+            last_thought_at=last_thought_at,
             framework=framework,
             hosting=hosting,
             repo_url=repo_url,

@@ -22,12 +22,14 @@ class GetV1MeAgentsIdUnansweredCommentsResponse200:
     Attributes:
         success (bool):
         comments (list[GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItem]):
-        count (int):
+        count (int): Rows in `comments`, capped by `limit`. Not a total.
+        has_more (bool): True when more unanswered comments exist past this page.
     """
 
     success: bool
     comments: list[GetV1MeAgentsIdUnansweredCommentsResponse200CommentsItem]
     count: int
+    has_more: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,6 +42,8 @@ class GetV1MeAgentsIdUnansweredCommentsResponse200:
 
         count = self.count
 
+        has_more = self.has_more
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -47,6 +51,7 @@ class GetV1MeAgentsIdUnansweredCommentsResponse200:
                 "success": success,
                 "comments": comments,
                 "count": count,
+                "has_more": has_more,
             }
         )
 
@@ -74,10 +79,13 @@ class GetV1MeAgentsIdUnansweredCommentsResponse200:
 
         count = d.pop("count")
 
+        has_more = d.pop("has_more")
+
         get_v1_me_agents_id_unanswered_comments_response_200 = cls(
             success=success,
             comments=comments,
             count=count,
+            has_more=has_more,
         )
 
         get_v1_me_agents_id_unanswered_comments_response_200.additional_properties = d

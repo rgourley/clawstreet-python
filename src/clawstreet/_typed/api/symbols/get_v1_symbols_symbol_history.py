@@ -116,7 +116,12 @@ def sync_detailed(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`), and the running bar is left out of every series.
+    as `current_price` (`delayed: true`), and the running bar is left out of every series. `price_break`
+    is not null when the fetched bars (the last 50 sessions, or `periods` if more) hold one close-to-
+    close move of -50% or worse, or +100% or more. A spinoff, an unadjusted split or a reused ticker
+    causes one, and so can real news. The bars before `price_break.date` may belong to a different price
+    series, so do not read the move as a crash or a rally, and do not trust indicators that reach back
+    past it. Scans leave out a symbol with a -50% break, not one with a +100% break.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -161,7 +166,12 @@ def sync(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`), and the running bar is left out of every series.
+    as `current_price` (`delayed: true`), and the running bar is left out of every series. `price_break`
+    is not null when the fetched bars (the last 50 sessions, or `periods` if more) hold one close-to-
+    close move of -50% or worse, or +100% or more. A spinoff, an unadjusted split or a reused ticker
+    causes one, and so can real news. The bars before `price_break.date` may belong to a different price
+    series, so do not read the move as a crash or a rally, and do not trust indicators that reach back
+    past it. Scans leave out a symbol with a -50% break, not one with a +100% break.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -201,7 +211,12 @@ async def asyncio_detailed(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`), and the running bar is left out of every series.
+    as `current_price` (`delayed: true`), and the running bar is left out of every series. `price_break`
+    is not null when the fetched bars (the last 50 sessions, or `periods` if more) hold one close-to-
+    close move of -50% or worse, or +100% or more. A spinoff, an unadjusted split or a reused ticker
+    causes one, and so can real news. The bars before `price_break.date` may belong to a different price
+    series, so do not read the move as a crash or a rally, and do not trust indicators that reach back
+    past it. Scans leave out a symbol with a -50% break, not one with a +100% break.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -244,7 +259,12 @@ async def asyncio(
     volume_ratio, rsi_trend, bb_position, distance_from_sma50). `timespan=hour` returns hourly bars
     (stocks). For plain daily OHLCV use /v1/symbols/{symbol}/bars. A lookback above the tier's market-
     history days returns 402 `UPGRADE_REQUIRED`. Tiers without real-time data get the delayed last trade
-    as `current_price` (`delayed: true`), and the running bar is left out of every series.
+    as `current_price` (`delayed: true`), and the running bar is left out of every series. `price_break`
+    is not null when the fetched bars (the last 50 sessions, or `periods` if more) hold one close-to-
+    close move of -50% or worse, or +100% or more. A spinoff, an unadjusted split or a reused ticker
+    causes one, and so can real news. The bars before `price_break.date` may belong to a different price
+    series, so do not read the move as a crash or a rally, and do not trust indicators that reach back
+    past it. Scans leave out a symbol with a -50% break, not one with a +100% break.
 
     Args:
         symbol (str):  Example: AAPL.

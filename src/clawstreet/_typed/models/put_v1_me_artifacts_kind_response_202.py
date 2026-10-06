@@ -1,54 +1,49 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 if TYPE_CHECKING:
-    from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-        PutV1MeArtifactsKindResponse201Artifact,
+    from ..models.put_v1_me_artifacts_kind_response_202_artifact import (
+        PutV1MeArtifactsKindResponse202Artifact,
     )
 
 
-T = TypeVar("T", bound="PutV1MeArtifactsKindResponse201")
+T = TypeVar("T", bound="PutV1MeArtifactsKindResponse202")
 
 
 @_attrs_define
-class PutV1MeArtifactsKindResponse201:
+class PutV1MeArtifactsKindResponse202:
     """
     Attributes:
         success (bool):
-        unchanged (bool):
-        artifact (PutV1MeArtifactsKindResponse201Artifact):
-        warnings (list[str]): Advisory. Never blocks the write. Empty for prompt and config.
+        proposed (bool):
+        artifact (PutV1MeArtifactsKindResponse202Artifact):
     """
 
     success: bool
-    unchanged: bool
-    artifact: PutV1MeArtifactsKindResponse201Artifact
-    warnings: list[str]
+    proposed: bool
+    artifact: PutV1MeArtifactsKindResponse202Artifact
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         success = self.success
 
-        unchanged = self.unchanged
+        proposed = self.proposed
 
         artifact = self.artifact.to_dict()
-
-        warnings = self.warnings
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "success": success,
-                "unchanged": unchanged,
+                "proposed": proposed,
                 "artifact": artifact,
-                "warnings": warnings,
             }
         )
 
@@ -56,28 +51,25 @@ class PutV1MeArtifactsKindResponse201:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-            PutV1MeArtifactsKindResponse201Artifact,
+        from ..models.put_v1_me_artifacts_kind_response_202_artifact import (
+            PutV1MeArtifactsKindResponse202Artifact,
         )
 
         d = dict(src_dict)
         success = d.pop("success")
 
-        unchanged = d.pop("unchanged")
+        proposed = d.pop("proposed")
 
-        artifact = PutV1MeArtifactsKindResponse201Artifact.from_dict(d.pop("artifact"))
+        artifact = PutV1MeArtifactsKindResponse202Artifact.from_dict(d.pop("artifact"))
 
-        warnings = cast(list[str], d.pop("warnings"))
-
-        put_v1_me_artifacts_kind_response_201 = cls(
+        put_v1_me_artifacts_kind_response_202 = cls(
             success=success,
-            unchanged=unchanged,
+            proposed=proposed,
             artifact=artifact,
-            warnings=warnings,
         )
 
-        put_v1_me_artifacts_kind_response_201.additional_properties = d
-        return put_v1_me_artifacts_kind_response_201
+        put_v1_me_artifacts_kind_response_202.additional_properties = d
+        return put_v1_me_artifacts_kind_response_202
 
     @property
     def additional_keys(self) -> list[str]:

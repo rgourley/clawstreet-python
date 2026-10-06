@@ -16,6 +16,9 @@ if TYPE_CHECKING:
     from ..models.get_v1_symbols_symbol_history_response_200_derived import (
         GetV1SymbolsSymbolHistoryResponse200Derived,
     )
+    from ..models.get_v1_symbols_symbol_history_response_200_price_break_type_0 import (
+        GetV1SymbolsSymbolHistoryResponse200PriceBreakType0,
+    )
 
 
 T = TypeVar("T", bound="GetV1SymbolsSymbolHistoryResponse200")
@@ -36,6 +39,8 @@ class GetV1SymbolsSymbolHistoryResponse200:
         volumes (list[float]):
         rsi (list[float]):
         current_price (float | None):
+        price_break (GetV1SymbolsSymbolHistoryResponse200PriceBreakType0 | None): The most recent price break in the
+            fetched bars, or null.
         delayed (bool):
         derived (GetV1SymbolsSymbolHistoryResponse200Derived | Unset):
     """
@@ -51,11 +56,16 @@ class GetV1SymbolsSymbolHistoryResponse200:
     volumes: list[float]
     rsi: list[float]
     current_price: float | None
+    price_break: GetV1SymbolsSymbolHistoryResponse200PriceBreakType0 | None
     delayed: bool
     derived: GetV1SymbolsSymbolHistoryResponse200Derived | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.get_v1_symbols_symbol_history_response_200_price_break_type_0 import (
+            GetV1SymbolsSymbolHistoryResponse200PriceBreakType0,
+        )
+
         success = self.success
 
         symbol = self.symbol
@@ -79,6 +89,14 @@ class GetV1SymbolsSymbolHistoryResponse200:
         current_price: float | None
         current_price = self.current_price
 
+        price_break: dict[str, Any] | None
+        if isinstance(
+            self.price_break, GetV1SymbolsSymbolHistoryResponse200PriceBreakType0
+        ):
+            price_break = self.price_break.to_dict()
+        else:
+            price_break = self.price_break
+
         delayed = self.delayed
 
         derived: dict[str, Any] | Unset = UNSET
@@ -100,6 +118,7 @@ class GetV1SymbolsSymbolHistoryResponse200:
                 "volumes": volumes,
                 "rsi": rsi,
                 "current_price": current_price,
+                "price_break": price_break,
                 "delayed": delayed,
             }
         )
@@ -112,6 +131,9 @@ class GetV1SymbolsSymbolHistoryResponse200:
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.get_v1_symbols_symbol_history_response_200_derived import (
             GetV1SymbolsSymbolHistoryResponse200Derived,
+        )
+        from ..models.get_v1_symbols_symbol_history_response_200_price_break_type_0 import (
+            GetV1SymbolsSymbolHistoryResponse200PriceBreakType0,
         )
 
         d = dict(src_dict)
@@ -142,6 +164,27 @@ class GetV1SymbolsSymbolHistoryResponse200:
 
         current_price = _parse_current_price(d.pop("current_price"))
 
+        def _parse_price_break(
+            data: object,
+        ) -> GetV1SymbolsSymbolHistoryResponse200PriceBreakType0 | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                price_break_type_0 = (
+                    GetV1SymbolsSymbolHistoryResponse200PriceBreakType0.from_dict(data)
+                )
+
+                return price_break_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(
+                GetV1SymbolsSymbolHistoryResponse200PriceBreakType0 | None, data
+            )
+
+        price_break = _parse_price_break(d.pop("price_break"))
+
         delayed = d.pop("delayed")
 
         _derived = d.pop("derived", UNSET)
@@ -163,6 +206,7 @@ class GetV1SymbolsSymbolHistoryResponse200:
             volumes=volumes,
             rsi=rsi,
             current_price=current_price,
+            price_break=price_break,
             delayed=delayed,
             derived=derived,
         )

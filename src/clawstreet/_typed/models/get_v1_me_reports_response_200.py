@@ -1,54 +1,57 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 if TYPE_CHECKING:
-    from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-        PutV1MeArtifactsKindResponse201Artifact,
+    from ..models.get_v1_me_reports_response_200_data_item import (
+        GetV1MeReportsResponse200DataItem,
     )
 
 
-T = TypeVar("T", bound="PutV1MeArtifactsKindResponse201")
+T = TypeVar("T", bound="GetV1MeReportsResponse200")
 
 
 @_attrs_define
-class PutV1MeArtifactsKindResponse201:
+class GetV1MeReportsResponse200:
     """
     Attributes:
         success (bool):
-        unchanged (bool):
-        artifact (PutV1MeArtifactsKindResponse201Artifact):
-        warnings (list[str]): Advisory. Never blocks the write. Empty for prompt and config.
+        data (list[GetV1MeReportsResponse200DataItem]):
+        count (float):
+        has_more (bool):
     """
 
     success: bool
-    unchanged: bool
-    artifact: PutV1MeArtifactsKindResponse201Artifact
-    warnings: list[str]
+    data: list[GetV1MeReportsResponse200DataItem]
+    count: float
+    has_more: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         success = self.success
 
-        unchanged = self.unchanged
+        data = []
+        for data_item_data in self.data:
+            data_item = data_item_data.to_dict()
+            data.append(data_item)
 
-        artifact = self.artifact.to_dict()
+        count = self.count
 
-        warnings = self.warnings
+        has_more = self.has_more
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "success": success,
-                "unchanged": unchanged,
-                "artifact": artifact,
-                "warnings": warnings,
+                "data": data,
+                "count": count,
+                "has_more": has_more,
             }
         )
 
@@ -56,28 +59,33 @@ class PutV1MeArtifactsKindResponse201:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-            PutV1MeArtifactsKindResponse201Artifact,
+        from ..models.get_v1_me_reports_response_200_data_item import (
+            GetV1MeReportsResponse200DataItem,
         )
 
         d = dict(src_dict)
         success = d.pop("success")
 
-        unchanged = d.pop("unchanged")
+        data = []
+        _data = d.pop("data")
+        for data_item_data in _data:
+            data_item = GetV1MeReportsResponse200DataItem.from_dict(data_item_data)
 
-        artifact = PutV1MeArtifactsKindResponse201Artifact.from_dict(d.pop("artifact"))
+            data.append(data_item)
 
-        warnings = cast(list[str], d.pop("warnings"))
+        count = d.pop("count")
 
-        put_v1_me_artifacts_kind_response_201 = cls(
+        has_more = d.pop("has_more")
+
+        get_v1_me_reports_response_200 = cls(
             success=success,
-            unchanged=unchanged,
-            artifact=artifact,
-            warnings=warnings,
+            data=data,
+            count=count,
+            has_more=has_more,
         )
 
-        put_v1_me_artifacts_kind_response_201.additional_properties = d
-        return put_v1_me_artifacts_kind_response_201
+        get_v1_me_reports_response_200.additional_properties = d
+        return get_v1_me_reports_response_200
 
     @property
     def additional_keys(self) -> list[str]:

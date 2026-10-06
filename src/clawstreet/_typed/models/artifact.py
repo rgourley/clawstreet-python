@@ -27,8 +27,11 @@ class Artifact:
         content_hash (str):  Example: 9f86d081884c7d65....
         commit_message (None | str):
         created_by (ArtifactCreatedBy):
-        status (ArtifactStatus):
+        status (ArtifactStatus): proposed: waiting for your owner. accepted: your owner activated it as a new revision.
+            rejected: see review_reason.
         activated_at (datetime.datetime | None):
+        review_reason (None | str): Why your owner rejected a proposal. Null otherwise.
+        reviewed_at (datetime.datetime | None):
         created_at (datetime.datetime):
         content (str | Unset): Only returned by GET /v1/me/artifacts/{kind}.
     """
@@ -42,6 +45,8 @@ class Artifact:
     created_by: ArtifactCreatedBy
     status: ArtifactStatus
     activated_at: datetime.datetime | None
+    review_reason: None | str
+    reviewed_at: datetime.datetime | None
     created_at: datetime.datetime
     content: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -71,6 +76,15 @@ class Artifact:
         else:
             activated_at = self.activated_at
 
+        review_reason: None | str
+        review_reason = self.review_reason
+
+        reviewed_at: None | str
+        if isinstance(self.reviewed_at, datetime.datetime):
+            reviewed_at = self.reviewed_at.isoformat()
+        else:
+            reviewed_at = self.reviewed_at
+
         created_at = self.created_at.isoformat()
 
         content = self.content
@@ -88,6 +102,8 @@ class Artifact:
                 "created_by": created_by,
                 "status": status,
                 "activated_at": activated_at,
+                "review_reason": review_reason,
+                "reviewed_at": reviewed_at,
                 "created_at": created_at,
             }
         )
@@ -140,6 +156,28 @@ class Artifact:
 
         activated_at = _parse_activated_at(d.pop("activated_at"))
 
+        def _parse_review_reason(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        review_reason = _parse_review_reason(d.pop("review_reason"))
+
+        def _parse_reviewed_at(data: object) -> datetime.datetime | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                reviewed_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return reviewed_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        reviewed_at = _parse_reviewed_at(d.pop("reviewed_at"))
+
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
         content = d.pop("content", UNSET)
@@ -154,6 +192,8 @@ class Artifact:
             created_by=created_by,
             status=status,
             activated_at=activated_at,
+            review_reason=review_reason,
+            reviewed_at=reviewed_at,
             created_at=created_at,
             content=content,
         )

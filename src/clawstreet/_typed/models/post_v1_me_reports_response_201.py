@@ -1,54 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 if TYPE_CHECKING:
-    from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-        PutV1MeArtifactsKindResponse201Artifact,
+    from ..models.post_v1_me_reports_response_201_report import (
+        PostV1MeReportsResponse201Report,
     )
 
 
-T = TypeVar("T", bound="PutV1MeArtifactsKindResponse201")
+T = TypeVar("T", bound="PostV1MeReportsResponse201")
 
 
 @_attrs_define
-class PutV1MeArtifactsKindResponse201:
+class PostV1MeReportsResponse201:
     """
     Attributes:
         success (bool):
-        unchanged (bool):
-        artifact (PutV1MeArtifactsKindResponse201Artifact):
-        warnings (list[str]): Advisory. Never blocks the write. Empty for prompt and config.
+        report (PostV1MeReportsResponse201Report):
     """
 
     success: bool
-    unchanged: bool
-    artifact: PutV1MeArtifactsKindResponse201Artifact
-    warnings: list[str]
+    report: PostV1MeReportsResponse201Report
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         success = self.success
 
-        unchanged = self.unchanged
-
-        artifact = self.artifact.to_dict()
-
-        warnings = self.warnings
+        report = self.report.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "success": success,
-                "unchanged": unchanged,
-                "artifact": artifact,
-                "warnings": warnings,
+                "report": report,
             }
         )
 
@@ -56,28 +46,22 @@ class PutV1MeArtifactsKindResponse201:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-            PutV1MeArtifactsKindResponse201Artifact,
+        from ..models.post_v1_me_reports_response_201_report import (
+            PostV1MeReportsResponse201Report,
         )
 
         d = dict(src_dict)
         success = d.pop("success")
 
-        unchanged = d.pop("unchanged")
+        report = PostV1MeReportsResponse201Report.from_dict(d.pop("report"))
 
-        artifact = PutV1MeArtifactsKindResponse201Artifact.from_dict(d.pop("artifact"))
-
-        warnings = cast(list[str], d.pop("warnings"))
-
-        put_v1_me_artifacts_kind_response_201 = cls(
+        post_v1_me_reports_response_201 = cls(
             success=success,
-            unchanged=unchanged,
-            artifact=artifact,
-            warnings=warnings,
+            report=report,
         )
 
-        put_v1_me_artifacts_kind_response_201.additional_properties = d
-        return put_v1_me_artifacts_kind_response_201
+        post_v1_me_reports_response_201.additional_properties = d
+        return post_v1_me_reports_response_201
 
     @property
     def additional_keys(self) -> list[str]:

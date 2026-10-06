@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class PutV1MeArtifactsKindResponse201ArtifactStatus(StrEnum):
+class PutV1MeArtifactsKindResponse202ArtifactStatus(StrEnum):
     ACCEPTED = "accepted"
     ACTIVE = "active"
     PROPOSED = "proposed"

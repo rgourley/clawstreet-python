@@ -1,27 +1,20 @@
 from http import HTTPStatus
 from typing import Any
-from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_envelope import ErrorEnvelope
-from ...models.get_v1_symbols_symbol_related_response_200 import (
-    GetV1SymbolsSymbolRelatedResponse200,
-)
+from ...models.get_v1_me_reports_response_200 import GetV1MeReportsResponse200
 from ...types import Response
 
 
-def _get_kwargs(
-    symbol: str,
-) -> dict[str, Any]:
+def _get_kwargs() -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/symbols/{symbol}/related".format(
-            symbol=quote(str(symbol), safe=""),
-        ),
+        "url": "/v1/me/reports",
     }
 
     return _kwargs
@@ -29,9 +22,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
+) -> ErrorEnvelope | GetV1MeReportsResponse200 | None:
     if response.status_code == 200:
-        response_200 = GetV1SymbolsSymbolRelatedResponse200.from_dict(response.json())
+        response_200 = GetV1MeReportsResponse200.from_dict(response.json())
 
         return response_200
 
@@ -39,6 +32,11 @@ def _parse_response(
         response_401 = ErrorEnvelope.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 403:
+        response_403 = ErrorEnvelope.from_dict(response.json())
+
+        return response_403
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -48,7 +46,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
+) -> Response[ErrorEnvelope | GetV1MeReportsResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,29 +56,23 @@ def _build_response(
 
 
 def sync_detailed(
-    symbol: str,
     *,
     client: AuthenticatedClient,
-) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
-    """Related symbols
+) -> Response[ErrorEnvelope | GetV1MeReportsResponse200]:
+    """Read your reports
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
-
-    Args:
-        symbol (str):  Example: AAPL.
+     Your own reports, newest first, up to 50. When `status` is `fixed`, `resolution` says what changed,
+    so you can remove your workaround. Open on every plan.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]
+        Response[ErrorEnvelope | GetV1MeReportsResponse200]
     """
 
-    kwargs = _get_kwargs(
-        symbol=symbol,
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -90,56 +82,45 @@ def sync_detailed(
 
 
 def sync(
-    symbol: str,
     *,
     client: AuthenticatedClient,
-) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
-    """Related symbols
+) -> ErrorEnvelope | GetV1MeReportsResponse200 | None:
+    """Read your reports
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
-
-    Args:
-        symbol (str):  Example: AAPL.
+     Your own reports, newest first, up to 50. When `status` is `fixed`, `resolution` says what changed,
+    so you can remove your workaround. Open on every plan.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200
+        ErrorEnvelope | GetV1MeReportsResponse200
     """
 
     return sync_detailed(
-        symbol=symbol,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    symbol: str,
     *,
     client: AuthenticatedClient,
-) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
-    """Related symbols
+) -> Response[ErrorEnvelope | GetV1MeReportsResponse200]:
+    """Read your reports
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
-
-    Args:
-        symbol (str):  Example: AAPL.
+     Your own reports, newest first, up to 50. When `status` is `fixed`, `resolution` says what changed,
+    so you can remove your workaround. Open on every plan.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]
+        Response[ErrorEnvelope | GetV1MeReportsResponse200]
     """
 
-    kwargs = _get_kwargs(
-        symbol=symbol,
-    )
+    kwargs = _get_kwargs()
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -147,29 +128,24 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    symbol: str,
     *,
     client: AuthenticatedClient,
-) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
-    """Related symbols
+) -> ErrorEnvelope | GetV1MeReportsResponse200 | None:
+    """Read your reports
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
-
-    Args:
-        symbol (str):  Example: AAPL.
+     Your own reports, newest first, up to 50. When `status` is `fixed`, `resolution` says what changed,
+    so you can remove your workaround. Open on every plan.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200
+        ErrorEnvelope | GetV1MeReportsResponse200
     """
 
     return (
         await asyncio_detailed(
-            symbol=symbol,
             client=client,
         )
     ).parsed

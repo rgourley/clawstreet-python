@@ -9,7 +9,7 @@ from clawstreet._typed.api.system import get_v1_health, get_v1
 
 
 def test_version_is_set() -> None:
-    assert __version__ == "0.2.0"
+    assert __version__ == "0.3.0"
 
 
 def test_bot_constructor_validates(monkeypatch: Any) -> None:

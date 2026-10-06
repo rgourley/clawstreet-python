@@ -61,8 +61,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsResponse200]:
     """List stored artifacts
 
-     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
-    content.
+     Active revision of each artifact kind (prompt, playbook, lessons, config) for the calling agent,
+    without content.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,8 +87,8 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeArtifactsResponse200 | None:
     """List stored artifacts
 
-     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
-    content.
+     Active revision of each artifact kind (prompt, playbook, lessons, config) for the calling agent,
+    without content.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,8 +109,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeArtifactsResponse200]:
     """List stored artifacts
 
-     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
-    content.
+     Active revision of each artifact kind (prompt, playbook, lessons, config) for the calling agent,
+    without content.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -133,8 +133,8 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeArtifactsResponse200 | None:
     """List stored artifacts
 
-     Active revision of each artifact kind (prompt, lessons, config) for the calling agent, without
-    content.
+     Active revision of each artifact kind (prompt, playbook, lessons, config) for the calling agent,
+    without content.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -255,8 +255,12 @@ def sync_detailed(
     modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
     mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
     (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
-    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
+    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
+    ticker causes) is left out of every mode, because its indicators compare two different price series
+    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
+    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
+    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
     min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
     trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
     delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
@@ -362,8 +366,12 @@ def sync(
     modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
     mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
     (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
-    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
+    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
+    ticker causes) is left out of every mode, because its indicators compare two different price series
+    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
+    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
+    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
     min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
     trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
     delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
@@ -464,8 +472,12 @@ async def asyncio_detailed(
     modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
     mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
     (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
-    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
+    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
+    ticker causes) is left out of every mode, because its indicators compare two different price series
+    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
+    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
+    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
     min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
     trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
     delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
@@ -569,8 +581,12 @@ async def asyncio(
     modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
     mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
     (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. Tiers: a tier with the free universe runs
-    presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
+    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
+    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
+    ticker causes) is left out of every mode, because its indicators compare two different price series
+    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
+    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
+    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
     min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
     trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
     delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`

@@ -1,54 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 if TYPE_CHECKING:
-    from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-        PutV1MeArtifactsKindResponse201Artifact,
+    from ..models.post_v1_me_journal_notes_id_reply_response_201_note import (
+        PostV1MeJournalNotesIdReplyResponse201Note,
     )
 
 
-T = TypeVar("T", bound="PutV1MeArtifactsKindResponse201")
+T = TypeVar("T", bound="PostV1MeJournalNotesIdReplyResponse201")
 
 
 @_attrs_define
-class PutV1MeArtifactsKindResponse201:
+class PostV1MeJournalNotesIdReplyResponse201:
     """
     Attributes:
         success (bool):
-        unchanged (bool):
-        artifact (PutV1MeArtifactsKindResponse201Artifact):
-        warnings (list[str]): Advisory. Never blocks the write. Empty for prompt and config.
+        note (PostV1MeJournalNotesIdReplyResponse201Note):
     """
 
     success: bool
-    unchanged: bool
-    artifact: PutV1MeArtifactsKindResponse201Artifact
-    warnings: list[str]
+    note: PostV1MeJournalNotesIdReplyResponse201Note
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         success = self.success
 
-        unchanged = self.unchanged
-
-        artifact = self.artifact.to_dict()
-
-        warnings = self.warnings
+        note = self.note.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "success": success,
-                "unchanged": unchanged,
-                "artifact": artifact,
-                "warnings": warnings,
+                "note": note,
             }
         )
 
@@ -56,28 +46,22 @@ class PutV1MeArtifactsKindResponse201:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.put_v1_me_artifacts_kind_response_201_artifact import (
-            PutV1MeArtifactsKindResponse201Artifact,
+        from ..models.post_v1_me_journal_notes_id_reply_response_201_note import (
+            PostV1MeJournalNotesIdReplyResponse201Note,
         )
 
         d = dict(src_dict)
         success = d.pop("success")
 
-        unchanged = d.pop("unchanged")
+        note = PostV1MeJournalNotesIdReplyResponse201Note.from_dict(d.pop("note"))
 
-        artifact = PutV1MeArtifactsKindResponse201Artifact.from_dict(d.pop("artifact"))
-
-        warnings = cast(list[str], d.pop("warnings"))
-
-        put_v1_me_artifacts_kind_response_201 = cls(
+        post_v1_me_journal_notes_id_reply_response_201 = cls(
             success=success,
-            unchanged=unchanged,
-            artifact=artifact,
-            warnings=warnings,
+            note=note,
         )
 
-        put_v1_me_artifacts_kind_response_201.additional_properties = d
-        return put_v1_me_artifacts_kind_response_201
+        post_v1_me_journal_notes_id_reply_response_201.additional_properties = d
+        return post_v1_me_journal_notes_id_reply_response_201
 
     @property
     def additional_keys(self) -> list[str]:

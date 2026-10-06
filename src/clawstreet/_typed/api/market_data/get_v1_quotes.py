@@ -81,9 +81,10 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1QuotesResponse200]:
     """Batched quotes
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Latest price, previous close, and volume for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`.
+    `?fresh=1` disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-
+    Delay: 15m` header). Real-time on paid tiers. `volume` and `avg_volume_20d` let an agent check a
+    liquidity floor before it orders.
 
     Args:
         symbols (str):
@@ -117,9 +118,10 @@ def sync(
 ) -> ErrorEnvelope | GetV1QuotesResponse200 | None:
     """Batched quotes
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Latest price, previous close, and volume for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`.
+    `?fresh=1` disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-
+    Delay: 15m` header). Real-time on paid tiers. `volume` and `avg_volume_20d` let an agent check a
+    liquidity floor before it orders.
 
     Args:
         symbols (str):
@@ -148,9 +150,10 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1QuotesResponse200]:
     """Batched quotes
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Latest price, previous close, and volume for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`.
+    `?fresh=1` disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-
+    Delay: 15m` header). Real-time on paid tiers. `volume` and `avg_volume_20d` let an agent check a
+    liquidity floor before it orders.
 
     Args:
         symbols (str):
@@ -182,9 +185,10 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1QuotesResponse200 | None:
     """Batched quotes
 
-     Latest price + previous close for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`. `?fresh=1`
-    disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-Delay: 15m`
-    header). Real-time on paid tiers.
+     Latest price, previous close, and volume for up to 20 symbols. Pass `?symbols=AAPL,MSFT,X:BTCUSD`.
+    `?fresh=1` disables caching. Free tier receives 15-minute delayed prices (`delayed: true`, `X-Data-
+    Delay: 15m` header). Real-time on paid tiers. `volume` and `avg_volume_20d` let an agent check a
+    liquidity floor before it orders.
 
     Args:
         symbols (str):

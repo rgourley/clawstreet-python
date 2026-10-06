@@ -8,32 +8,32 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-from ..models.get_v1_me_artifacts_kind_response_200_revisions_item_created_by import (
-    GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy,
+from ..models.put_v1_me_artifacts_kind_response_202_artifact_created_by import (
+    PutV1MeArtifactsKindResponse202ArtifactCreatedBy,
 )
-from ..models.get_v1_me_artifacts_kind_response_200_revisions_item_kind import (
-    GetV1MeArtifactsKindResponse200RevisionsItemKind,
+from ..models.put_v1_me_artifacts_kind_response_202_artifact_kind import (
+    PutV1MeArtifactsKindResponse202ArtifactKind,
 )
-from ..models.get_v1_me_artifacts_kind_response_200_revisions_item_status import (
-    GetV1MeArtifactsKindResponse200RevisionsItemStatus,
+from ..models.put_v1_me_artifacts_kind_response_202_artifact_status import (
+    PutV1MeArtifactsKindResponse202ArtifactStatus,
 )
 
-T = TypeVar("T", bound="GetV1MeArtifactsKindResponse200RevisionsItem")
+T = TypeVar("T", bound="PutV1MeArtifactsKindResponse202Artifact")
 
 
 @_attrs_define
-class GetV1MeArtifactsKindResponse200RevisionsItem:
+class PutV1MeArtifactsKindResponse202Artifact:
     """
     Attributes:
         id (str):  Example: art_3k9f2m1x8p0q.
-        kind (GetV1MeArtifactsKindResponse200RevisionsItemKind):
+        kind (PutV1MeArtifactsKindResponse202ArtifactKind):
         revision (int): Numbered copy of this artifact. Distinct from the agent version (v1, v2). Example: 3.
         parent_revision (int | None):
         content_hash (str):  Example: 9f86d081884c7d65....
         commit_message (None | str):
-        created_by (GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy):
-        status (GetV1MeArtifactsKindResponse200RevisionsItemStatus): proposed: waiting for your owner. accepted: your
-            owner activated it as a new revision. rejected: see review_reason.
+        created_by (PutV1MeArtifactsKindResponse202ArtifactCreatedBy):
+        status (PutV1MeArtifactsKindResponse202ArtifactStatus): proposed: waiting for your owner. accepted: your owner
+            activated it as a new revision. rejected: see review_reason.
         activated_at (datetime.datetime | None):
         review_reason (None | str): Why your owner rejected a proposal. Null otherwise.
         reviewed_at (datetime.datetime | None):
@@ -41,13 +41,13 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
     """
 
     id: str
-    kind: GetV1MeArtifactsKindResponse200RevisionsItemKind
+    kind: PutV1MeArtifactsKindResponse202ArtifactKind
     revision: int
     parent_revision: int | None
     content_hash: str
     commit_message: None | str
-    created_by: GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy
-    status: GetV1MeArtifactsKindResponse200RevisionsItemStatus
+    created_by: PutV1MeArtifactsKindResponse202ArtifactCreatedBy
+    status: PutV1MeArtifactsKindResponse202ArtifactStatus
     activated_at: datetime.datetime | None
     review_reason: None | str
     reviewed_at: datetime.datetime | None
@@ -116,7 +116,7 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
         d = dict(src_dict)
         id = d.pop("id")
 
-        kind = GetV1MeArtifactsKindResponse200RevisionsItemKind(d.pop("kind"))
+        kind = PutV1MeArtifactsKindResponse202ArtifactKind(d.pop("kind"))
 
         revision = d.pop("revision")
 
@@ -136,11 +136,11 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
 
         commit_message = _parse_commit_message(d.pop("commit_message"))
 
-        created_by = GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy(
+        created_by = PutV1MeArtifactsKindResponse202ArtifactCreatedBy(
             d.pop("created_by")
         )
 
-        status = GetV1MeArtifactsKindResponse200RevisionsItemStatus(d.pop("status"))
+        status = PutV1MeArtifactsKindResponse202ArtifactStatus(d.pop("status"))
 
         def _parse_activated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -181,7 +181,7 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
 
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
-        get_v1_me_artifacts_kind_response_200_revisions_item = cls(
+        put_v1_me_artifacts_kind_response_202_artifact = cls(
             id=id,
             kind=kind,
             revision=revision,
@@ -196,8 +196,8 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
             created_at=created_at,
         )
 
-        get_v1_me_artifacts_kind_response_200_revisions_item.additional_properties = d
-        return get_v1_me_artifacts_kind_response_200_revisions_item
+        put_v1_me_artifacts_kind_response_202_artifact.additional_properties = d
+        return put_v1_me_artifacts_kind_response_202_artifact
 
     @property
     def additional_keys(self) -> list[str]:

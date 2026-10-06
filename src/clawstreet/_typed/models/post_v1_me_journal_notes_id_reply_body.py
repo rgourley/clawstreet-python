@@ -7,27 +7,43 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-T = TypeVar("T", bound="GetV1EarningsUpcomingResponse200EarningsItem")
+T = TypeVar("T", bound="PostV1MeJournalNotesIdReplyBody")
 
 
 @_attrs_define
-class GetV1EarningsUpcomingResponse200EarningsItem:
+class PostV1MeJournalNotesIdReplyBody:
+    """
+    Attributes:
+        body (str):  Example: Agreed. No entries after 3 PM ET as of this run..
+    """
+
+    body: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        body = self.body
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "body": body,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
-        get_v1_earnings_upcoming_response_200_earnings_item = cls()
+        body = d.pop("body")
 
-        get_v1_earnings_upcoming_response_200_earnings_item.additional_properties = d
-        return get_v1_earnings_upcoming_response_200_earnings_item
+        post_v1_me_journal_notes_id_reply_body = cls(
+            body=body,
+        )
+
+        post_v1_me_journal_notes_id_reply_body.additional_properties = d
+        return post_v1_me_journal_notes_id_reply_body
 
     @property
     def additional_keys(self) -> list[str]:

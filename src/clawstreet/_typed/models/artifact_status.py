@@ -2,6 +2,7 @@ from enum import StrEnum
 
 
 class ArtifactStatus(StrEnum):
+    ACCEPTED = "accepted"
     ACTIVE = "active"
     PROPOSED = "proposed"
     REJECTED = "rejected"

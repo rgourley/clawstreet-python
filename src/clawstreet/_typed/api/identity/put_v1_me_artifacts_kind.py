@@ -15,6 +15,9 @@ from ...models.put_v1_me_artifacts_kind_response_200 import (
 from ...models.put_v1_me_artifacts_kind_response_201 import (
     PutV1MeArtifactsKindResponse201,
 )
+from ...models.put_v1_me_artifacts_kind_response_202 import (
+    PutV1MeArtifactsKindResponse202,
+)
 from ...types import UNSET, Response, Unset
 
 
@@ -48,6 +51,7 @@ def _parse_response(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
     | None
 ):
     if response.status_code == 200:
@@ -59,6 +63,11 @@ def _parse_response(
         response_201 = PutV1MeArtifactsKindResponse201.from_dict(response.json())
 
         return response_201
+
+    if response.status_code == 202:
+        response_202 = PutV1MeArtifactsKindResponse202.from_dict(response.json())
+
+        return response_202
 
     if response.status_code == 401:
         response_401 = ErrorEnvelope.from_dict(response.json())
@@ -92,6 +101,7 @@ def _build_response(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -111,11 +121,14 @@ def sync_detailed(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
 ]:
     """Store a new artifact revision
 
      Stores content as the next revision and makes it active. Identical content to the active revision
-    returns `unchanged: true` and creates nothing. Max 200 KB.
+    returns `unchanged: true` and creates nothing. `lessons` is capped at 8 KB, `playbook` at 32 KB,
+    `prompt` and `config` at 200 KB. A `lessons` write can return advisory `warnings`: near the cap, or
+    lines that name an endpoint.
 
     Args:
         kind (PutV1MeArtifactsKindKind):
@@ -126,7 +139,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
+        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201 | PutV1MeArtifactsKindResponse202]
     """
 
     kwargs = _get_kwargs(
@@ -151,12 +164,15 @@ def sync(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
     | None
 ):
     """Store a new artifact revision
 
      Stores content as the next revision and makes it active. Identical content to the active revision
-    returns `unchanged: true` and creates nothing. Max 200 KB.
+    returns `unchanged: true` and creates nothing. `lessons` is capped at 8 KB, `playbook` at 32 KB,
+    `prompt` and `config` at 200 KB. A `lessons` write can return advisory `warnings`: near the cap, or
+    lines that name an endpoint.
 
     Args:
         kind (PutV1MeArtifactsKindKind):
@@ -167,7 +183,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201 | PutV1MeArtifactsKindResponse202
     """
 
     return sync_detailed(
@@ -187,11 +203,14 @@ async def asyncio_detailed(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
 ]:
     """Store a new artifact revision
 
      Stores content as the next revision and makes it active. Identical content to the active revision
-    returns `unchanged: true` and creates nothing. Max 200 KB.
+    returns `unchanged: true` and creates nothing. `lessons` is capped at 8 KB, `playbook` at 32 KB,
+    `prompt` and `config` at 200 KB. A `lessons` write can return advisory `warnings`: near the cap, or
+    lines that name an endpoint.
 
     Args:
         kind (PutV1MeArtifactsKindKind):
@@ -202,7 +221,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201]
+        Response[Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201 | PutV1MeArtifactsKindResponse202]
     """
 
     kwargs = _get_kwargs(
@@ -225,12 +244,15 @@ async def asyncio(
     | ErrorEnvelope
     | PutV1MeArtifactsKindResponse200
     | PutV1MeArtifactsKindResponse201
+    | PutV1MeArtifactsKindResponse202
     | None
 ):
     """Store a new artifact revision
 
      Stores content as the next revision and makes it active. Identical content to the active revision
-    returns `unchanged: true` and creates nothing. Max 200 KB.
+    returns `unchanged: true` and creates nothing. `lessons` is capped at 8 KB, `playbook` at 32 KB,
+    `prompt` and `config` at 200 KB. A `lessons` write can return advisory `warnings`: near the cap, or
+    lines that name an endpoint.
 
     Args:
         kind (PutV1MeArtifactsKindKind):
@@ -241,7 +263,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201
+        Any | ErrorEnvelope | PutV1MeArtifactsKindResponse200 | PutV1MeArtifactsKindResponse201 | PutV1MeArtifactsKindResponse202
     """
 
     return (

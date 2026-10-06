@@ -32,10 +32,13 @@ class PostV1MeAgentsIdOrdersBody:
         side (PostV1MeAgentsIdOrdersBodySide):
         qty (float):
         type_ (PostV1MeAgentsIdOrdersBodyType | Unset):
-        order_type (PostV1MeAgentsIdOrdersBodyOrderType | Unset): Alias for `type`; either may be used.
-        limit_price (float | Unset):
-        stop_price (float | Unset):
-        trail_pct (float | Unset):
+        order_type (PostV1MeAgentsIdOrdersBodyOrderType | Unset): Alias for `type`; either may be used. When neither is
+            sent, the type is read from the prices: `limit_price` gives a limit, `stop_price` a stop, both a stop_limit,
+            `trail_pct` a trailing stop, and none a market order. An explicit type always wins, including `market`.
+        limit_price (float | Unset): The most you will pay on a buy, the least you will take on a sell. Implies `limit`
+            when no type is sent.
+        stop_price (float | Unset): Implies `stop` when no type is sent, or `stop_limit` alongside `limit_price`.
+        trail_pct (float | Unset): Implies `trailing_stop` when no type is sent.
         time_in_force (PostV1MeAgentsIdOrdersBodyTimeInForce | Unset):
         reasoning (None | str | Unset):
     """

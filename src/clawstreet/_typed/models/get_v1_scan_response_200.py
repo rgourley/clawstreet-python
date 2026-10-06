@@ -34,10 +34,19 @@ class GetV1ScanResponse200:
         data_timestamp (str): ISO time of the indicator data. Filters run on daily indicators, so a row can pass a price
             filter and show a newer `price_as_of` price outside it.
         data_age_seconds (int): Age of dataTimestamp in seconds.
+        stale (bool): True when the prices are over 15 minutes old and should be re-quoted before trading. Present in
+            both `precomputed` and `filter` modes. The indicators and ranking stay useful when this is true; the prices do
+            not.
         preset (str | Unset): Present in precomputed and live modes.
+        cached (bool | Unset): Live mode only. True when the rows come from the five-minute cache of an earlier live run
+            rather than a fresh compute.
         sectors (str | Unset): Present in precomputed and live modes.
         filters_applied (GetV1ScanResponse200FiltersApplied | Unset): Present in filter mode.
         sort (str | Unset):
+        guidance (str | Unset): Present only when `stale` is true: how old the prices are and what to do about it.
+        refresh_url (str | Unset): Present only when `stale` is true: the `/v1/quotes` call that refreshes these
+            symbols' prices. Covers the first 20 rows, which is the per-call limit on quotes. Example:
+            /v1/quotes?symbols=BOIL%2CFRVO%2CMGM.
         data_age (str | Unset): Live mode only. Same value as dataTimestamp.
         delayed (bool | Unset): Present on tier-limited responses. True when `price` is the delayed last trade.
     """
@@ -49,10 +58,14 @@ class GetV1ScanResponse200:
     matches: list[GetV1ScanResponse200MatchesItem]
     data_timestamp: str
     data_age_seconds: int
+    stale: bool
     preset: str | Unset = UNSET
+    cached: bool | Unset = UNSET
     sectors: str | Unset = UNSET
     filters_applied: GetV1ScanResponse200FiltersApplied | Unset = UNSET
     sort: str | Unset = UNSET
+    guidance: str | Unset = UNSET
+    refresh_url: str | Unset = UNSET
     data_age: str | Unset = UNSET
     delayed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -75,7 +88,11 @@ class GetV1ScanResponse200:
 
         data_age_seconds = self.data_age_seconds
 
+        stale = self.stale
+
         preset = self.preset
+
+        cached = self.cached
 
         sectors = self.sectors
 
@@ -84,6 +101,10 @@ class GetV1ScanResponse200:
             filters_applied = self.filters_applied.to_dict()
 
         sort = self.sort
+
+        guidance = self.guidance
+
+        refresh_url = self.refresh_url
 
         data_age = self.data_age
 
@@ -100,16 +121,23 @@ class GetV1ScanResponse200:
                 "matches": matches,
                 "dataTimestamp": data_timestamp,
                 "dataAgeSeconds": data_age_seconds,
+                "stale": stale,
             }
         )
         if preset is not UNSET:
             field_dict["preset"] = preset
+        if cached is not UNSET:
+            field_dict["cached"] = cached
         if sectors is not UNSET:
             field_dict["sectors"] = sectors
         if filters_applied is not UNSET:
             field_dict["filters_applied"] = filters_applied
         if sort is not UNSET:
             field_dict["sort"] = sort
+        if guidance is not UNSET:
+            field_dict["guidance"] = guidance
+        if refresh_url is not UNSET:
+            field_dict["refresh_url"] = refresh_url
         if data_age is not UNSET:
             field_dict["dataAge"] = data_age
         if delayed is not UNSET:
@@ -146,7 +174,11 @@ class GetV1ScanResponse200:
 
         data_age_seconds = d.pop("dataAgeSeconds")
 
+        stale = d.pop("stale")
+
         preset = d.pop("preset", UNSET)
+
+        cached = d.pop("cached", UNSET)
 
         sectors = d.pop("sectors", UNSET)
 
@@ -161,6 +193,10 @@ class GetV1ScanResponse200:
 
         sort = d.pop("sort", UNSET)
 
+        guidance = d.pop("guidance", UNSET)
+
+        refresh_url = d.pop("refresh_url", UNSET)
+
         data_age = d.pop("dataAge", UNSET)
 
         delayed = d.pop("delayed", UNSET)
@@ -173,10 +209,14 @@ class GetV1ScanResponse200:
             matches=matches,
             data_timestamp=data_timestamp,
             data_age_seconds=data_age_seconds,
+            stale=stale,
             preset=preset,
+            cached=cached,
             sectors=sectors,
             filters_applied=filters_applied,
             sort=sort,
+            guidance=guidance,
+            refresh_url=refresh_url,
             data_age=data_age,
             delayed=delayed,
         )

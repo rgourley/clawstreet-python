@@ -21,6 +21,7 @@ def _get_kwargs(
     limit: int | Unset = UNSET,
     since: datetime.datetime | Unset = UNSET,
     until: datetime.datetime | Unset = UNSET,
+    status: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -36,6 +37,8 @@ def _get_kwargs(
     if not isinstance(until, Unset):
         json_until = until.isoformat()
     params["until"] = json_until
+
+    params["status"] = status
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -92,16 +95,21 @@ def sync_detailed(
     limit: int | Unset = UNSET,
     since: datetime.datetime | Unset = UNSET,
     until: datetime.datetime | Unset = UNSET,
+    status: str | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1AgentsIdOrdersResponse200]:
     """List an agent's orders
 
-     Orders for any public agent. Requires auth.
+     Orders for any public agent, each with its current status (pending, partially_filled, filled,
+    canceled, expired or rejected) and filled quantity. Requires auth.
 
     Args:
         id (UUID):
         limit (int | Unset):
         since (datetime.datetime | Unset):
         until (datetime.datetime | Unset):
+        status (str | Unset): Keep only orders with these statuses, comma separated: pending,
+            partially_filled, filled, canceled, expired, rejected, or open (pending and
+            partially_filled). An unknown value returns 422. Example: open.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -116,6 +124,7 @@ def sync_detailed(
         limit=limit,
         since=since,
         until=until,
+        status=status,
     )
 
     response = client.get_httpx_client().request(
@@ -132,16 +141,21 @@ def sync(
     limit: int | Unset = UNSET,
     since: datetime.datetime | Unset = UNSET,
     until: datetime.datetime | Unset = UNSET,
+    status: str | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1AgentsIdOrdersResponse200 | None:
     """List an agent's orders
 
-     Orders for any public agent. Requires auth.
+     Orders for any public agent, each with its current status (pending, partially_filled, filled,
+    canceled, expired or rejected) and filled quantity. Requires auth.
 
     Args:
         id (UUID):
         limit (int | Unset):
         since (datetime.datetime | Unset):
         until (datetime.datetime | Unset):
+        status (str | Unset): Keep only orders with these statuses, comma separated: pending,
+            partially_filled, filled, canceled, expired, rejected, or open (pending and
+            partially_filled). An unknown value returns 422. Example: open.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,6 +171,7 @@ def sync(
         limit=limit,
         since=since,
         until=until,
+        status=status,
     ).parsed
 
 
@@ -167,16 +182,21 @@ async def asyncio_detailed(
     limit: int | Unset = UNSET,
     since: datetime.datetime | Unset = UNSET,
     until: datetime.datetime | Unset = UNSET,
+    status: str | Unset = UNSET,
 ) -> Response[ErrorEnvelope | GetV1AgentsIdOrdersResponse200]:
     """List an agent's orders
 
-     Orders for any public agent. Requires auth.
+     Orders for any public agent, each with its current status (pending, partially_filled, filled,
+    canceled, expired or rejected) and filled quantity. Requires auth.
 
     Args:
         id (UUID):
         limit (int | Unset):
         since (datetime.datetime | Unset):
         until (datetime.datetime | Unset):
+        status (str | Unset): Keep only orders with these statuses, comma separated: pending,
+            partially_filled, filled, canceled, expired, rejected, or open (pending and
+            partially_filled). An unknown value returns 422. Example: open.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -191,6 +211,7 @@ async def asyncio_detailed(
         limit=limit,
         since=since,
         until=until,
+        status=status,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -205,16 +226,21 @@ async def asyncio(
     limit: int | Unset = UNSET,
     since: datetime.datetime | Unset = UNSET,
     until: datetime.datetime | Unset = UNSET,
+    status: str | Unset = UNSET,
 ) -> ErrorEnvelope | GetV1AgentsIdOrdersResponse200 | None:
     """List an agent's orders
 
-     Orders for any public agent. Requires auth.
+     Orders for any public agent, each with its current status (pending, partially_filled, filled,
+    canceled, expired or rejected) and filled quantity. Requires auth.
 
     Args:
         id (UUID):
         limit (int | Unset):
         since (datetime.datetime | Unset):
         until (datetime.datetime | Unset):
+        status (str | Unset): Keep only orders with these statuses, comma separated: pending,
+            partially_filled, filled, canceled, expired, rejected, or open (pending and
+            partially_filled). An unknown value returns 422. Example: open.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,5 +257,6 @@ async def asyncio(
             limit=limit,
             since=since,
             until=until,
+            status=status,
         )
     ).parsed

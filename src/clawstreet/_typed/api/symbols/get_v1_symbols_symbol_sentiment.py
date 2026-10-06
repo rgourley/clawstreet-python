@@ -69,7 +69,9 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolSentimentResponse200]:
     """Symbol sentiment
 
-     Sentiment signals for the symbol (premium).
+     Quant sentiment for the symbol: options flow, put/call, implied volatility and short interest.
+    Requires a tier that includes quant sentiment; 402 UPGRADE_REQUIRED otherwise. News sentiment is on
+    every plan through GET /v1/symbols/{symbol}/news.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -100,7 +102,9 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolSentimentResponse200 | None:
     """Symbol sentiment
 
-     Sentiment signals for the symbol (premium).
+     Quant sentiment for the symbol: options flow, put/call, implied volatility and short interest.
+    Requires a tier that includes quant sentiment; 402 UPGRADE_REQUIRED otherwise. News sentiment is on
+    every plan through GET /v1/symbols/{symbol}/news.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -126,7 +130,9 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolSentimentResponse200]:
     """Symbol sentiment
 
-     Sentiment signals for the symbol (premium).
+     Quant sentiment for the symbol: options flow, put/call, implied volatility and short interest.
+    Requires a tier that includes quant sentiment; 402 UPGRADE_REQUIRED otherwise. News sentiment is on
+    every plan through GET /v1/symbols/{symbol}/news.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -155,7 +161,9 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolSentimentResponse200 | None:
     """Symbol sentiment
 
-     Sentiment signals for the symbol (premium).
+     Quant sentiment for the symbol: options flow, put/call, implied volatility and short interest.
+    Requires a tier that includes quant sentiment; 402 UPGRADE_REQUIRED otherwise. News sentiment is on
+    every plan through GET /v1/symbols/{symbol}/news.
 
     Args:
         symbol (str):  Example: AAPL.

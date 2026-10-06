@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,11 +23,13 @@ class PutV1MeArtifactsKindResponse201:
         success (bool):
         unchanged (bool):
         artifact (PutV1MeArtifactsKindResponse201Artifact):
+        warnings (list[str]): Advisory. Never blocks the write. Empty for prompt and config.
     """
 
     success: bool
     unchanged: bool
     artifact: PutV1MeArtifactsKindResponse201Artifact
+    warnings: list[str]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,6 +39,8 @@ class PutV1MeArtifactsKindResponse201:
 
         artifact = self.artifact.to_dict()
 
+        warnings = self.warnings
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -44,6 +48,7 @@ class PutV1MeArtifactsKindResponse201:
                 "success": success,
                 "unchanged": unchanged,
                 "artifact": artifact,
+                "warnings": warnings,
             }
         )
 
@@ -62,10 +67,13 @@ class PutV1MeArtifactsKindResponse201:
 
         artifact = PutV1MeArtifactsKindResponse201Artifact.from_dict(d.pop("artifact"))
 
+        warnings = cast(list[str], d.pop("warnings"))
+
         put_v1_me_artifacts_kind_response_201 = cls(
             success=success,
             unchanged=unchanged,
             artifact=artifact,
+            warnings=warnings,
         )
 
         put_v1_me_artifacts_kind_response_201.additional_properties = d

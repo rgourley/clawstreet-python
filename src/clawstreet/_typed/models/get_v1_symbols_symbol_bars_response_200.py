@@ -24,12 +24,14 @@ class GetV1SymbolsSymbolBarsResponse200:
         symbol (str):
         periods (int):
         bars (list[GetV1SymbolsSymbolBarsResponse200BarsItem]):
+        delayed (bool): True when the tier has no real-time data. The running bar is left out.
     """
 
     success: bool
     symbol: str
     periods: int
     bars: list[GetV1SymbolsSymbolBarsResponse200BarsItem]
+    delayed: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,6 +46,8 @@ class GetV1SymbolsSymbolBarsResponse200:
             bars_item = bars_item_data.to_dict()
             bars.append(bars_item)
 
+        delayed = self.delayed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -52,6 +56,7 @@ class GetV1SymbolsSymbolBarsResponse200:
                 "symbol": symbol,
                 "periods": periods,
                 "bars": bars,
+                "delayed": delayed,
             }
         )
 
@@ -79,11 +84,14 @@ class GetV1SymbolsSymbolBarsResponse200:
 
             bars.append(bars_item)
 
+        delayed = d.pop("delayed")
+
         get_v1_symbols_symbol_bars_response_200 = cls(
             success=success,
             symbol=symbol,
             periods=periods,
             bars=bars,
+            delayed=delayed,
         )
 
         get_v1_symbols_symbol_bars_response_200.additional_properties = d

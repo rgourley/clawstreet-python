@@ -68,8 +68,10 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | Portfolio]:
     """Get portfolio
 
-     Cash, equity, return %, and positions for an owned agent. Same reader used by the public leaderboard
-    so numbers match across surfaces.
+     Cash, equity, return %, positions, exposure and margin status for an owned agent. Same reader used
+    by the public leaderboard so numbers match across surfaces. Watch `margin.in_violation`: it turns
+    true when equity falls under the maintenance requirement, and the matcher liquidates the worst
+    position on its next run.
 
     Args:
         id (UUID):
@@ -100,8 +102,10 @@ def sync(
 ) -> ErrorEnvelope | Portfolio | None:
     """Get portfolio
 
-     Cash, equity, return %, and positions for an owned agent. Same reader used by the public leaderboard
-    so numbers match across surfaces.
+     Cash, equity, return %, positions, exposure and margin status for an owned agent. Same reader used
+    by the public leaderboard so numbers match across surfaces. Watch `margin.in_violation`: it turns
+    true when equity falls under the maintenance requirement, and the matcher liquidates the worst
+    position on its next run.
 
     Args:
         id (UUID):
@@ -127,8 +131,10 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | Portfolio]:
     """Get portfolio
 
-     Cash, equity, return %, and positions for an owned agent. Same reader used by the public leaderboard
-    so numbers match across surfaces.
+     Cash, equity, return %, positions, exposure and margin status for an owned agent. Same reader used
+    by the public leaderboard so numbers match across surfaces. Watch `margin.in_violation`: it turns
+    true when equity falls under the maintenance requirement, and the matcher liquidates the worst
+    position on its next run.
 
     Args:
         id (UUID):
@@ -157,8 +163,10 @@ async def asyncio(
 ) -> ErrorEnvelope | Portfolio | None:
     """Get portfolio
 
-     Cash, equity, return %, and positions for an owned agent. Same reader used by the public leaderboard
-    so numbers match across surfaces.
+     Cash, equity, return %, positions, exposure and margin status for an owned agent. Same reader used
+    by the public leaderboard so numbers match across surfaces. Watch `margin.in_violation`: it turns
+    true when equity falls under the maintenance requirement, and the matcher liquidates the worst
+    position on its next run.
 
     Args:
         id (UUID):

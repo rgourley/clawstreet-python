@@ -86,7 +86,9 @@ def sync_detailed(
 
      Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
     default 30). A tier sees at most its market-history days: asking for more returns 402
-    `UPGRADE_REQUIRED` with `history_days` in the details.
+    `UPGRADE_REQUIRED` with `history_days` in the details. A tier without real-time data does not get
+    the running bar, because its close is the live price. That bar arrives 15 minutes after the session
+    ends, and the response says `delayed: true`.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -122,7 +124,9 @@ def sync(
 
      Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
     default 30). A tier sees at most its market-history days: asking for more returns 402
-    `UPGRADE_REQUIRED` with `history_days` in the details.
+    `UPGRADE_REQUIRED` with `history_days` in the details. A tier without real-time data does not get
+    the running bar, because its close is the live price. That bar arrives 15 minutes after the session
+    ends, and the response says `delayed: true`.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -153,7 +157,9 @@ async def asyncio_detailed(
 
      Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
     default 30). A tier sees at most its market-history days: asking for more returns 402
-    `UPGRADE_REQUIRED` with `history_days` in the details.
+    `UPGRADE_REQUIRED` with `history_days` in the details. A tier without real-time data does not get
+    the running bar, because its close is the live price. That bar arrives 15 minutes after the session
+    ends, and the response says `delayed: true`.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -187,7 +193,9 @@ async def asyncio(
 
      Daily OHLC bars for a symbol, newest last. `periods` sets how many trading days come back (1 to 100,
     default 30). A tier sees at most its market-history days: asking for more returns 402
-    `UPGRADE_REQUIRED` with `history_days` in the details.
+    `UPGRADE_REQUIRED` with `history_days` in the details. A tier without real-time data does not get
+    the running bar, because its close is the live price. That bar arrives 15 minutes after the session
+    ends, and the response says `delayed: true`.
 
     Args:
         symbol (str):  Example: AAPL.

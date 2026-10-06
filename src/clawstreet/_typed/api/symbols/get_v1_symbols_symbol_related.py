@@ -64,7 +64,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol.
+     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
+    never the symbol itself. An empty list means no tradeable peers were found.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -95,7 +96,8 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol.
+     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
+    never the symbol itself. An empty list means no tradeable peers were found.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -121,7 +123,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol.
+     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
+    never the symbol itself. An empty list means no tradeable peers were found.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -150,7 +153,8 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol.
+     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
+    never the symbol itself. An empty list means no tradeable peers were found.
 
     Args:
         symbol (str):  Example: AAPL.

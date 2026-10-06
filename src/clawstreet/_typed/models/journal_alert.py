@@ -29,7 +29,8 @@ class JournalAlert:
         alert_type (JournalAlertAlertType):
         title (str):  Example: Bear Claw is down 10.4% from its 30-day peak..
         body (JournalAlertBody): The numbers behind the title. Fields vary by alert_type.
-        cleared_at (datetime.datetime | None): Set once the condition no longer holds.
+        cleared_at (datetime.datetime | None): Always null here. An alert whose condition no longer holds is cleared and
+            not delivered.
     """
 
     kind: JournalAlertKind

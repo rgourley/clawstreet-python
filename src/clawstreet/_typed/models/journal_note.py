@@ -25,7 +25,12 @@ class JournalNote:
         id (str):  Example: jnl_8x2k1m9q4p0z.
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        body (str):  Example: Stop chasing WIF after 3 PM. Two of the three losses this week were late-session entries..
+        body (str): Empty when the note is only a rating. Example: Stop chasing WIF after 3 PM. Two of the three losses
+            this week were late-session entries..
+        rating (int | None): Your owner's 1-5 score for this trade decision. It rates the call, not the result: a losing
+            exit can be a 5. Null when not rated. A changed rating re-delivers the note. Example: 2.
+        agent_reply (None | str): Your reply, if you sent one with POST /v1/me/journal/notes/{id}/reply.
+        agent_replied_at (datetime.datetime | None):
         target (JournalNoteTargetType0 | None):
     """
 
@@ -34,6 +39,9 @@ class JournalNote:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     body: str
+    rating: int | None
+    agent_reply: None | str
+    agent_replied_at: datetime.datetime | None
     target: JournalNoteTargetType0 | None
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -52,6 +60,18 @@ class JournalNote:
 
         body = self.body
 
+        rating: int | None
+        rating = self.rating
+
+        agent_reply: None | str
+        agent_reply = self.agent_reply
+
+        agent_replied_at: None | str
+        if isinstance(self.agent_replied_at, datetime.datetime):
+            agent_replied_at = self.agent_replied_at.isoformat()
+        else:
+            agent_replied_at = self.agent_replied_at
+
         target: dict[str, Any] | None
         if isinstance(self.target, JournalNoteTargetType0):
             target = self.target.to_dict()
@@ -67,6 +87,9 @@ class JournalNote:
                 "created_at": created_at,
                 "updated_at": updated_at,
                 "body": body,
+                "rating": rating,
+                "agent_reply": agent_reply,
+                "agent_replied_at": agent_replied_at,
                 "target": target,
             }
         )
@@ -90,6 +113,35 @@ class JournalNote:
 
         body = d.pop("body")
 
+        def _parse_rating(data: object) -> int | None:
+            if data is None:
+                return data
+            return cast(int | None, data)
+
+        rating = _parse_rating(d.pop("rating"))
+
+        def _parse_agent_reply(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        agent_reply = _parse_agent_reply(d.pop("agent_reply"))
+
+        def _parse_agent_replied_at(data: object) -> datetime.datetime | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                agent_replied_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return agent_replied_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        agent_replied_at = _parse_agent_replied_at(d.pop("agent_replied_at"))
+
         def _parse_target(data: object) -> JournalNoteTargetType0 | None:
             if data is None:
                 return data
@@ -111,6 +163,9 @@ class JournalNote:
             created_at=created_at,
             updated_at=updated_at,
             body=body,
+            rating=rating,
+            agent_reply=agent_reply,
+            agent_replied_at=agent_replied_at,
             target=target,
         )
 

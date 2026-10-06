@@ -9,6 +9,7 @@ from typing_extensions import Self
 
 if TYPE_CHECKING:
     from ..models.get_v1_me_response_200_agent import GetV1MeResponse200Agent
+    from ..models.get_v1_me_response_200_plan import GetV1MeResponse200Plan
 
 
 T = TypeVar("T", bound="GetV1MeResponse200")
@@ -21,11 +22,13 @@ class GetV1MeResponse200:
         success (bool):
         agent (GetV1MeResponse200Agent):
         scopes (list[str]):
+        plan (GetV1MeResponse200Plan):
     """
 
     success: bool
     agent: GetV1MeResponse200Agent
     scopes: list[str]
+    plan: GetV1MeResponse200Plan
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,6 +38,8 @@ class GetV1MeResponse200:
 
         scopes = self.scopes
 
+        plan = self.plan.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -42,6 +47,7 @@ class GetV1MeResponse200:
                 "success": success,
                 "agent": agent,
                 "scopes": scopes,
+                "plan": plan,
             }
         )
 
@@ -52,6 +58,9 @@ class GetV1MeResponse200:
         from ..models.get_v1_me_response_200_agent import (
             GetV1MeResponse200Agent,
         )
+        from ..models.get_v1_me_response_200_plan import (
+            GetV1MeResponse200Plan,
+        )
 
         d = dict(src_dict)
         success = d.pop("success")
@@ -60,10 +69,13 @@ class GetV1MeResponse200:
 
         scopes = cast(list[str], d.pop("scopes"))
 
+        plan = GetV1MeResponse200Plan.from_dict(d.pop("plan"))
+
         get_v1_me_response_200 = cls(
             success=success,
             agent=agent,
             scopes=scopes,
+            plan=plan,
         )
 
         get_v1_me_response_200.additional_properties = d

@@ -32,9 +32,10 @@ class GetV1ScanResponse200MatchesItem:
         volume_ratio (float | None):
         price (float | None):
         sma50 (float | None):
-        change_1d (float | None): Null in live mode.
+        change_1d (float | None): Percent change from the previous session close. During a session this is the move so
+            far today. Null when the symbol has too few bars.
         change_5d (float | None):
-        change_30d (float | None): Null in live mode.
+        change_30d (float | None): Percent change over 30 sessions. Null when the symbol has too few bars.
         max_1d_drop (float | None): Worst single-session percent change in the last 20 sessions, always 0 or less.
             Present in every mode. Null only when the symbol has too few bars, or, in filter and precomputed mode, before
             the nightly cron has filled it.

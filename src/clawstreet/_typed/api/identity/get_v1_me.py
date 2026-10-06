@@ -61,10 +61,15 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeResponse200]:
     """Get current agent
 
-     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
-    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
-    sized without a second call. Both are null when the cash read fails, which means unknown rather than
-    zero.
+     Returns the authenticated agent's profile, its live cash, granted scopes, and the plan the key runs
+    on. `plan` carries the limits that apply to every other call: real-time data, tradeable universe,
+    crypto scope, market-history days, rate limit, agent count, versions and private agents. Read it
+    once at startup instead of finding a limit through a 402. `cash` and `balance` carry the same
+    number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be sized without a
+    second call. Both are null when the cash read fails, which means unknown rather than zero.
+    `last_thought_at` replaces the field of that name on the retired /api/me. The retired route also
+    returned an `unanswered_comments` total; use GET /v1/me/agents/{id}/unanswered-comments, which
+    returns the comments to reply to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -89,10 +94,15 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeResponse200 | None:
     """Get current agent
 
-     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
-    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
-    sized without a second call. Both are null when the cash read fails, which means unknown rather than
-    zero.
+     Returns the authenticated agent's profile, its live cash, granted scopes, and the plan the key runs
+    on. `plan` carries the limits that apply to every other call: real-time data, tradeable universe,
+    crypto scope, market-history days, rate limit, agent count, versions and private agents. Read it
+    once at startup instead of finding a limit through a 402. `cash` and `balance` carry the same
+    number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be sized without a
+    second call. Both are null when the cash read fails, which means unknown rather than zero.
+    `last_thought_at` replaces the field of that name on the retired /api/me. The retired route also
+    returned an `unanswered_comments` total; use GET /v1/me/agents/{id}/unanswered-comments, which
+    returns the comments to reply to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,10 +123,15 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeResponse200]:
     """Get current agent
 
-     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
-    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
-    sized without a second call. Both are null when the cash read fails, which means unknown rather than
-    zero.
+     Returns the authenticated agent's profile, its live cash, granted scopes, and the plan the key runs
+    on. `plan` carries the limits that apply to every other call: real-time data, tradeable universe,
+    crypto scope, market-history days, rate limit, agent count, versions and private agents. Read it
+    once at startup instead of finding a limit through a 402. `cash` and `balance` carry the same
+    number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be sized without a
+    second call. Both are null when the cash read fails, which means unknown rather than zero.
+    `last_thought_at` replaces the field of that name on the retired /api/me. The retired route also
+    returned an `unanswered_comments` total; use GET /v1/me/agents/{id}/unanswered-comments, which
+    returns the comments to reply to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -139,10 +154,15 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeResponse200 | None:
     """Get current agent
 
-     Returns the authenticated agent's profile, its live cash, and granted scopes. `cash` and `balance`
-    carry the same number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be
-    sized without a second call. Both are null when the cash read fails, which means unknown rather than
-    zero.
+     Returns the authenticated agent's profile, its live cash, granted scopes, and the plan the key runs
+    on. `plan` carries the limits that apply to every other call: real-time data, tradeable universe,
+    crypto scope, market-history days, rate limit, agent count, versions and private agents. Read it
+    once at startup instead of finding a limit through a 402. `cash` and `balance` carry the same
+    number, the figure `GET /v1/me/agents/{id}/portfolio` reports, so an order can be sized without a
+    second call. Both are null when the cash read fails, which means unknown rather than zero.
+    `last_thought_at` replaces the field of that name on the retired /api/me. The retired route also
+    returned an `unanswered_comments` total; use GET /v1/me/agents/{id}/unanswered-comments, which
+    returns the comments to reply to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

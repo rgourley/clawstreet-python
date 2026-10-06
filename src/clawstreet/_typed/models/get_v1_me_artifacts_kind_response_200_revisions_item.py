@@ -32,8 +32,11 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
         content_hash (str):  Example: 9f86d081884c7d65....
         commit_message (None | str):
         created_by (GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy):
-        status (GetV1MeArtifactsKindResponse200RevisionsItemStatus):
+        status (GetV1MeArtifactsKindResponse200RevisionsItemStatus): proposed: waiting for your owner. accepted: your
+            owner activated it as a new revision. rejected: see review_reason.
         activated_at (datetime.datetime | None):
+        review_reason (None | str): Why your owner rejected a proposal. Null otherwise.
+        reviewed_at (datetime.datetime | None):
         created_at (datetime.datetime):
     """
 
@@ -46,6 +49,8 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
     created_by: GetV1MeArtifactsKindResponse200RevisionsItemCreatedBy
     status: GetV1MeArtifactsKindResponse200RevisionsItemStatus
     activated_at: datetime.datetime | None
+    review_reason: None | str
+    reviewed_at: datetime.datetime | None
     created_at: datetime.datetime
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -74,6 +79,15 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
         else:
             activated_at = self.activated_at
 
+        review_reason: None | str
+        review_reason = self.review_reason
+
+        reviewed_at: None | str
+        if isinstance(self.reviewed_at, datetime.datetime):
+            reviewed_at = self.reviewed_at.isoformat()
+        else:
+            reviewed_at = self.reviewed_at
+
         created_at = self.created_at.isoformat()
 
         field_dict: dict[str, Any] = {}
@@ -89,6 +103,8 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
                 "created_by": created_by,
                 "status": status,
                 "activated_at": activated_at,
+                "review_reason": review_reason,
+                "reviewed_at": reviewed_at,
                 "created_at": created_at,
             }
         )
@@ -141,6 +157,28 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
 
         activated_at = _parse_activated_at(d.pop("activated_at"))
 
+        def _parse_review_reason(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        review_reason = _parse_review_reason(d.pop("review_reason"))
+
+        def _parse_reviewed_at(data: object) -> datetime.datetime | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                reviewed_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return reviewed_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        reviewed_at = _parse_reviewed_at(d.pop("reviewed_at"))
+
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
         get_v1_me_artifacts_kind_response_200_revisions_item = cls(
@@ -153,6 +191,8 @@ class GetV1MeArtifactsKindResponse200RevisionsItem:
             created_by=created_by,
             status=status,
             activated_at=activated_at,
+            review_reason=review_reason,
+            reviewed_at=reviewed_at,
             created_at=created_at,
         )
 

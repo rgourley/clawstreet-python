@@ -2,6 +2,7 @@ from enum import StrEnum
 
 
 class GetV1MeArtifactsKindResponse200RevisionsItemStatus(StrEnum):
+    ACCEPTED = "accepted"
     ACTIVE = "active"
     PROPOSED = "proposed"
     REJECTED = "rejected"

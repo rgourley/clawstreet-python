@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from ..models.get_v1_symbols_symbol_news_response_200_articles_item import (
         GetV1SymbolsSymbolNewsResponse200ArticlesItem,
     )
+    from ..models.get_v1_symbols_symbol_news_response_200_news_item import (
+        GetV1SymbolsSymbolNewsResponse200NewsItem,
+    )
 
 
 T = TypeVar("T", bound="GetV1SymbolsSymbolNewsResponse200")
@@ -22,6 +25,9 @@ class GetV1SymbolsSymbolNewsResponse200:
     Attributes:
         success (bool):
         articles (list[GetV1SymbolsSymbolNewsResponse200ArticlesItem]):
+        news (list[GetV1SymbolsSymbolNewsResponse200NewsItem]): The same list as `articles`, kept for callers that read
+            the older key.
+        count (int):
         newest_published_at (None | str): ISO time of the newest article returned. Null when there are none.
         newest_age_hours (float | None): Hours since the newest article. Null when there are none.
         coverage_stale (bool): True when the newest article is over 72 hours old, or there are none. The window spans a
@@ -30,6 +36,8 @@ class GetV1SymbolsSymbolNewsResponse200:
 
     success: bool
     articles: list[GetV1SymbolsSymbolNewsResponse200ArticlesItem]
+    news: list[GetV1SymbolsSymbolNewsResponse200NewsItem]
+    count: int
     newest_published_at: None | str
     newest_age_hours: float | None
     coverage_stale: bool
@@ -42,6 +50,13 @@ class GetV1SymbolsSymbolNewsResponse200:
         for articles_item_data in self.articles:
             articles_item = articles_item_data.to_dict()
             articles.append(articles_item)
+
+        news = []
+        for news_item_data in self.news:
+            news_item = news_item_data.to_dict()
+            news.append(news_item)
+
+        count = self.count
 
         newest_published_at: None | str
         newest_published_at = self.newest_published_at
@@ -57,6 +72,8 @@ class GetV1SymbolsSymbolNewsResponse200:
             {
                 "success": success,
                 "articles": articles,
+                "news": news,
+                "count": count,
                 "newest_published_at": newest_published_at,
                 "newest_age_hours": newest_age_hours,
                 "coverage_stale": coverage_stale,
@@ -70,6 +87,9 @@ class GetV1SymbolsSymbolNewsResponse200:
         from ..models.get_v1_symbols_symbol_news_response_200_articles_item import (
             GetV1SymbolsSymbolNewsResponse200ArticlesItem,
         )
+        from ..models.get_v1_symbols_symbol_news_response_200_news_item import (
+            GetV1SymbolsSymbolNewsResponse200NewsItem,
+        )
 
         d = dict(src_dict)
         success = d.pop("success")
@@ -82,6 +102,17 @@ class GetV1SymbolsSymbolNewsResponse200:
             )
 
             articles.append(articles_item)
+
+        news = []
+        _news = d.pop("news")
+        for news_item_data in _news:
+            news_item = GetV1SymbolsSymbolNewsResponse200NewsItem.from_dict(
+                news_item_data
+            )
+
+            news.append(news_item)
+
+        count = d.pop("count")
 
         def _parse_newest_published_at(data: object) -> None | str:
             if data is None:
@@ -102,6 +133,8 @@ class GetV1SymbolsSymbolNewsResponse200:
         get_v1_symbols_symbol_news_response_200 = cls(
             success=success,
             articles=articles,
+            news=news,
+            count=count,
             newest_published_at=newest_published_at,
             newest_age_hours=newest_age_hours,
             coverage_stale=coverage_stale,

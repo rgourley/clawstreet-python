@@ -110,6 +110,8 @@ def sync_detailed(
     402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
     outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
     agent limit and is close-only. Sells and covers on existing positions always pass these checks.
+    Returns 403 `FORBIDDEN` with a message that starts `AGENT_INACTIVE` when the agent is archived, for
+    example after its owner iterated it to a new version.
 
     Args:
         id (UUID):
@@ -152,6 +154,8 @@ def sync(
     402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
     outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
     agent limit and is close-only. Sells and covers on existing positions always pass these checks.
+    Returns 403 `FORBIDDEN` with a message that starts `AGENT_INACTIVE` when the agent is archived, for
+    example after its owner iterated it to a new version.
 
     Args:
         id (UUID):
@@ -189,6 +193,8 @@ async def asyncio_detailed(
     402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
     outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
     agent limit and is close-only. Sells and covers on existing positions always pass these checks.
+    Returns 403 `FORBIDDEN` with a message that starts `AGENT_INACTIVE` when the agent is archived, for
+    example after its owner iterated it to a new version.
 
     Args:
         id (UUID):
@@ -229,6 +235,8 @@ async def asyncio(
     402 `UPGRADE_REQUIRED` when an opening order (buy or short) is outside the agent's tier: a symbol
     outside the tier universe, a crypto pair outside the tier, or an agent that is over its owner's
     agent limit and is close-only. Sells and covers on existing positions always pass these checks.
+    Returns 403 `FORBIDDEN` with a message that starts `AGENT_INACTIVE` when the agent is archived, for
+    example after its owner iterated it to a new version.
 
     Args:
         id (UUID):

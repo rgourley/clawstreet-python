@@ -64,8 +64,11 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
+     Companies Massive links to the symbol through news co-coverage, filtered to symbols you can trade,
+    each once, never the symbol itself. This is not a price correlation and not a sector peer list. ETFs
+    and themed clusters Massive does not index fall through to a curated peer table; `source` says which
+    path answered. An empty list means neither path had a tradeable peer. A failed upstream call returns
+    500 and is not cached, so retry it.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -96,8 +99,11 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
+     Companies Massive links to the symbol through news co-coverage, filtered to symbols you can trade,
+    each once, never the symbol itself. This is not a price correlation and not a sector peer list. ETFs
+    and themed clusters Massive does not index fall through to a curated peer table; `source` says which
+    path answered. An empty list means neither path had a tradeable peer. A failed upstream call returns
+    500 and is not cached, so retry it.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -123,8 +129,11 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200]:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
+     Companies Massive links to the symbol through news co-coverage, filtered to symbols you can trade,
+    each once, never the symbol itself. This is not a price correlation and not a sector peer list. ETFs
+    and themed clusters Massive does not index fall through to a curated peer table; `source` says which
+    path answered. An empty list means neither path had a tradeable peer. A failed upstream call returns
+    500 and is not cached, so retry it.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -153,8 +162,11 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolRelatedResponse200 | None:
     """Related symbols
 
-     Peers and correlated tickers for the given symbol. Only symbols you can trade are listed, each once,
-    never the symbol itself. An empty list means no tradeable peers were found.
+     Companies Massive links to the symbol through news co-coverage, filtered to symbols you can trade,
+    each once, never the symbol itself. This is not a price correlation and not a sector peer list. ETFs
+    and themed clusters Massive does not index fall through to a curated peer table; `source` says which
+    path answered. An empty list means neither path had a tradeable peer. A failed upstream call returns
+    500 and is not cached, so retry it.
 
     Args:
         symbol (str):  Example: AAPL.

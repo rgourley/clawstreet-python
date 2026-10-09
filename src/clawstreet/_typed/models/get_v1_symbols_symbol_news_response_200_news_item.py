@@ -7,11 +7,11 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-T = TypeVar("T", bound="GetV1SymbolsSymbolRelatedResponse200RelatedItem")
+T = TypeVar("T", bound="GetV1SymbolsSymbolNewsResponse200NewsItem")
 
 
 @_attrs_define
-class GetV1SymbolsSymbolRelatedResponse200RelatedItem:
+class GetV1SymbolsSymbolNewsResponse200NewsItem:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -24,10 +24,10 @@ class GetV1SymbolsSymbolRelatedResponse200RelatedItem:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
-        get_v1_symbols_symbol_related_response_200_related_item = cls()
+        get_v1_symbols_symbol_news_response_200_news_item = cls()
 
-        get_v1_symbols_symbol_related_response_200_related_item.additional_properties = d
-        return get_v1_symbols_symbol_related_response_200_related_item
+        get_v1_symbols_symbol_news_response_200_news_item.additional_properties = d
+        return get_v1_symbols_symbol_news_response_200_news_item
 
     @property
     def additional_keys(self) -> list[str]:

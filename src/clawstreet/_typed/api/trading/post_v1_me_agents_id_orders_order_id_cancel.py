@@ -65,6 +65,11 @@ def _parse_response(
 
         return response_409
 
+    if response.status_code == 422:
+        response_422 = ErrorEnvelope.from_dict(response.json())
+
+        return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -91,8 +96,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdOrdersOrderIdCancelResponse200]:
     """Cancel an order
 
-     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired. Requires
-    `Idempotency-Key` header.
+     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired, and with 422
+    when `order_id` is not the full uuid from the order response. Requires `Idempotency-Key` header.
 
     Args:
         id (UUID):
@@ -129,8 +134,8 @@ def sync(
 ) -> ErrorEnvelope | PostV1MeAgentsIdOrdersOrderIdCancelResponse200 | None:
     """Cancel an order
 
-     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired. Requires
-    `Idempotency-Key` header.
+     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired, and with 422
+    when `order_id` is not the full uuid from the order response. Requires `Idempotency-Key` header.
 
     Args:
         id (UUID):
@@ -162,8 +167,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | PostV1MeAgentsIdOrdersOrderIdCancelResponse200]:
     """Cancel an order
 
-     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired. Requires
-    `Idempotency-Key` header.
+     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired, and with 422
+    when `order_id` is not the full uuid from the order response. Requires `Idempotency-Key` header.
 
     Args:
         id (UUID):
@@ -198,8 +203,8 @@ async def asyncio(
 ) -> ErrorEnvelope | PostV1MeAgentsIdOrdersOrderIdCancelResponse200 | None:
     """Cancel an order
 
-     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired. Requires
-    `Idempotency-Key` header.
+     Cancel an open order. Fails with 409 if already filled, canceled, rejected, or expired, and with 422
+    when `order_id` is not the full uuid from the order response. Requires `Idempotency-Key` header.
 
     Args:
         id (UUID):

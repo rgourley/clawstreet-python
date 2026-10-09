@@ -71,14 +71,20 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200]:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
-    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
-    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
-    only when neither is available, four times the newest quarter (`quarterly_x4`).
-    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
-    comes from the newest filing that carries a cash flow statement, which is not always the newest
-    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
-    estimate is not good enough for your screen.
+     Fundamentals for the given symbol, inside a `fundamentals` object beside `symbol` and `timestamp`.
+    The fields are `revenue`, `net_income`, `eps`, `debt_to_equity`, `market_cap`, `total_assets`,
+    `total_liabilities`, `filing_date` and `fiscal_period` from the newest quarterly filing;
+    `annual_net_income`, `annual_net_income_period` and `annual_net_income_basis` for the trailing
+    twelve months (or the newest annual filing); `operating_cash_flow` and `operating_cash_flow_period`;
+    and `pe_ratio` with `pe_basis`. There are no margin or growth fields. `net_income` is one quarter;
+    the trailing-twelve-month figure is `annual_net_income`. `pe_ratio` divides market cap by a full
+    year of net income: `pe_basis` says whether that year came from a trailing-twelve-month filing
+    (`ttm`), an annual one (`annual`), or, only when neither is available, four times the newest quarter
+    (`quarterly_x4`). It is null when the full-year figure is zero or a loss, even if the newest quarter
+    was profitable. `operating_cash_flow` prefers the trailing-twelve-month cash flow row and otherwise
+    takes the newest row that has one; `operating_cash_flow_period` names it. Any field is null when the
+    filing does not carry it. Gate on `pe_basis` if a `quarterly_x4` estimate is not good enough for
+    your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -109,14 +115,20 @@ def sync(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200 | None:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
-    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
-    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
-    only when neither is available, four times the newest quarter (`quarterly_x4`).
-    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
-    comes from the newest filing that carries a cash flow statement, which is not always the newest
-    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
-    estimate is not good enough for your screen.
+     Fundamentals for the given symbol, inside a `fundamentals` object beside `symbol` and `timestamp`.
+    The fields are `revenue`, `net_income`, `eps`, `debt_to_equity`, `market_cap`, `total_assets`,
+    `total_liabilities`, `filing_date` and `fiscal_period` from the newest quarterly filing;
+    `annual_net_income`, `annual_net_income_period` and `annual_net_income_basis` for the trailing
+    twelve months (or the newest annual filing); `operating_cash_flow` and `operating_cash_flow_period`;
+    and `pe_ratio` with `pe_basis`. There are no margin or growth fields. `net_income` is one quarter;
+    the trailing-twelve-month figure is `annual_net_income`. `pe_ratio` divides market cap by a full
+    year of net income: `pe_basis` says whether that year came from a trailing-twelve-month filing
+    (`ttm`), an annual one (`annual`), or, only when neither is available, four times the newest quarter
+    (`quarterly_x4`). It is null when the full-year figure is zero or a loss, even if the newest quarter
+    was profitable. `operating_cash_flow` prefers the trailing-twelve-month cash flow row and otherwise
+    takes the newest row that has one; `operating_cash_flow_period` names it. Any field is null when the
+    filing does not carry it. Gate on `pe_basis` if a `quarterly_x4` estimate is not good enough for
+    your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -142,14 +154,20 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200]:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
-    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
-    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
-    only when neither is available, four times the newest quarter (`quarterly_x4`).
-    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
-    comes from the newest filing that carries a cash flow statement, which is not always the newest
-    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
-    estimate is not good enough for your screen.
+     Fundamentals for the given symbol, inside a `fundamentals` object beside `symbol` and `timestamp`.
+    The fields are `revenue`, `net_income`, `eps`, `debt_to_equity`, `market_cap`, `total_assets`,
+    `total_liabilities`, `filing_date` and `fiscal_period` from the newest quarterly filing;
+    `annual_net_income`, `annual_net_income_period` and `annual_net_income_basis` for the trailing
+    twelve months (or the newest annual filing); `operating_cash_flow` and `operating_cash_flow_period`;
+    and `pe_ratio` with `pe_basis`. There are no margin or growth fields. `net_income` is one quarter;
+    the trailing-twelve-month figure is `annual_net_income`. `pe_ratio` divides market cap by a full
+    year of net income: `pe_basis` says whether that year came from a trailing-twelve-month filing
+    (`ttm`), an annual one (`annual`), or, only when neither is available, four times the newest quarter
+    (`quarterly_x4`). It is null when the full-year figure is zero or a loss, even if the newest quarter
+    was profitable. `operating_cash_flow` prefers the trailing-twelve-month cash flow row and otherwise
+    takes the newest row that has one; `operating_cash_flow_period` names it. Any field is null when the
+    filing does not carry it. Gate on `pe_basis` if a `quarterly_x4` estimate is not good enough for
+    your screen.
 
     Args:
         symbol (str):  Example: AAPL.
@@ -178,14 +196,20 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1SymbolsSymbolFundamentalsResponse200 | None:
     """Fundamentals
 
-     Fundamentals (PE, EPS, revenue, margins, etc.) for the given symbol. Every field describes the
-    newest filing except three. `pe_ratio` is computed from a full year of net income: `pe_basis` says
-    whether that year came from a trailing-twelve-month filing (`ttm`), an annual one (`annual`), or,
-    only when neither is available, four times the newest quarter (`quarterly_x4`).
-    `annual_net_income_period` names the period it used, for example `FY 2025`. `operating_cash_flow`
-    comes from the newest filing that carries a cash flow statement, which is not always the newest
-    filing, and `operating_cash_flow_period` names that period. Gate on `pe_basis` if a `quarterly_x4`
-    estimate is not good enough for your screen.
+     Fundamentals for the given symbol, inside a `fundamentals` object beside `symbol` and `timestamp`.
+    The fields are `revenue`, `net_income`, `eps`, `debt_to_equity`, `market_cap`, `total_assets`,
+    `total_liabilities`, `filing_date` and `fiscal_period` from the newest quarterly filing;
+    `annual_net_income`, `annual_net_income_period` and `annual_net_income_basis` for the trailing
+    twelve months (or the newest annual filing); `operating_cash_flow` and `operating_cash_flow_period`;
+    and `pe_ratio` with `pe_basis`. There are no margin or growth fields. `net_income` is one quarter;
+    the trailing-twelve-month figure is `annual_net_income`. `pe_ratio` divides market cap by a full
+    year of net income: `pe_basis` says whether that year came from a trailing-twelve-month filing
+    (`ttm`), an annual one (`annual`), or, only when neither is available, four times the newest quarter
+    (`quarterly_x4`). It is null when the full-year figure is zero or a loss, even if the newest quarter
+    was profitable. `operating_cash_flow` prefers the trailing-twelve-month cash flow row and otherwise
+    takes the newest row that has one; `operating_cash_flow_period` names it. Any field is null when the
+    filing does not carry it. Gate on `pe_basis` if a `quarterly_x4` estimate is not good enough for
+    your screen.
 
     Args:
         symbol (str):  Example: AAPL.

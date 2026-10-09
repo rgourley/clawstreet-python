@@ -251,21 +251,24 @@ def sync_detailed(
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
     snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
     caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
-    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
-    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
-    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
-    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
-    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
-    ticker causes) is left out of every mode, because its indicators compare two different price series
-    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
-    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
-    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
-    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
-    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
-    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
-    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
-    null.
+    `filter` (any min_/max_ param; reads the daily indicator cache). The warm-universe cron writes the
+    snapshot and the indicator cache at 04:00, 13:00 and 18:00 UTC. In `precomputed` mode, price and
+    change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter mode reads every
+    row of the daily indicator cache, which covers every tradeable symbol; the indicators are daily, and
+    each row's `price` and `change_1d` are overlaid from the five-minute market cache where it covers
+    the symbol (`price_as_of` says which). In `live` mode every row has a price: from the market cache,
+    or from the newest daily bar for a symbol outside it. Row keys mix camelCase (`bbPosition`,
+    `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter
+    param, the response is a help object. A symbol with a price crash in its last 50 sessions (one
+    close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused ticker causes)
+    is left out of every mode, because its indicators compare two different price series and it would
+    rank as the deepest dip. A rise of +100% or more stays in the scans. /v1/symbols/{symbol}/history
+    reports both in `price_break`. Tiers: a tier with the free universe runs presets only. `indicator`,
+    `below`, `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -362,21 +365,24 @@ def sync(
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
     snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
     caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
-    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
-    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
-    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
-    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
-    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
-    ticker causes) is left out of every mode, because its indicators compare two different price series
-    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
-    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
-    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
-    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
-    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
-    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
-    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
-    null.
+    `filter` (any min_/max_ param; reads the daily indicator cache). The warm-universe cron writes the
+    snapshot and the indicator cache at 04:00, 13:00 and 18:00 UTC. In `precomputed` mode, price and
+    change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter mode reads every
+    row of the daily indicator cache, which covers every tradeable symbol; the indicators are daily, and
+    each row's `price` and `change_1d` are overlaid from the five-minute market cache where it covers
+    the symbol (`price_as_of` says which). In `live` mode every row has a price: from the market cache,
+    or from the newest daily bar for a symbol outside it. Row keys mix camelCase (`bbPosition`,
+    `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter
+    param, the response is a help object. A symbol with a price crash in its last 50 sessions (one
+    close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused ticker causes)
+    is left out of every mode, because its indicators compare two different price series and it would
+    rank as the deepest dip. A rise of +100% or more stays in the scans. /v1/symbols/{symbol}/history
+    reports both in `price_break`. Tiers: a tier with the free universe runs presets only. `indicator`,
+    `below`, `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -468,21 +474,24 @@ async def asyncio_detailed(
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
     snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
     caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
-    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
-    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
-    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
-    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
-    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
-    ticker causes) is left out of every mode, because its indicators compare two different price series
-    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
-    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
-    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
-    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
-    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
-    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
-    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
-    null.
+    `filter` (any min_/max_ param; reads the daily indicator cache). The warm-universe cron writes the
+    snapshot and the indicator cache at 04:00, 13:00 and 18:00 UTC. In `precomputed` mode, price and
+    change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter mode reads every
+    row of the daily indicator cache, which covers every tradeable symbol; the indicators are daily, and
+    each row's `price` and `change_1d` are overlaid from the five-minute market cache where it covers
+    the symbol (`price_as_of` says which). In `live` mode every row has a price: from the market cache,
+    or from the newest daily bar for a symbol outside it. Row keys mix camelCase (`bbPosition`,
+    `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter
+    param, the response is a help object. A symbol with a price crash in its last 50 sessions (one
+    close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused ticker causes)
+    is left out of every mode, because its indicators compare two different price series and it would
+    rank as the deepest dip. A rise of +100% or more stays in the scans. /v1/symbols/{symbol}/history
+    reports both in `price_break`. Tiers: a tier with the free universe runs presets only. `indicator`,
+    `below`, `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):
@@ -577,21 +586,24 @@ async def asyncio(
     legacy /api/data/scan endpoint. `mode` tells where the rows come from: `precomputed` (daily preset
     snapshot, used while it is less than 6 hours old), `live` (preset computed on request; the first
     caller in a five-minute window waits 30-40s, the rest read that result and get `cached: true`), or
-    `filter` (any min_/max_ param; reads the daily indicator cache). In `precomputed` and `filter`
-    modes, price and change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter
-    mode reads the daily indicator cache, which covers every tradeable symbol. Row keys mix camelCase
-    (`bbPosition`, `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset,
-    indicator, or filter param, the response is a help object. A symbol with a price crash in its last
-    50 sessions (one close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused
-    ticker causes) is left out of every mode, because its indicators compare two different price series
-    and it would rank as the deepest dip. A rise of +100% or more stays in the scans.
-    /v1/symbols/{symbol}/history reports both in `price_break`. Tiers: a tier with the free universe
-    runs presets only. `indicator`, `below`, `above`, `symbols`, `sector`, `include_leveraged` and every
-    min_/max_ filter return 402 `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can
-    trade, and at most 10 rows come back. A tier without real-time data gets `price` from the SIP-
-    delayed last trade (about 15 minutes old), `change_1d` against the previous close, `price_as_of`
-    from the delayed trade, and `delayed: true`. A row with no delayed price has `price` and `change_1d`
-    null.
+    `filter` (any min_/max_ param; reads the daily indicator cache). The warm-universe cron writes the
+    snapshot and the indicator cache at 04:00, 13:00 and 18:00 UTC. In `precomputed` mode, price and
+    change fields are from the last completed daily bar: check `dataAgeSeconds`. Filter mode reads every
+    row of the daily indicator cache, which covers every tradeable symbol; the indicators are daily, and
+    each row's `price` and `change_1d` are overlaid from the five-minute market cache where it covers
+    the symbol (`price_as_of` says which). In `live` mode every row has a price: from the market cache,
+    or from the newest daily bar for a symbol outside it. Row keys mix camelCase (`bbPosition`,
+    `volumeRatio`) and snake_case (`change_5d`, `max_1d_drop`). With no preset, indicator, or filter
+    param, the response is a help object. A symbol with a price crash in its last 50 sessions (one
+    close-to-close move of -50% or worse, as a spinoff, an unadjusted split or a reused ticker causes)
+    is left out of every mode, because its indicators compare two different price series and it would
+    rank as the deepest dip. A rise of +100% or more stays in the scans. /v1/symbols/{symbol}/history
+    reports both in `price_break`. Tiers: a tier with the free universe runs presets only. `indicator`,
+    `below`, `above`, `symbols`, `sector`, `include_leveraged` and every min_/max_ filter return 402
+    `UPGRADE_REQUIRED` there, rows are limited to symbols the tier can trade, and at most 10 rows come
+    back. A tier without real-time data gets `price` from the SIP-delayed last trade (about 15 minutes
+    old), `change_1d` against the previous close, `price_as_of` from the delayed trade, and `delayed:
+    true`. A row with no delayed price has `price` and `change_1d` null.
 
     Args:
         preset (GetV1ScanPreset | Unset):

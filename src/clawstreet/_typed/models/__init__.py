@@ -292,6 +292,12 @@ from .get_v1_symbols_symbol_fundamentals_response_200 import (
 from .get_v1_symbols_symbol_fundamentals_response_200_fundamentals import (
     GetV1SymbolsSymbolFundamentalsResponse200Fundamentals,
 )
+from .get_v1_symbols_symbol_fundamentals_response_200_fundamentals_annual_net_income_basis import (
+    GetV1SymbolsSymbolFundamentalsResponse200FundamentalsAnnualNetIncomeBasis,
+)
+from .get_v1_symbols_symbol_fundamentals_response_200_fundamentals_pe_basis import (
+    GetV1SymbolsSymbolFundamentalsResponse200FundamentalsPeBasis,
+)
 from .get_v1_symbols_symbol_history_refresh import GetV1SymbolsSymbolHistoryRefresh
 from .get_v1_symbols_symbol_history_response_200 import (
     GetV1SymbolsSymbolHistoryResponse200,
@@ -322,6 +328,9 @@ from .get_v1_symbols_symbol_news_response_200 import GetV1SymbolsSymbolNewsRespo
 from .get_v1_symbols_symbol_news_response_200_articles_item import (
     GetV1SymbolsSymbolNewsResponse200ArticlesItem,
 )
+from .get_v1_symbols_symbol_news_response_200_news_item import (
+    GetV1SymbolsSymbolNewsResponse200NewsItem,
+)
 from .get_v1_symbols_symbol_options_chain_response_200 import (
     GetV1SymbolsSymbolOptionsChainResponse200,
 )
@@ -331,8 +340,8 @@ from .get_v1_symbols_symbol_options_chain_response_200_chain import (
 from .get_v1_symbols_symbol_related_response_200 import (
     GetV1SymbolsSymbolRelatedResponse200,
 )
-from .get_v1_symbols_symbol_related_response_200_related_item import (
-    GetV1SymbolsSymbolRelatedResponse200RelatedItem,
+from .get_v1_symbols_symbol_related_response_200_source import (
+    GetV1SymbolsSymbolRelatedResponse200Source,
 )
 from .get_v1_symbols_symbol_response_200 import GetV1SymbolsSymbolResponse200
 from .get_v1_symbols_symbol_response_200_type import GetV1SymbolsSymbolResponse200Type
@@ -657,6 +666,8 @@ __all__ = (
     "GetV1SymbolsSymbolEarningsResponse200",
     "GetV1SymbolsSymbolFundamentalsResponse200",
     "GetV1SymbolsSymbolFundamentalsResponse200Fundamentals",
+    "GetV1SymbolsSymbolFundamentalsResponse200FundamentalsAnnualNetIncomeBasis",
+    "GetV1SymbolsSymbolFundamentalsResponse200FundamentalsPeBasis",
     "GetV1SymbolsSymbolHistoryRefresh",
     "GetV1SymbolsSymbolHistoryResponse200",
     "GetV1SymbolsSymbolHistoryResponse200Derived",
@@ -669,10 +680,11 @@ __all__ = (
     "GetV1SymbolsSymbolIndicatorsResponse200Indicators",
     "GetV1SymbolsSymbolNewsResponse200",
     "GetV1SymbolsSymbolNewsResponse200ArticlesItem",
+    "GetV1SymbolsSymbolNewsResponse200NewsItem",
     "GetV1SymbolsSymbolOptionsChainResponse200",
     "GetV1SymbolsSymbolOptionsChainResponse200Chain",
     "GetV1SymbolsSymbolRelatedResponse200",
-    "GetV1SymbolsSymbolRelatedResponse200RelatedItem",
+    "GetV1SymbolsSymbolRelatedResponse200Source",
     "GetV1SymbolsSymbolResponse200",
     "GetV1SymbolsSymbolResponse200Type",
     "GetV1SymbolsSymbolRiskFactorsResponse200",

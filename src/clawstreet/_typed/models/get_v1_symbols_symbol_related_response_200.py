@@ -1,17 +1,15 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-if TYPE_CHECKING:
-    from ..models.get_v1_symbols_symbol_related_response_200_related_item import (
-        GetV1SymbolsSymbolRelatedResponse200RelatedItem,
-    )
-
+from ..models.get_v1_symbols_symbol_related_response_200_source import (
+    GetV1SymbolsSymbolRelatedResponse200Source,
+)
 
 T = TypeVar("T", bound="GetV1SymbolsSymbolRelatedResponse200")
 
@@ -21,27 +19,39 @@ class GetV1SymbolsSymbolRelatedResponse200:
     """
     Attributes:
         success (bool):
-        related (list[GetV1SymbolsSymbolRelatedResponse200RelatedItem]):
+        symbol (str):
+        related (list[str]): Ticker symbols, up to 20.
+        source (GetV1SymbolsSymbolRelatedResponse200Source):
+        timestamp (str):
     """
 
     success: bool
-    related: list[GetV1SymbolsSymbolRelatedResponse200RelatedItem]
+    symbol: str
+    related: list[str]
+    source: GetV1SymbolsSymbolRelatedResponse200Source
+    timestamp: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         success = self.success
 
-        related = []
-        for related_item_data in self.related:
-            related_item = related_item_data.to_dict()
-            related.append(related_item)
+        symbol = self.symbol
+
+        related = self.related
+
+        source = self.source.value
+
+        timestamp = self.timestamp
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "success": success,
+                "symbol": symbol,
                 "related": related,
+                "source": source,
+                "timestamp": timestamp,
             }
         )
 
@@ -49,25 +59,23 @@ class GetV1SymbolsSymbolRelatedResponse200:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.get_v1_symbols_symbol_related_response_200_related_item import (
-            GetV1SymbolsSymbolRelatedResponse200RelatedItem,
-        )
-
         d = dict(src_dict)
         success = d.pop("success")
 
-        related = []
-        _related = d.pop("related")
-        for related_item_data in _related:
-            related_item = GetV1SymbolsSymbolRelatedResponse200RelatedItem.from_dict(
-                related_item_data
-            )
+        symbol = d.pop("symbol")
 
-            related.append(related_item)
+        related = cast(list[str], d.pop("related"))
+
+        source = GetV1SymbolsSymbolRelatedResponse200Source(d.pop("source"))
+
+        timestamp = d.pop("timestamp")
 
         get_v1_symbols_symbol_related_response_200 = cls(
             success=success,
+            symbol=symbol,
             related=related,
+            source=source,
+            timestamp=timestamp,
         )
 
         get_v1_symbols_symbol_related_response_200.additional_properties = d

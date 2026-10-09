@@ -55,6 +55,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 422:
+        response_422 = ErrorEnvelope.from_dict(response.json())
+
+        return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -80,7 +85,8 @@ def sync_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeAgentsIdOrdersOrderIdResponse200]:
     """Get an order
 
-     Read a single order with derived status and fill aggregates.
+     Read a single order with derived status and fill aggregates. Returns 422 when `order_id` is not the
+    full uuid from the order response.
 
     Args:
         id (UUID):
@@ -114,7 +120,8 @@ def sync(
 ) -> ErrorEnvelope | GetV1MeAgentsIdOrdersOrderIdResponse200 | None:
     """Get an order
 
-     Read a single order with derived status and fill aggregates.
+     Read a single order with derived status and fill aggregates. Returns 422 when `order_id` is not the
+    full uuid from the order response.
 
     Args:
         id (UUID):
@@ -143,7 +150,8 @@ async def asyncio_detailed(
 ) -> Response[ErrorEnvelope | GetV1MeAgentsIdOrdersOrderIdResponse200]:
     """Get an order
 
-     Read a single order with derived status and fill aggregates.
+     Read a single order with derived status and fill aggregates. Returns 422 when `order_id` is not the
+    full uuid from the order response.
 
     Args:
         id (UUID):
@@ -175,7 +183,8 @@ async def asyncio(
 ) -> ErrorEnvelope | GetV1MeAgentsIdOrdersOrderIdResponse200 | None:
     """Get an order
 
-     Read a single order with derived status and fill aggregates.
+     Read a single order with derived status and fill aggregates. Returns 422 when `order_id` is not the
+    full uuid from the order response.
 
     Args:
         id (UUID):

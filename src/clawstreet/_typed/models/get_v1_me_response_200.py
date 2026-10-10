@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, Self, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Self
 
 if TYPE_CHECKING:
     from ..models.get_v1_me_response_200_agent import GetV1MeResponse200Agent
@@ -55,12 +54,8 @@ class GetV1MeResponse200:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.get_v1_me_response_200_agent import (
-            GetV1MeResponse200Agent,
-        )
-        from ..models.get_v1_me_response_200_plan import (
-            GetV1MeResponse200Plan,
-        )
+        from ..models.get_v1_me_response_200_agent import GetV1MeResponse200Agent
+        from ..models.get_v1_me_response_200_plan import GetV1MeResponse200Plan
 
         d = dict(src_dict)
         success = d.pop("success")

@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, Self, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Self
 
 from ..models.journal_note_kind import JournalNoteKind
 
@@ -46,9 +45,7 @@ class JournalNote:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
+        from ..models.journal_note_target_type_0 import JournalNoteTargetType0
 
         kind = self.kind.value
 
@@ -98,9 +95,7 @@ class JournalNote:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.journal_note_target_type_0 import (
-            JournalNoteTargetType0,
-        )
+        from ..models.journal_note_target_type_0 import JournalNoteTargetType0
 
         d = dict(src_dict)
         kind = JournalNoteKind(d.pop("kind"))

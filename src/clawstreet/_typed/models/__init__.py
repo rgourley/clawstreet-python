@@ -324,6 +324,12 @@ from .get_v1_symbols_symbol_indicators_response_200 import (
 from .get_v1_symbols_symbol_indicators_response_200_indicators import (
     GetV1SymbolsSymbolIndicatorsResponse200Indicators,
 )
+from .get_v1_symbols_symbol_minute_bars_response_200 import (
+    GetV1SymbolsSymbolMinuteBarsResponse200,
+)
+from .get_v1_symbols_symbol_minute_bars_response_200_bars_item import (
+    GetV1SymbolsSymbolMinuteBarsResponse200BarsItem,
+)
 from .get_v1_symbols_symbol_news_response_200 import GetV1SymbolsSymbolNewsResponse200
 from .get_v1_symbols_symbol_news_response_200_articles_item import (
     GetV1SymbolsSymbolNewsResponse200ArticlesItem,
@@ -678,6 +684,8 @@ __all__ = (
     "GetV1SymbolsSymbolHistoryTimespan",
     "GetV1SymbolsSymbolIndicatorsResponse200",
     "GetV1SymbolsSymbolIndicatorsResponse200Indicators",
+    "GetV1SymbolsSymbolMinuteBarsResponse200",
+    "GetV1SymbolsSymbolMinuteBarsResponse200BarsItem",
     "GetV1SymbolsSymbolNewsResponse200",
     "GetV1SymbolsSymbolNewsResponse200ArticlesItem",
     "GetV1SymbolsSymbolNewsResponse200NewsItem",

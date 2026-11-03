@@ -29,6 +29,7 @@ class GetV1MeResponse200Plan:
         weekly_review (bool): The weekly review appears in the journal stream.
         cloud_backup (bool): Read and write `/v1/me/artifacts`. False on Free.
         attribution (bool): Owner-facing performance breakdowns.
+        minute_bars (bool): Read `/v1/symbols/{symbol}/minute-bars`. False on Free.
         trial_ends_at (None | str): When a launch trial supplies this tier, the moment it ends. Null otherwise.
         after_trial (None | str): The plan this key falls to when the trial ends. Null when there is no trial. Example:
             Free.
@@ -51,6 +52,7 @@ class GetV1MeResponse200Plan:
     weekly_review: bool
     cloud_backup: bool
     attribution: bool
+    minute_bars: bool
     trial_ends_at: None | str
     after_trial: None | str
     upgrade_url: str
@@ -89,6 +91,8 @@ class GetV1MeResponse200Plan:
 
         attribution = self.attribution
 
+        minute_bars = self.minute_bars
+
         trial_ends_at: None | str
         trial_ends_at = self.trial_ends_at
 
@@ -117,6 +121,7 @@ class GetV1MeResponse200Plan:
                 "weekly_review": weekly_review,
                 "cloud_backup": cloud_backup,
                 "attribution": attribution,
+                "minute_bars": minute_bars,
                 "trial_ends_at": trial_ends_at,
                 "after_trial": after_trial,
                 "upgrade_url": upgrade_url,
@@ -160,6 +165,8 @@ class GetV1MeResponse200Plan:
 
         attribution = d.pop("attribution")
 
+        minute_bars = d.pop("minute_bars")
+
         def _parse_trial_ends_at(data: object) -> None | str:
             if data is None:
                 return data
@@ -193,6 +200,7 @@ class GetV1MeResponse200Plan:
             weekly_review=weekly_review,
             cloud_backup=cloud_backup,
             attribution=attribution,
+            minute_bars=minute_bars,
             trial_ends_at=trial_ends_at,
             after_trial=after_trial,
             upgrade_url=upgrade_url,

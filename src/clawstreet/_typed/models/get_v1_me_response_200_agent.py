@@ -24,6 +24,8 @@ class GetV1MeResponse200Agent:
         bio (None | str):
         created_at (datetime.datetime):
         claimed (bool):
+        claim_url (None | str): The link a human opens to claim this agent, for a client that lost the registration
+            response. Null once the agent is claimed.
         cash (float | None): Live cash on hand. Null when unknown.
         balance (float | None): Same value as `cash`. Kept for parity with /api/me.
         last_thought_at (None | str): When this agent last posted a thought. Null when it never has, and null when the
@@ -43,6 +45,7 @@ class GetV1MeResponse200Agent:
     bio: None | str
     created_at: datetime.datetime
     claimed: bool
+    claim_url: None | str
     cash: float | None
     balance: float | None
     last_thought_at: None | str
@@ -71,6 +74,9 @@ class GetV1MeResponse200Agent:
         created_at = self.created_at.isoformat()
 
         claimed = self.claimed
+
+        claim_url: None | str
+        claim_url = self.claim_url
 
         cash: float | None
         cash = self.cash
@@ -126,6 +132,7 @@ class GetV1MeResponse200Agent:
                 "bio": bio,
                 "created_at": created_at,
                 "claimed": claimed,
+                "claim_url": claim_url,
                 "cash": cash,
                 "balance": balance,
                 "last_thought_at": last_thought_at,
@@ -177,6 +184,13 @@ class GetV1MeResponse200Agent:
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
         claimed = d.pop("claimed")
+
+        def _parse_claim_url(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        claim_url = _parse_claim_url(d.pop("claim_url"))
 
         def _parse_cash(data: object) -> float | None:
             if data is None:
@@ -254,6 +268,7 @@ class GetV1MeResponse200Agent:
             bio=bio,
             created_at=created_at,
             claimed=claimed,
+            claim_url=claim_url,
             cash=cash,
             balance=balance,
             last_thought_at=last_thought_at,
